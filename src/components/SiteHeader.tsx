@@ -1,29 +1,31 @@
 'use client';
 
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
-import { Menu, Terminal, X } from 'lucide-react';
+import { ArrowRight, Menu, Terminal, User, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { scrollToSection, type SectionId } from '@/lib/scroll';
+import type { PortfolioTabKey } from './HeroSection';
 
 interface SiteHeaderProps {
   brandMark: string;
   isAvailable: boolean;
-  availabilityText: string;
+  onJumpToTab: (tab: PortfolioTabKey) => void;
   onOpenCli: () => void;
 }
 
-const NAV_ITEMS = [
-  { id: 'top', label: 'Beranda', href: '#top' },
-  { id: 'about', label: 'Tentang', href: '#about' },
-  { id: 'portfolio', label: 'Portofolio', href: '#portfolio' },
-  { id: 'contact', label: 'Kontak', href: '#contact' },
-] as const;
+const NAV_ITEMS: ReadonlyArray<{ id: SectionId; label: string }> = [
+  { id: 'top', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'contact', label: 'Contact' },
+];
 
 type NavId = (typeof NAV_ITEMS)[number]['id'];
 
 export function SiteHeader({
   brandMark,
   isAvailable,
-  availabilityText,
+  onJumpToTab,
   onOpenCli,
 }: SiteHeaderProps) {
   const shouldReduceMotion = Boolean(useReducedMotion());
@@ -46,12 +48,18 @@ export function SiteHeader({
       }
 
       const probeY = 140;
+      const sections: Array<'top' | 'about' | 'portfolio' | 'contact'> = [
+        'top',
+        'about',
+        'portfolio',
+        'contact',
+      ];
       let current: NavId = 'top';
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.id);
+      for (const sec of sections) {
+        const el = document.getElementById(sec);
         if (!el) continue;
         if (el.getBoundingClientRect().top <= probeY) {
-          current = item.id;
+          current = sec;
         }
       }
       setActiveId(current);
@@ -85,76 +93,94 @@ export function SiteHeader({
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [mobileOpen]);
 
+  function handleNavClick(item: (typeof NAV_ITEMS)[number]) {
+    setMobileOpen(false);
+    setActiveId(item.id);
+    if (item.id === 'portfolio') {
+      onJumpToTab('projects');
+      return;
+    }
+    scrollToSection(item.id);
+  }
+
   return (
-    <header className="fixed top-0 inset-x-0 z-40 bg-white/92 backdrop-blur-md border-b border-[#E2E8F0]">
-      <div className="max-w-7xl mx-auto h-16 sm:h-20 px-4 sm:px-8 flex items-center justify-between gap-3">
-        {/* Brand & Availability Status */}
-        <div className="flex items-center gap-3 min-w-0">
-          <a
-            href="#top"
-            className="font-heading font-extrabold text-2xl tracking-tight text-[#0F172A] hover:text-[#1D4ED8] transition-colors shrink-0 py-1"
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
+      <div className="max-w-7xl mx-auto h-20 px-4 sm:px-8 flex items-center justify-between gap-3">
+        {/* Logo & Availability Status matching legacy/index4.html */}
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+          <button
+            type="button"
+            onClick={() => scrollToSection('top')}
+            aria-label="Kembali ke beranda"
+            className="font-heading font-extrabold text-2xl tracking-tight text-slate-900 flex items-center gap-0.5 hover:text-[#1d4ed8] transition-colors shrink-0"
           >
-            <span className="text-[#1D4ED8]">&lt;</span>
+            <span className="text-[#1d4ed8]">&lt;</span>
             {brandMark}
-            <span className="text-[#1D4ED8]">/&gt;</span>
-          </a>
+            <span className="text-[#1d4ed8]">/&gt;</span>
+          </button>
 
           {isAvailable && (
-            <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#ECFDF5] border border-emerald-200 text-[#047857] text-xs font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#047857] shrink-0" aria-hidden="true" />
-              <span className="truncate max-w-[260px]">{availabilityText}</span>
+            <div className="inline-flex md:hidden xl:inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/90 text-[#047857] text-[11px] sm:text-xs font-semibold tracking-wider uppercase shrink-0">
+              <span className="inline-flex rounded-full h-2 w-2 bg-emerald-600 shrink-0" aria-hidden="true" />
+              <span className="hidden sm:inline">Available for work</span>
+              <span className="sm:hidden">Available</span>
             </div>
           )}
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Center Pill Nav Links matching legacy/index4.html */}
         <nav
           aria-label="Navigasi Utama"
-          className="hidden md:flex items-center gap-1 p-1 rounded-lg bg-[#F1F5F9] border border-[#E2E8F0]"
+          className="hidden md:flex items-center gap-0.5 lg:gap-1.5 px-2 lg:px-3 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/60 text-xs lg:text-sm font-medium text-slate-600 shrink-0"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = activeId === item.id;
             return (
-              <a
+              <button
                 key={item.id}
-                href={item.href}
+                type="button"
+                onClick={() => handleNavClick(item)}
                 aria-current={isActive ? 'page' : undefined}
-                className={`relative px-4 py-2 rounded-md text-sm font-semibold transition-colors ${
-                  isActive ? 'text-[#0F172A]' : 'text-[#475569] hover:text-[#0F172A]'
+                className={`relative px-3.5 lg:px-4.5 py-1.5 rounded-full transition-all ${
+                  isActive
+                    ? 'text-slate-900 font-semibold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId={shouldReduceMotion ? undefined : 'header-nav-pill'}
                     transition={{ type: 'spring', stiffness: 360, damping: 30 }}
-                    className="absolute inset-0 rounded-md bg-white border border-[#E2E8F0] shadow-xs"
+                    className="absolute inset-0 rounded-full bg-white shadow-xs"
                     aria-hidden="true"
                   />
                 )}
                 <span className="relative z-10">{item.label}</span>
-              </a>
+              </button>
             );
           })}
         </nav>
 
-        {/* Actions & Mobile Trigger */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right CTA Button, Profile Icon & Mobile Drawer Trigger */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
           <button
             type="button"
-            onClick={onOpenCli}
-            aria-label="Buka terminal interaktif CLI"
-            className="hidden sm:inline-flex min-h-[44px] px-3.5 py-2 rounded-lg border border-[#E2E8F0] bg-[#F1F5F9] text-[#0F172A] hover:border-[#1D4ED8] hover:text-[#1D4ED8] font-mono text-xs font-semibold items-center gap-1.5 transition-colors"
+            onClick={() => scrollToSection('contact')}
+            className="btn-glow hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm shadow-md shadow-blue-600/20 hover:bg-[#0d5bff] transition-all min-h-[44px]"
           >
-            <Terminal className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
-            <span>CLI</span>
+            <span>Hubungi Saya</span>
+            <ArrowRight className="w-4 h-4 ml-1.5 btn-icon-move" aria-hidden="true" />
           </button>
 
-          <a
-            href="#contact"
-            className="hidden sm:inline-flex min-h-[44px] px-5 py-2 rounded-lg bg-[#1D4ED8] hover:bg-[#1E40AF] active:scale-[0.99] text-white text-sm font-semibold items-center justify-center transition-all"
+          <button
+            type="button"
+            onClick={() => scrollToSection('about')}
+            aria-label="Tentang Muchammad Iqbal Aprilianto"
+            title="Tentang Iqbal"
+            className="hidden sm:flex w-10 h-10 rounded-full bg-slate-100 border border-slate-200 items-center justify-center text-slate-700 hover:bg-blue-50 hover:text-[#1d4ed8] transition-colors"
           >
-            Hubungi Saya
-          </a>
+            <User className="w-[18px] h-[18px]" aria-hidden="true" />
+          </button>
 
           <button
             ref={mobileTriggerRef}
@@ -162,7 +188,7 @@ export function SiteHeader({
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
-            className="md:hidden inline-flex items-center gap-2 min-h-[44px] px-3.5 py-2 rounded-lg border border-[#E2E8F0] bg-white text-[#0F172A] font-semibold text-xs hover:border-[#1D4ED8] transition-colors"
+            className="md:hidden inline-flex items-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-full border border-slate-200 bg-white text-slate-900 font-semibold text-xs hover:border-[#1d4ed8] transition-colors"
           >
             {mobileOpen ? (
               <X className="w-4 h-4" aria-hidden="true" />
@@ -178,7 +204,7 @@ export function SiteHeader({
       {!shouldReduceMotion && (
         <motion.div
           style={{ scaleX }}
-          className="h-[2px] w-full origin-left bg-[#1D4ED8] pointer-events-none"
+          className="h-[2px] w-full origin-left bg-[#1d4ed8] pointer-events-none"
           aria-hidden="true"
         />
       )}
@@ -193,49 +219,52 @@ export function SiteHeader({
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-[#E2E8F0] bg-white px-4 py-4 space-y-2 shadow-lg"
+            className="md:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2 shadow-lg"
           >
             {NAV_ITEMS.map((item) => {
               const isActive = activeId === item.id;
               return (
-                <a
+                <button
                   key={item.id}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
+                  type="button"
+                  onClick={() => handleNavClick(item)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`flex items-center justify-between min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`w-full flex items-center justify-between min-h-[44px] px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
-                      ? 'bg-[#EFF6FF] text-[#1D4ED8] border border-blue-200'
-                      : 'text-[#334155] hover:bg-[#F1F5F9] hover:text-[#0F172A]'
+                      ? 'bg-blue-50 text-[#1d4ed8] border border-blue-200'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                   }`}
                 >
                   <span>{item.label}</span>
                   {isActive && (
-                    <span className="w-2 h-2 rounded-full bg-[#1D4ED8]" aria-hidden="true" />
+                    <span className="w-2 h-2 rounded-full bg-[#1d4ed8]" aria-hidden="true" />
                   )}
-                </a>
+                </button>
               );
             })}
 
-            <div className="pt-2 mt-2 border-t border-[#E2E8F0] flex items-center gap-2">
+            <div className="pt-2 mt-2 border-t border-slate-200 flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setMobileOpen(false);
                   onOpenCli();
                 }}
-                className="flex-1 min-h-[44px] px-4 py-2 rounded-lg border border-[#E2E8F0] bg-[#F1F5F9] text-[#0F172A] font-mono text-xs font-semibold inline-flex items-center justify-center gap-2"
+                className="flex-1 min-h-[44px] px-4 py-2 rounded-full border border-slate-200 bg-slate-100 text-slate-900 font-mono text-xs font-semibold inline-flex items-center justify-center gap-2"
               >
-                <Terminal className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
-                <span>Buka Mode CLI</span>
+                <Terminal className="w-4 h-4 text-[#1d4ed8]" aria-hidden="true" />
+                <span>CLI Mode</span>
               </button>
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="flex-1 min-h-[44px] px-4 py-2 rounded-lg bg-[#1D4ED8] text-white text-xs font-semibold inline-flex items-center justify-center"
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  scrollToSection('contact');
+                }}
+                className="flex-1 min-h-[44px] px-4 py-2 rounded-full bg-[#1d4ed8] text-white text-xs font-semibold inline-flex items-center justify-center"
               >
                 Hubungi Saya
-              </a>
+              </button>
             </div>
           </motion.nav>
         )}

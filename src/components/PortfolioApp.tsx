@@ -33,15 +33,14 @@ export function PortfolioApp({ data }: PortfolioAppProps) {
       <SiteHeader
         brandMark={data.profile.brandMark}
         isAvailable={data.profile.isAvailable}
-        availabilityText={data.profile.availabilityText}
+        onJumpToTab={handleJumpToTab}
         onOpenCli={() => setCliOpen(true)}
       />
 
-      <main id="main-content" tabIndex={-1} className="w-full focus:outline-none">
+      <main id="main-content" tabIndex={-1} className="w-full pt-20 focus:outline-none">
         <HeroSection
           profile={data.profile}
           settings={data.settings}
-          contact={data.contact}
           projectCount={data.projects.length}
           certificateCount={data.certificates.length}
           techCount={data.techStacks.length}

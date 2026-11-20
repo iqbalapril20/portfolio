@@ -1,9 +1,10 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, Mail, MapPin, Pause, Play, Terminal } from 'lucide-react';
+import { ArrowDown, Mail, Pause, Play, Terminal } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
-import type { ContactInfo, Profile, WebsiteSetting } from '@/types/portfolio';
+import { scrollToSection } from '@/lib/scroll';
+import type { Profile, WebsiteSetting } from '@/types/portfolio';
 import { HeroPortraitInteractive } from './HeroPortraitInteractive';
 
 export type PortfolioTabKey = 'projects' | 'certificates' | 'techstack';
@@ -11,7 +12,6 @@ export type PortfolioTabKey = 'projects' | 'certificates' | 'techstack';
 interface HeroSectionProps {
   profile: Profile;
   settings: WebsiteSetting;
-  contact: ContactInfo;
   projectCount: number;
   certificateCount: number;
   techCount: number;
@@ -66,7 +66,7 @@ const TypewriterRole = memo(function TypewriterRole({
   const displayed = shouldReduceMotion ? currentRole : currentRole.slice(0, charCount);
 
   return (
-    <span className="font-mono text-xs sm:text-sm font-semibold text-[#0F172A] truncate">
+    <span className="text-[#1d4ed8]">
       {displayed}
     </span>
   );
@@ -75,7 +75,6 @@ const TypewriterRole = memo(function TypewriterRole({
 export function HeroSection({
   profile,
   settings,
-  contact,
   projectCount,
   certificateCount,
   techCount,
@@ -85,124 +84,134 @@ export function HeroSection({
   const shouldReduceMotion = Boolean(useReducedMotion());
   const [isRolePaused, setIsRolePaused] = useState(false);
 
-  const metrics: Array<{ label: string; count: number; tab: PortfolioTabKey }> = [
-    { label: 'Proyek Terpublikasi', count: projectCount, tab: 'projects' },
-    { label: 'Sertifikasi Terverifikasi', count: certificateCount, tab: 'certificates' },
-    { label: 'Teknologi Dikuasai', count: techCount, tab: 'techstack' },
+  const metrics: Array<{ label: string; count: number; tab: PortfolioTabKey; accent: boolean }> = [
+    { label: 'Proyek Utama', count: projectCount, tab: 'projects', accent: true },
+    { label: 'Sertifikasi', count: certificateCount, tab: 'certificates', accent: false },
+    { label: 'Teknologi', count: techCount, tab: 'techstack', accent: true },
   ];
 
   return (
-    <section
-      id="top"
-      className="relative w-full pt-24 sm:pt-26 pb-10 sm:pb-14 bg-[#FAFBFD] border-b border-[#E2E8F0] overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section className="relative w-full py-10 sm:py-14 lg:py-20 overflow-hidden bg-white hero-grid-pattern border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Left Column: Editorial Intro */}
+          {/* Text & Actions Column */}
           <motion.div
             initial={shouldReduceMotion ? undefined : { opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 flex flex-col gap-4 sm:gap-5 min-w-0"
           >
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs sm:text-sm text-[#475569]">
-              <span className="font-semibold text-[#0F172A]">{profile.fullName}</span>
-              <span className="text-slate-300" aria-hidden="true">
-                /
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#1D4ED8]" aria-hidden="true" />
-                <span>{contact.location}</span>
-              </span>
-            </div>
+            {/* Punchy Integrated Hero Headline with Running Typewriter Role */}
+            <div className="space-y-2.5">
+              <h1 className="font-heading font-bold text-4xl sm:text-5xl lg:text-[58px] text-slate-900 leading-[1.08] tracking-tight">
+                Halo, Saya{' '}
+                <span className="italic font-serif font-normal text-[#1d4ed8] underline decoration-blue-200 decoration-wavy decoration-2 underline-offset-4">
+                  Iqbal
+                </span>
+                .
+              </h1>
 
-            <h1 className="font-heading font-extrabold text-[clamp(2.25rem,4.8vw,4rem)] text-[#0F172A] leading-[1.06] tracking-[-0.025em]">
-              {profile.headline}
-            </h1>
-
-            {/* Role Typewriter + Accessible Pause Control (R-39) */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div
-                aria-live="polite"
-                className="inline-flex items-center gap-2 min-h-[40px] px-3.5 py-2 rounded-lg bg-white border border-[#E2E8F0] shadow-xs max-w-full"
-              >
-                <span className="font-mono text-xs text-[#1D4ED8] font-semibold">Fokus:</span>
-                <TypewriterRole
-                  roles={profile.heroRoles}
-                  isPaused={isRolePaused}
-                  shouldReduceMotion={shouldReduceMotion}
-                />
-                <span
-                  className={`inline-block w-[2px] h-4 bg-[#1D4ED8] shrink-0 ${
-                    isRolePaused ? 'opacity-35' : ''
-                  }`}
-                  aria-hidden="true"
-                />
-              </div>
-
-              {profile.heroRoles.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => setIsRolePaused((p) => !p)}
-                  aria-label={isRolePaused ? 'Lanjutkan animasi peran' : 'Jeda animasi peran'}
-                  aria-pressed={isRolePaused}
-                  className="min-w-[40px] min-h-[40px] rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#1D4ED8] hover:border-[#1D4ED8] inline-flex items-center justify-center transition-colors"
+              <div className="flex flex-wrap items-center gap-2.5">
+                <div
+                  aria-live="polite"
+                  className="flex flex-wrap items-center gap-2 font-heading font-bold text-2xl sm:text-3xl lg:text-[34px] text-slate-800 leading-tight"
                 >
-                  {isRolePaused ? (
-                    <Play className="w-3.5 h-3.5" aria-hidden="true" />
-                  ) : (
-                    <Pause className="w-3.5 h-3.5" aria-hidden="true" />
-                  )}
-                </button>
-              )}
+                  <span>Saya</span>
+                  <TypewriterRole
+                    roles={profile.heroRoles}
+                    isPaused={isRolePaused}
+                    shouldReduceMotion={shouldReduceMotion}
+                  />
+                  <span
+                    className={`inline-block w-[3px] h-7 sm:h-8 bg-[#1d4ed8] rounded-full shrink-0 ${
+                      isRolePaused ? 'opacity-35' : 'animate-pulse'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </div>
+
+                {profile.heroRoles.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => setIsRolePaused((p) => !p)}
+                    aria-label={isRolePaused ? 'Lanjutkan animasi peran' : 'Jeda animasi peran'}
+                    aria-pressed={isRolePaused}
+                    className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#1d4ed8] hover:border-blue-300 inline-flex items-center justify-center transition-colors shrink-0 shadow-xs"
+                  >
+                    {isRolePaused ? (
+                      <Play className="w-3 h-3" aria-hidden="true" />
+                    ) : (
+                      <Pause className="w-3 h-3" aria-hidden="true" />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
 
-            <p className="text-base sm:text-lg text-[#334155] leading-relaxed max-w-2xl">
+            {/* Tight Bio */}
+            <p className="text-sm sm:text-base lg:text-lg text-[#475569] leading-relaxed max-w-xl font-normal">
               {profile.shortBio}
             </p>
 
-            {/* Primary & Secondary Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <a
-                href="#portfolio"
-                className="min-h-[44px] px-6 py-3 rounded-lg bg-[#1D4ED8] hover:bg-[#1E40AF] active:scale-[0.99] text-white font-semibold text-sm inline-flex items-center gap-2 transition-all shadow-sm"
+            {/* Mobile Portrait Display (between bio & actions on small screens, matching index4.html) */}
+            <div className="lg:hidden w-full flex justify-center py-2">
+              <HeroPortraitInteractive
+                imageUrl={profile.heroImageUrl || profile.profileImageUrl}
+                fullName={profile.fullName}
+                degreeLabel={profile.degreeLabel}
+              />
+            </div>
+
+            {/* Action Buttons matching legacy/index4.html pill + btn-glow (scroll without hash URL) */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-1">
+              <button
+                type="button"
+                onClick={() => scrollToSection('portfolio')}
+                className="btn-glow min-h-[44px] px-6 py-3.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm shadow-md shadow-blue-600/25 hover:bg-[#0d5bff] transition-all flex items-center justify-center gap-2"
               >
                 <span>{settings.heroCtaPrimaryLabel}</span>
-                <ArrowDown className="w-4 h-4" aria-hidden="true" />
-              </a>
+                <ArrowDown className="w-4 h-4 btn-icon-move" aria-hidden="true" />
+              </button>
 
-              <a
-                href="#contact"
-                className="min-h-[44px] px-5 py-3 rounded-lg bg-white border border-[#E2E8F0] text-[#0F172A] hover:border-[#1D4ED8] hover:text-[#1D4ED8] font-semibold text-sm inline-flex items-center gap-2 transition-colors"
+              <button
+                type="button"
+                onClick={() => scrollToSection('contact')}
+                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-white text-slate-700 font-semibold text-sm border border-slate-300 hover:border-[#1d4ed8] hover:text-[#1d4ed8] hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-xs"
               >
-                <Mail className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
+                <Mail className="w-4 h-4 text-[#1d4ed8]" aria-hidden="true" />
                 <span>{settings.heroCtaSecondaryLabel}</span>
-              </a>
+              </button>
 
               <button
                 type="button"
                 onClick={onOpenCli}
-                className="min-h-[44px] px-4 py-3 rounded-lg bg-[#F1F5F9] border border-[#E2E8F0] text-[#334155] hover:text-[#0F172A] hover:border-slate-300 font-mono text-xs font-semibold inline-flex items-center gap-2 transition-colors"
+                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-slate-100 text-slate-700 hover:text-[#1d4ed8] font-semibold text-sm border border-slate-200 hover:bg-slate-200/70 transition-all flex items-center justify-center gap-1.5"
               >
-                <Terminal className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
-                <span>Mode CLI</span>
+                <Terminal className="w-4 h-4 text-[#1d4ed8]" aria-hidden="true" />
+                <span>CLI Mode</span>
               </button>
             </div>
 
-            {/* Verified Portfolio Counts Strip (Real DB Counts Only, R-17) */}
-            <div className="grid grid-cols-3 gap-3 pt-5 mt-2 border-t border-[#E2E8F0]">
+            {/* Verified Key Stats Row matching legacy/index4.html 3-col layout */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-5 mt-2 border-t border-slate-200/90 text-left">
               {metrics.map((m) => (
                 <button
                   key={m.tab}
                   type="button"
                   onClick={() => onJumpToTab(m.tab)}
                   aria-label={`Lihat ${m.count} ${m.label}`}
-                  className="group text-left p-3 rounded-xl border border-transparent hover:border-[#E2E8F0] hover:bg-white transition-all"
+                  className="group flex flex-col text-left p-2 -m-2 rounded-xl hover:bg-slate-50 transition-colors"
                 >
-                  <span className="font-heading font-extrabold text-2xl sm:text-3xl text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors block tabular-nums">
+                  <span
+                    className={`font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl tabular-nums transition-colors ${
+                      m.accent
+                        ? 'text-[#1d4ed8] group-hover:text-[#0d5bff]'
+                        : 'text-slate-900 group-hover:text-[#1d4ed8]'
+                    }`}
+                  >
                     {m.count}
                   </span>
-                  <span className="text-xs font-medium text-[#475569] block mt-0.5 leading-snug">
+                  <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-600 mt-0.5">
                     {m.label}
                   </span>
                 </button>
@@ -210,17 +219,16 @@ export function HeroSection({
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive Draggable & Hover-Tilting Portrait Stage */}
+          {/* Desktop Right Column: Interactive Hero Portrait */}
           <motion.div
             initial={shouldReduceMotion ? undefined : { opacity: 0, x: 24, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5"
+            className="hidden lg:flex lg:col-span-5 relative justify-center items-center"
           >
             <HeroPortraitInteractive
-              imageUrl={profile.profileImageUrl}
+              imageUrl={profile.heroImageUrl || profile.profileImageUrl}
               fullName={profile.fullName}
-              brandMark={profile.brandMark}
               degreeLabel={profile.degreeLabel}
             />
           </motion.div>

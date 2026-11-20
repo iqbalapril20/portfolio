@@ -19,6 +19,8 @@ export interface Profile {
   availabilityText: string;
   isAvailable: boolean;
   profileImageUrl: string;
+  heroImageUrl?: string;
+  aboutImageUrl?: string;
   resumeUrl: string | null;
 }
 
@@ -30,6 +32,7 @@ export interface Education {
   startYear: number | null;
   endYear: number | null;
   isCurrent: boolean;
+  logoUrl?: string | null;
   description: string | null;
   displayOrder: number;
 }
@@ -43,6 +46,7 @@ export interface Experience {
   startDate: string;
   endDate: string | null;
   isCurrent: boolean;
+  logoUrl?: string | null;
   description: string;
   techTags: string[];
   displayOrder: number;

@@ -8,7 +8,7 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import { Move, RotateCcw } from 'lucide-react';
+import { Code2, Move, RotateCcw, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { useFinePointer } from './MotionPrimitives';
@@ -16,20 +16,16 @@ import { useFinePointer } from './MotionPrimitives';
 interface HeroPortraitInteractiveProps {
   imageUrl: string;
   fullName: string;
-  brandMark: string;
   degreeLabel: string | null;
 }
 
 /**
- * Interactive Hero Portrait Stage:
- * 1. Draggable with mouse/touch and snaps back to origin with spring physics.
- * 2. Responds to pointer hover with 3D perspective tilt, counter-parallax layers, and specular sheen.
- * 3. Provides keyboard arrow nudge + reset button for WCAG 2.5.7 accessibility.
+ * Interactive Hero Portrait Stage styled after legacy/index4.html (radar rings + floating badges)
+ * combined with draggable spring snap-back and 3D hover parallax.
  */
 export function HeroPortraitInteractive({
   imageUrl,
   fullName,
-  brandMark,
   degreeLabel,
 }: HeroPortraitInteractiveProps) {
   const shouldReduceMotion = Boolean(useReducedMotion());
@@ -39,11 +35,9 @@ export function HeroPortraitInteractive({
   const [isDragging, setIsDragging] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Normalized pointer coordinates [-0.5, 0.5] for hover tilt & parallax
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
 
-  // Drag / keyboard nudge position values
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
 
@@ -51,20 +45,17 @@ export function HeroPortraitInteractive({
   const smoothPointerX = useSpring(pointerX, springConfig);
   const smoothPointerY = useSpring(pointerY, springConfig);
 
-  // 3D tilt transforms driven by hover position
   const rotateX = useTransform(smoothPointerY, [-0.5, 0.5], ['9deg', '-9deg']);
   const rotateY = useTransform(smoothPointerX, [-0.5, 0.5], ['-9deg', '9deg']);
 
-  // Multi-layer parallax translations
   const photoShiftX = useTransform(smoothPointerX, [-0.5, 0.5], ['-8px', '8px']);
   const photoShiftY = useTransform(smoothPointerY, [-0.5, 0.5], ['-8px', '8px']);
   const badgeShiftX = useTransform(smoothPointerX, [-0.5, 0.5], ['12px', '-12px']);
   const badgeShiftY = useTransform(smoothPointerY, [-0.5, 0.5], ['10px', '-10px']);
 
-  // Pointer-tracked specular highlight
   const sheenX = useTransform(smoothPointerX, [-0.5, 0.5], ['15%', '85%']);
   const sheenY = useTransform(smoothPointerY, [-0.5, 0.5], ['15%', '85%']);
-  const sheenBackground = useMotionTemplate`radial-gradient(circle at ${sheenX} ${sheenY}, rgba(255, 255, 255, 0.28), transparent 58%)`;
+  const sheenBackground = useMotionTemplate`radial-gradient(circle at ${sheenX} ${sheenY}, rgba(255, 255, 255, 0.24), transparent 58%)`;
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (shouldReduceMotion || !hasFinePointer || isDragging || !stageRef.current) return;
@@ -96,10 +87,7 @@ export function HeroPortraitInteractive({
       e.preventDefault();
       dragY.set(Math.min(36, dragY.get() + step));
     } else if (e.key === '0' || e.key.toLowerCase() === 'r') {
-      dragX.set(0);
-      dragY.set(0);
-      pointerX.set(0);
-      pointerY.set(0);
+      handleResetPosition();
     }
   }
 
@@ -111,14 +99,23 @@ export function HeroPortraitInteractive({
   }
 
   return (
-    <div className="relative w-full max-w-[310px] sm:max-w-[340px] mx-auto select-none">
-      {/* Static architectural anchor shadow frame behind draggable card */}
+    <div className="relative w-full max-w-[340px] sm:max-w-[400px] mx-auto flex items-center justify-center py-4 select-none">
+      {/* Circular technical radar / orbit rings from legacy/index4.html */}
       <div
-        className="absolute inset-3 rounded-2xl border border-dashed border-slate-300 bg-[#F1F5F9]/70 pointer-events-none"
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
         aria-hidden="true"
-      />
+      >
+        <div
+          className={`w-72 h-72 sm:w-88 sm:h-88 rounded-full border border-blue-300/50 ${
+            shouldReduceMotion ? '' : 'animate-[spin_40s_linear_infinite]'
+          }`}
+        />
+        <div className="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-dashed border-blue-400/45" />
+        <div className="absolute w-44 h-44 rounded-full bg-blue-100/60 blur-2xl" />
+      </div>
 
-      <div className="[perspective:1100px] relative z-10">
+      {/* Draggable + 3D Hover Portrait Card */}
+      <div className="[perspective:1100px] relative z-10 w-[275px] sm:w-[310px]">
         <motion.div
           ref={stageRef}
           tabIndex={0}
@@ -135,8 +132,8 @@ export function HeroPortraitInteractive({
           onPointerEnter={() => setIsHovered(true)}
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
-          whileHover={shouldReduceMotion ? undefined : { scale: 1.015 }}
-          whileDrag={{ scale: 1.03 }}
+          whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+          whileDrag={{ scale: 1.04 }}
           style={{
             x: dragX,
             y: dragY,
@@ -144,46 +141,36 @@ export function HeroPortraitInteractive({
             rotateY: shouldReduceMotion || !hasFinePointer ? 0 : rotateY,
             transformStyle: 'preserve-3d',
           }}
-          className={`group relative rounded-2xl border border-[#E2E8F0] bg-white p-3.5 shadow-xl transition-shadow duration-300 ${
+          className={`group relative rounded-3xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/10 transition-shadow duration-300 ${
             isDragging
-              ? 'cursor-grabbing shadow-2xl border-[#1D4ED8]/50'
+              ? 'cursor-grabbing ring-4 ring-blue-500/20'
               : shouldReduceMotion
                 ? ''
-                : 'cursor-grab hover:shadow-2xl hover:border-blue-300'
+                : 'cursor-grab hover:border-blue-400/70'
           }`}
         >
-          {/* Header bar of architectural portrait frame */}
-          <div className="flex items-center justify-between gap-2 pb-2.5 px-1">
-            <div className="flex items-center gap-2 font-mono text-[11px] font-semibold text-[#475569]">
-              <Move className="w-3.5 h-3.5 text-[#1D4ED8]" aria-hidden="true" />
-              <span>{isDragging ? 'Melepas untuk kembali...' : 'Geser atau arahkan mouse'}</span>
-            </div>
-            <span className="font-mono text-xs font-bold text-[#1D4ED8]">{brandMark}</span>
-          </div>
-
-          {/* Portrait image container with subtle parallax */}
-          <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden border border-[#E2E8F0] bg-[#F1F5F9]">
+          <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-slate-100">
             <motion.div
               style={
                 shouldReduceMotion || !hasFinePointer
                   ? undefined
-                  : { x: photoShiftX, y: photoShiftY, scale: isHovered ? 1.04 : 1.01 }
+                  : { x: photoShiftX, y: photoShiftY, scale: isHovered ? 1.05 : 1.01 }
               }
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full h-full"
             >
               <Image
                 src={imageUrl}
-                alt={`Foto profil resmi ${fullName}`}
+                alt={`Foto studio ${fullName}`}
                 fill
                 priority
-                sizes="(max-width: 768px) 340px, 390px"
+                sizes="(max-width: 768px) 280px, 310px"
                 draggable={false}
                 className="object-cover object-top pointer-events-none"
               />
             </motion.div>
 
-            {/* Specular sheen layer on pointer move */}
+            {/* Specular sheen overlay */}
             {hasFinePointer && !shouldReduceMotion && (
               <motion.div
                 className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -191,36 +178,74 @@ export function HeroPortraitInteractive({
                 aria-hidden="true"
               />
             )}
-          </div>
 
-          {/* Counter-parallax credential bar */}
-          <motion.div
-            style={
-              shouldReduceMotion || !hasFinePointer
-                ? undefined
-                : { x: badgeShiftX, y: badgeShiftY }
-            }
-            className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-[#E2E8F0] bg-[#FAFBFD] px-3.5 py-2.5"
-          >
-            <div className="min-w-0">
-              <p className="font-heading text-sm font-bold text-[#0F172A] truncate">{fullName}</p>
-              <p className="font-mono text-[11px] text-[#475569] truncate">
-                {degreeLabel || 'Full-Stack Web Developer'}
-              </p>
+            {/* Unobstructed top-left drag hint & bottom-right reset control */}
+            <div className="absolute top-3 left-3">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-slate-200/90 text-[10px] font-mono font-semibold text-slate-700 shadow-xs">
+                <Move className="w-3 h-3 text-[#1d4ed8]" aria-hidden="true" />
+                <span>
+                  {isDragging ? (
+                    'Lepas'
+                  ) : (
+                    <>
+                      Geser<span className="hidden sm:inline"> / Hover</span>
+                    </>
+                  )}
+                </span>
+              </span>
             </div>
+
             <button
               type="button"
               onClick={handleResetPosition}
               onPointerDown={(e) => e.stopPropagation()}
               aria-label="Reset posisi kartu profil"
               title="Reset posisi"
-              className="min-w-[36px] min-h-[36px] rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#1D4ED8] hover:border-[#1D4ED8] flex items-center justify-center transition-colors shrink-0"
+              className="absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:text-[#1d4ed8] hover:border-blue-400 flex items-center justify-center transition-colors shadow-xs"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
+
+      {/* Floating Badge Top Right (real degree from DB, parallax + float matching index4.html) */}
+      <motion.div
+        style={
+          shouldReduceMotion || !hasFinePointer ? undefined : { x: badgeShiftX, y: badgeShiftY }
+        }
+        className={`absolute -top-3 right-0 sm:top-2 sm:-right-2 z-20 px-3.5 py-2 rounded-xl bg-white shadow-lg border border-slate-200/90 flex items-center gap-2 ${
+          shouldReduceMotion ? '' : 'animate-float-slow'
+        }`}
+      >
+        <ShieldCheck className="w-5 h-5 text-[#1d4ed8] shrink-0" aria-hidden="true" />
+        <div className="flex flex-col">
+          <span className="text-xs font-bold text-slate-900 leading-tight">
+            {degreeLabel || 'Sarjana Komputer'}
+          </span>
+          <span className="text-[10px] text-slate-600 leading-none mt-0.5">Teknik Informatika</span>
+        </div>
+      </motion.div>
+
+      {/* Floating Badge Bottom Left (real role from DB) */}
+      <motion.div
+        style={
+          shouldReduceMotion || !hasFinePointer ? undefined : { x: badgeShiftX, y: badgeShiftY }
+        }
+        className={`absolute bottom-2 left-0 sm:-left-2 z-20 px-3.5 py-2 rounded-xl bg-white shadow-lg border border-slate-200/90 flex items-center gap-2.5 ${
+          shouldReduceMotion ? '' : 'animate-float-reverse'
+        }`}
+      >
+        <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-[#1d4ed8] shrink-0">
+          <Code2 className="w-4 h-4" aria-hidden="true" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-xs font-bold text-slate-900 leading-tight">Full-Stack Web</span>
+          <span className="text-[10px] text-slate-600 leading-none mt-0.5">
+            Next.js &amp; Laravel
+          </span>
+        </div>
+      </motion.div>
     </div>
   );
 }

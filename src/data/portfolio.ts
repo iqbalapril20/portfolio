@@ -246,7 +246,7 @@ export const portfolioData: PortfolioData = {
   profile: {
     id: 1,
     fullName: 'Muchammad Iqbal Aprilianto',
-    brandMark: 'MI.',
+    brandMark: 'iqbal.dev',
     headline: 'Membangun Solusi Digital yang Terstruktur Melalui Kode.',
     heroRoles: [
       'Full-Stack Web Developer',
@@ -290,7 +290,9 @@ export const portfolioData: PortfolioData = {
     degreeLabel: 'Sarjana Komputer (S.Kom)',
     availabilityText: 'Open to full-time & freelance opportunities',
     isAvailable: true,
-    profileImageUrl: '/images/profile-iqbal.png',
+    profileImageUrl: '/images/profile-iqbal-hero.jpg',
+    heroImageUrl: '/images/profile-iqbal-hero.jpg',
+    aboutImageUrl: '/images/profile-iqbal-about.jpg',
     resumeUrl: null,
   },
 
@@ -303,9 +305,22 @@ export const portfolioData: PortfolioData = {
       startYear: 2021,
       endYear: 2025,
       isCurrent: false,
+      logoUrl: null, // Siap diisi misal: '/images/logos/unwaha.png'
       description:
         '<p>Memiliki latar belakang pendidikan Informatika dengan fokus pada pengembangan aplikasi berbasis web. Menguasai dasar hingga pengembangan aplikasi menggunakan PHP, Laravel, CodeIgniter, JavaScript, MySQL, HTML, CSS, Bootstrap, dan Tailwind CSS. Terbiasa mengembangkan frontend, backend, merancang database, serta membangun berbagai sistem informasi. Melalui skripsi, saya juga mengembangkan sistem pagar otomatis berbasis IoT menggunakan ESP8266 dengan kendali website dan remote inframerah.</p>',
       displayOrder: 1,
+    },
+    {
+      id: 2,
+      institution: 'MAN 3 Jombang',
+      degree: 'Madrasah Aliyah (SMA)',
+      major: 'Jurusan MIPA',
+      startYear: 2018,
+      endYear: 2021,
+      isCurrent: false,
+      logoUrl: null, // Siap diisi misal: '/images/logos/man3-jombang.png'
+      description: null,
+      displayOrder: 2,
     },
   ],
 
@@ -319,6 +334,7 @@ export const portfolioData: PortfolioData = {
       startDate: 'Dec 2025',
       endDate: 'Jun 2026',
       isCurrent: false,
+      logoUrl: null, // Siap diisi misal: '/images/logos/nusatama.png'
       description:
         '<ul><li>Mengembangkan dan membangun berbagai aplikasi berbasis web menggunakan PHP, Laravel, JavaScript, MySQL, Bootstrap, dan Tailwind CSS, termasuk website company profile, sistem penilaian multiliterasi, aplikasi E-POS, serta sistem penjualan toko emas.</li><li>Berkolaborasi dengan tim developer dalam merancang, mengembangkan, menguji, dan menyempurnakan fitur pada sistem Computer Based Test (CBT) agar berjalan sesuai kebutuhan pengguna dan memberikan pengalaman penggunaan yang optimal.</li><li>Mengelola proses pengembangan website mulai dari analisis kebutuhan, perancangan database, implementasi fitur, integrasi frontend dan backend, pengujian, perbaikan bug, hingga proses deployment dan pemeliharaan aplikasi untuk memastikan sistem berjalan dengan baik.</li></ul>',
       techTags: ['Laravel', 'MySQL', 'Tailwind CSS', 'REST API', 'React'],
@@ -333,6 +349,7 @@ export const portfolioData: PortfolioData = {
       startDate: 'Dec 2024',
       endDate: 'Mar 2025',
       isCurrent: false,
+      logoUrl: null, // Siap diisi misal: '/images/logos/pratama-computech.png'
       description:
         '<ul><li>Mengembangkan aplikasi Event Organizer dan sistem pemesanan tiket berbasis web menggunakan PHP, Laravel, Bootstrap, dan MySQL, dengan fokus pada kemudahan penggunaan serta efisiensi pengelolaan data.</li><li>Merancang dan mengimplementasikan berbagai fitur, seperti manajemen event, registrasi peserta, pemesanan tiket, validasi pembayaran, dashboard admin, serta pengelolaan data pengguna untuk mendukung operasional penyelenggaraan acara.</li><li>Memastikan aplikasi berjalan dengan baik melalui proses pengujian, perbaikan bug, optimasi performa, serta pemeliharaan sistem agar memberikan pengalaman pengguna yang optimal dan mendukung kebutuhan penyelenggara maupun peserta acara.</li></ul>',
       techTags: ['PHP', 'MySQL', 'Bootstrap', 'Laravel'],
@@ -358,7 +375,7 @@ export const portfolioData: PortfolioData = {
       keyFeatures: [],
       role: 'Mengembangkan website portofolio pribadi, mulai dari desain UI, implementasi fitur, hingga CMS untuk mengelola konten. Memastikan website responsif, intuitif, dan profesional.',
       techTags: ['Node.js', 'Next.js', 'Express.js', 'MySQL', 'TypeScript'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/website-portofolio.jpg',
       demoUrl: null,
       githubUrl: null,
       year: 2026,
@@ -402,7 +419,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'Full-Stack Developer: Merancang mesin kalkulasi harga di frontend serta menjamin presisi desimal pada transaksi database backend.',
       techTags: ['Laravel', 'MySQL', 'JavaScript', 'Tailwind CSS'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/sistem-manajemen-penjualan-emas.jpg',
       demoUrl: null,
       githubUrl: null,
       year: 2026,
@@ -445,7 +462,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'Backend & System Architect: Merancang struktur database, hierarki izin pengguna, dan modul pembuatan rundown acara.',
       techTags: ['PHP', 'MySQL', 'Bootstrap', 'jQuery'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/event-organizer-management-system.jpg',
       demoUrl: null,
       githubUrl: null,
       year: null,
@@ -488,7 +505,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'Web Developer: Membangun antarmuka pengisian asesmen, dasbor skor responsif dengan Tailwind CSS, serta normalisasi data.',
       techTags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Chart.js'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/sistem-penilaian-multiliterasi-sains.jpg',
       demoUrl: null,
       githubUrl: null,
       year: 2026,
@@ -531,7 +548,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'Frontend & API Developer: Membangun antarmuka pemesanan interaktif dengan React serta integrasi RESTful API dengan Laravel.',
       techTags: ['React', 'Laravel', 'MySQL', 'Tailwind CSS'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/event-ticket-booking-system.jpg',
       demoUrl: null,
       githubUrl: null,
       year: null,
@@ -573,7 +590,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'Frontend Engineer: Menyusun komponen HTML semantik modular dan styling responsif menggunakan Tailwind CSS.',
       techTags: ['HTML5', 'Tailwind CSS', 'JavaScript'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/website-company-profile.jpg',
       demoUrl: null,
       githubUrl: null,
       year: null,
@@ -617,7 +634,7 @@ export const portfolioData: PortfolioData = {
       ],
       role: 'IoT & Embedded Web Programmer: Menulis firmware C++ untuk ESP8266 serta membangun antarmuka kontrol HTTP ringan.',
       techTags: ['ESP8266', 'C++', 'HTML/CSS', 'WebSockets'],
-      thumbnailUrl: null,
+      thumbnailUrl: '/images/projects/sistem-pembuka-gerbang-otomatis-esp8266.jpg',
       demoUrl: null,
       githubUrl: null,
       year: 2025,

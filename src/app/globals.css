@@ -1,35 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-page: #fafbfd;
-  --color-card: #ffffff;
-  --color-subtle: #f1f5f9;
-  --color-ink: #0f172a;
-  --color-body: #334155;
-  --color-muted: #475569;
-  --color-accent: #1d4ed8;
-  --color-accent-hover: #1e40af;
-  --color-accent-soft: #eff6ff;
-  --color-border: #e2e8f0;
-  --color-status-ok: #047857;
-  --color-status-ok-bg: #ecfdf5;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #0d5bff;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #002594;
 
   --font-heading: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-grotesk), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     color-scheme: light;
+    overflow-x: clip;
   }
 
   body {
-    background-color: #fafbfd;
+    background-color: #fafbfc;
     color: #0f172a;
-    font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
-    overflow-x: hidden;
+    font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -80,6 +77,79 @@
   }
 }
 
+/* Architectural section backgrounds matching legacy/index4.html */
+.hero-grid-pattern {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+}
+
+.about-contour-pattern {
+  background-image:
+    radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.045) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(13, 91, 255, 0.04) 0%, transparent 50%);
+}
+
+.portfolio-watermark {
+  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.contact-wave-pattern {
+  background: linear-gradient(180deg, #fafbfc 0%, #eff6ff 100%);
+}
+
+/* Interactive button lift & shadow from legacy/index4.html */
+.btn-glow {
+  position: relative;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 25px -4px rgba(29, 78, 216, 0.32),
+    0 4px 10px -2px rgba(29, 78, 216, 0.18);
+}
+.btn-glow:active {
+  transform: translateY(0);
+}
+.btn-glow:hover .btn-icon-move {
+  transform: translateX(4px);
+}
+.btn-icon-move {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ambient floating badges for Hero Portrait */
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.7deg);
+  }
+}
+
+@keyframes floatReverse {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(5px) rotate(-0.7deg);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSoft 5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+
 /* Rich text rendering for DB HTML descriptions */
 .rich-content p {
   margin-bottom: 0.75rem;
@@ -126,7 +196,7 @@
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 34s linear infinite;
+  animation: marquee-scroll 30s linear infinite;
   will-change: transform;
 }
 

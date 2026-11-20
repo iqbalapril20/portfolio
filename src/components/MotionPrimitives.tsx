@@ -1,7 +1,14 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * Detects whether the active input device has a fine pointer (mouse/trackpad).
@@ -37,9 +44,9 @@ interface ScrollRevealProps {
 function getInitialOffset(direction: RevealDirection) {
   switch (direction) {
     case 'up':
-      return { opacity: 0, y: 22, x: 0, scale: 1 };
+      return { opacity: 0, y: 24, x: 0, scale: 1 };
     case 'down':
-      return { opacity: 0, y: -22, x: 0, scale: 1 };
+      return { opacity: 0, y: -24, x: 0, scale: 1 };
     case 'left':
       return { opacity: 0, x: -26, y: 0, scale: 1 };
     case 'right':
@@ -60,9 +67,9 @@ export function ScrollReveal({
   className,
   direction = 'up',
   delay = 0,
-  duration = 0.5,
-  amount = 0.12,
-  once = true,
+  duration = 0.55,
+  amount = 0.08,
+  once = false,
   as = 'div',
 }: ScrollRevealProps) {
   const shouldReduceMotion = Boolean(useReducedMotion());
@@ -151,30 +158,75 @@ export function StaggerItem({
 }
 
 /**
- * Subtle tactile hover lift for interactive cards on pointer devices.
+ * Physics-based 3D tilt card matching legacy/index4.html .tilt-card interaction.
  */
-export function InteractiveCard({
+export function TiltCard({
   children,
-  className,
+  className = '',
   as = 'div',
-  hoverY = -4,
+  maxTiltDeg = 6,
 }: {
   children: React.ReactNode;
   className?: string;
   as?: 'div' | 'article';
-  hoverY?: number;
+  maxTiltDeg?: number;
 }) {
   const shouldReduceMotion = Boolean(useReducedMotion());
   const hasFinePointer = useFinePointer();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springCfg = { stiffness: 220, damping: 24 };
+  const smoothX = useSpring(mouseX, springCfg);
+  const smoothY = useSpring(mouseY, springCfg);
+
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [`${maxTiltDeg}deg`, `-${maxTiltDeg}deg`]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [`-${maxTiltDeg}deg`, `${maxTiltDeg}deg`]);
+
+  const glareX = useTransform(smoothX, [-0.5, 0.5], ['15%', '85%']);
+  const glareY = useTransform(smoothY, [-0.5, 0.5], ['15%', '85%']);
+  const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX} ${glareY}, rgba(29, 78, 216, 0.07), transparent 60%)`;
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (shouldReduceMotion || !hasFinePointer || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
   const MotionTag = motion[as];
 
   return (
-    <MotionTag
-      whileHover={hasFinePointer && !shouldReduceMotion ? { y: hoverY } : undefined}
-      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-    >
-      {children}
-    </MotionTag>
+    <div className="[perspective:1000px] h-full w-full min-w-0">
+      <MotionTag
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        whileHover={hasFinePointer && !shouldReduceMotion ? { y: -4 } : undefined}
+        style={
+          shouldReduceMotion || !hasFinePointer
+            ? undefined
+            : { rotateX, rotateY, transformStyle: 'preserve-3d' }
+        }
+        className={`relative group min-w-0 w-full ${className}`}
+      >
+        {hasFinePointer && !shouldReduceMotion && (
+          <motion.div
+            className="absolute inset-0 rounded-[inherit] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+            style={{ background: glareBackground }}
+            aria-hidden="true"
+          />
+        )}
+        {children}
+      </MotionTag>
+    </div>
   );
 }

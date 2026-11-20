@@ -1,6 +1,7 @@
 'use client';
 
 import { CheckCircle2, Layers } from 'lucide-react';
+import { scrollToSection } from '@/lib/scroll';
 import type { Project } from '@/types/portfolio';
 import { AccessibleModal } from './AccessibleModal';
 import { RichTextContent } from './RichTextContent';
@@ -98,13 +99,16 @@ export function ProjectDetailModal({ project, onClose }: ProjectDetailModalProps
           </div>
 
           <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-[#E2E8F0]">
-            <a
-              href="#contact"
-              onClick={onClose}
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                window.setTimeout(() => scrollToSection('contact'), 120);
+              }}
               className="min-h-[44px] px-5 py-2.5 rounded-lg bg-[#1D4ED8] hover:bg-[#1E40AF] text-white text-xs sm:text-sm font-semibold inline-flex items-center justify-center transition-colors"
             >
               Diskusikan Proyek Serupa
-            </a>
+            </button>
           </div>
         </div>
       )}

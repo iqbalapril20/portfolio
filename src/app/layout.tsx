@@ -1,26 +1,24 @@
 import type { Metadata } from 'next';
-import { JetBrains_Mono, League_Spartan, Plus_Jakarta_Sans } from 'next/font/google';
+import { League_Spartan, Montserrat, Space_Grotesk } from 'next/font/google';
 import { portfolioData } from '@/data/portfolio';
 import './globals.css';
 
 const leagueSpartan = League_Spartan({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
   variable: '--font-league-spartan',
   display: 'swap',
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-plus-jakarta',
+  variable: '--font-montserrat',
   display: 'swap',
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-jetbrains-mono',
+  weight: ['500', '600', '700'],
+  variable: '--font-space-grotesk',
   display: 'swap',
 });
 
@@ -43,12 +41,12 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${leagueSpartan.variable} ${plusJakarta.variable} ${jetbrainsMono.variable}`}
+      className={`${leagueSpartan.variable} ${montserrat.variable} ${spaceGrotesk.variable}`}
     >
-      <body className="min-h-screen bg-[#FAFBFD] text-[#0F172A] font-sans antialiased selection:bg-[#EFF6FF] selection:text-[#1D4ED8]">
+      <body className="min-h-screen bg-[#fafbfc] text-[#0f172a] font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#0F172A] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#0f172a] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold focus:shadow-lg"
         >
           Lewati ke konten utama
         </a>
