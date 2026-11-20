@@ -14,7 +14,7 @@ function MarqueeLogoItem({ tech }: { tech: TechStack }) {
     <div
       title={tech.name}
       aria-label={tech.name}
-      className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/95 border border-slate-700/40 p-2 flex items-center justify-center shadow-sm shrink-0 transition-transform duration-200 hover:scale-110"
+      className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white/95 border border-slate-700/40 p-2 flex items-center justify-center shrink-0 transition-transform duration-200 hover:scale-110"
     >
       {tech.iconUrl ? (
         <Image

@@ -151,7 +151,7 @@ export function SiteHeader({
                   <motion.span
                     layoutId={shouldReduceMotion ? undefined : 'header-nav-pill'}
                     transition={{ type: 'spring', stiffness: 360, damping: 30 }}
-                    className="absolute inset-0 rounded-full bg-white shadow-xs"
+                    className="absolute inset-0 rounded-full bg-white border border-slate-200/80"
                     aria-hidden="true"
                   />
                 )}
@@ -166,7 +166,7 @@ export function SiteHeader({
           <button
             type="button"
             onClick={() => scrollToSection('contact')}
-            className="btn-glow hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm shadow-md shadow-blue-600/20 hover:bg-[#0d5bff] transition-all min-h-[44px]"
+            className="btn-glow hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm hover:bg-[#0d5bff] transition-colors min-h-[44px]"
           >
             <span>Hubungi Saya</span>
             <ArrowRight className="w-4 h-4 ml-1.5 btn-icon-move" aria-hidden="true" />
@@ -219,7 +219,7 @@ export function SiteHeader({
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2 shadow-lg"
+            className="md:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2"
           >
             {NAV_ITEMS.map((item) => {
               const isActive = activeId === item.id;

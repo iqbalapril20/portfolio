@@ -98,8 +98,8 @@ export function ContactSection({ contact, profile, settings }: ContactSectionPro
               </p>
             </div>
 
-            {/* Direct Channel Card matching legacy/index4.html */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col gap-4">
+            {/* Direct Channel Card matching index4 border structure without shadow glow */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 flex flex-col gap-4">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-full bg-blue-50 text-[#1d4ed8] flex items-center justify-center shrink-0">
@@ -188,11 +188,11 @@ export function ContactSection({ contact, profile, settings }: ContactSectionPro
             </div>
           </ScrollReveal>
 
-          {/* Right Side: Inquiry Form Card matching legacy/index4.html rounded-3xl */}
+          {/* Right Side: Inquiry Form Card */}
           <ScrollReveal
             direction="right"
             delay={0.08}
-            className="lg:col-span-7 min-w-0 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-lg"
+            className="lg:col-span-7 min-w-0 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200"
           >
             <h3 className="font-heading font-bold text-2xl text-slate-900 mb-1">
               Kirim Pesan &amp; Diskusi
@@ -303,7 +303,7 @@ export function ContactSection({ contact, profile, settings }: ContactSectionPro
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-glow min-h-[44px] px-8 py-3.5 rounded-full bg-[#1d4ed8] hover:bg-[#0d5bff] text-white font-semibold text-sm shadow-md shadow-blue-600/25 flex items-center gap-2 transition-all disabled:opacity-60"
+                  className="btn-glow min-h-[44px] px-8 py-3.5 rounded-full bg-[#1d4ed8] hover:bg-[#0d5bff] text-white font-semibold text-sm flex items-center gap-2 transition-colors disabled:opacity-60"
                 >
                   <span>{isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}</span>
                   <Send className="w-4 h-4 btn-icon-move" aria-hidden="true" />

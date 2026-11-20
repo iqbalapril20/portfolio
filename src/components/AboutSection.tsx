@@ -58,7 +58,7 @@ function TimelineList({
               <div
                 className={`absolute left-0 top-1.5 w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold text-sm transition-colors ${
                   isPrimary
-                    ? 'bg-[#1d4ed8] text-white shadow-md shadow-blue-600/25 ring-4 ring-blue-100'
+                    ? 'bg-[#1d4ed8] text-white'
                     : 'bg-white border-2 border-slate-300 text-slate-600 group-hover:border-[#1d4ed8] group-hover:text-[#1d4ed8]'
                 }`}
                 aria-hidden="true"
@@ -66,7 +66,7 @@ function TimelineList({
                 {entry.index}
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-50/90 border border-slate-200/90 shadow-xs hover:border-blue-300 hover:bg-white transition-all flex flex-col gap-3">
+              <div className="p-5 rounded-2xl bg-slate-50/90 border border-slate-200 hover:border-blue-300 hover:bg-white transition-colors flex flex-col gap-3">
                 {/* Top Row: Institution/Company Logo Slot + Name + Period Pill */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
@@ -76,7 +76,7 @@ function TimelineList({
                           ? entry.logoAlt
                           : `Slot logo ${entry.organization} (isi logoUrl di src/data/portfolio.ts)`
                       }
-                      className="relative w-11 h-11 rounded-xl bg-white border border-slate-200 shadow-xs flex items-center justify-center shrink-0 overflow-hidden"
+                      className="relative w-11 h-11 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 overflow-hidden"
                     >
                       {entry.logoUrl ? (
                         <Image
@@ -207,7 +207,7 @@ export function AboutSection({ profile, experiences, educations, skills }: About
               <button
                 type="button"
                 onClick={() => scrollToSection('contact')}
-                className="btn-glow min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1d4ed8] hover:bg-[#0d5bff] text-white text-sm font-semibold inline-flex items-center gap-2 shadow-md shadow-blue-600/20 transition-all"
+                className="btn-glow min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1d4ed8] hover:bg-[#0d5bff] text-white text-sm font-semibold inline-flex items-center gap-2 transition-colors"
               >
                 <span>Hubungi Saya</span>
                 <ArrowRight className="w-4 h-4 btn-icon-move" aria-hidden="true" />
@@ -223,7 +223,7 @@ export function AboutSection({ profile, experiences, educations, skills }: About
 
           {/* Center Column: Clean Editorial Studio Portrait */}
           <ScrollReveal direction="up" delay={0.05} className="lg:col-span-4 flex justify-center">
-            <TiltCard className="relative w-[250px] sm:w-[285px] rounded-3xl bg-white border border-slate-200/90 shadow-xl p-2">
+            <TiltCard className="relative w-[250px] sm:w-[285px] rounded-3xl bg-white border border-slate-200 p-2">
               <div className="relative aspect-[4/4.6] w-full rounded-2xl overflow-hidden bg-slate-100">
                 <Image
                   src={profile.aboutImageUrl || profile.profileImageUrl}
@@ -262,7 +262,7 @@ export function AboutSection({ profile, experiences, educations, skills }: About
             <button
               type="button"
               onClick={() => scrollToSection('portfolio')}
-              className="btn-glow min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1d4ed8] hover:bg-[#0d5bff] text-white text-sm font-semibold inline-flex items-center gap-2 shadow-md shadow-blue-600/20 transition-all"
+              className="btn-glow min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1d4ed8] hover:bg-[#0d5bff] text-white text-sm font-semibold inline-flex items-center gap-2 transition-colors"
             >
               <Code2 className="w-4 h-4" aria-hidden="true" />
               <span>View Projects</span>

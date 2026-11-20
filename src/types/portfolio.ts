@@ -105,6 +105,8 @@ export interface Certificate {
   issuedAt: string | null;
   expiresAt: string | null;
   credentialUrl: string | null;
+  imageUrl?: string | null;
+  skills?: string[];
   description: string | null;
   category: string;
   displayOrder: number;

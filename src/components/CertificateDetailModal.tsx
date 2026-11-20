@@ -1,6 +1,7 @@
 'use client';
 
 import { Award } from 'lucide-react';
+import Image from 'next/image';
 import type { Certificate } from '@/types/portfolio';
 import { AccessibleModal } from './AccessibleModal';
 
@@ -16,11 +17,23 @@ export function CertificateDetailModal({ certificate, onClose }: CertificateDeta
       onClose={onClose}
       eyebrow={certificate ? `${certificate.category} · ${certificate.issuer}` : undefined}
       title={certificate?.title || 'Detail Sertifikat'}
-      maxWidthClass="max-w-xl"
+      maxWidthClass="max-w-2xl"
       closeLabel="Tutup detail sertifikat"
     >
       {certificate && (
         <div className="space-y-5">
+          {certificate.imageUrl && (
+            <div className="relative w-full aspect-[3/2] rounded-xl overflow-hidden bg-slate-50 border border-slate-200">
+              <Image
+                src={certificate.imageUrl}
+                alt={`Sertifikat ${certificate.title} dari ${certificate.issuer}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 640px"
+                className="object-cover"
+              />
+            </div>
+          )}
+
           <div className="flex items-center gap-3 p-4 rounded-xl bg-[#EFF6FF] border border-blue-200">
             <div className="w-11 h-11 rounded-lg bg-white border border-blue-200 text-[#1D4ED8] flex items-center justify-center shrink-0">
               <Award className="w-5 h-5" aria-hidden="true" />
@@ -29,7 +42,9 @@ export function CertificateDetailModal({ certificate, onClose }: CertificateDeta
               <p className="font-heading text-base font-bold text-[#0F172A]">
                 {certificate.issuer}
               </p>
-              <p className="font-mono text-xs text-[#1D4ED8]">{certificate.category}</p>
+              <p className="font-mono text-xs text-[#1D4ED8]">
+                {certificate.issuedAt ? `Issued ${certificate.issuedAt}` : certificate.category}
+              </p>
             </div>
           </div>
 
@@ -37,6 +52,19 @@ export function CertificateDetailModal({ certificate, onClose }: CertificateDeta
             <p className="text-sm sm:text-base text-[#334155] leading-relaxed">
               {certificate.description}
             </p>
+          )}
+
+          {certificate.skills && certificate.skills.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {certificate.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 rounded-md bg-slate-100 border border-slate-200 font-mono text-xs font-medium text-[#0F172A]"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           )}
 
           <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-[#E2E8F0] font-mono text-xs">

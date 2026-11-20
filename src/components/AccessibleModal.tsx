@@ -116,7 +116,7 @@ export function AccessibleModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.97, y: 8 }}
             transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className={`relative z-10 w-full ${maxWidthClass} max-h-[90dvh] overflow-y-auto rounded-2xl border shadow-2xl ${
+            className={`relative z-10 w-full ${maxWidthClass} max-h-[90dvh] overflow-y-auto rounded-2xl border shadow-sm ${
               darkSurface
                 ? 'bg-[#0F172A] border-slate-700 text-slate-100'
                 : 'bg-white border-[#E2E8F0] text-[#0F172A]'

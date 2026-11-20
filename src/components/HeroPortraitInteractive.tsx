@@ -100,18 +100,17 @@ export function HeroPortraitInteractive({
 
   return (
     <div className="relative w-full max-w-[340px] sm:max-w-[400px] mx-auto flex items-center justify-center py-4 select-none">
-      {/* Circular technical radar / orbit rings from legacy/index4.html */}
+      {/* Circular technical radar rings matching index4 layout without blur glow */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         aria-hidden="true"
       >
         <div
-          className={`w-72 h-72 sm:w-88 sm:h-88 rounded-full border border-blue-300/50 ${
+          className={`w-72 h-72 sm:w-88 sm:h-88 rounded-full border border-blue-200/80 ${
             shouldReduceMotion ? '' : 'animate-[spin_40s_linear_infinite]'
           }`}
         />
-        <div className="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-dashed border-blue-400/45" />
-        <div className="absolute w-44 h-44 rounded-full bg-blue-100/60 blur-2xl" />
+        <div className="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-dashed border-blue-300/70" />
       </div>
 
       {/* Draggable + 3D Hover Portrait Card */}
@@ -141,12 +140,12 @@ export function HeroPortraitInteractive({
             rotateY: shouldReduceMotion || !hasFinePointer ? 0 : rotateY,
             transformStyle: 'preserve-3d',
           }}
-          className={`group relative rounded-3xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/10 transition-shadow duration-300 ${
+          className={`group relative rounded-3xl border border-slate-200 bg-white p-2 transition-colors duration-300 ${
             isDragging
-              ? 'cursor-grabbing ring-4 ring-blue-500/20'
+              ? 'cursor-grabbing ring-2 ring-[#1d4ed8]/25 border-[#1d4ed8]'
               : shouldReduceMotion
                 ? ''
-                : 'cursor-grab hover:border-blue-400/70'
+                : 'cursor-grab hover:border-blue-300'
           }`}
         >
           <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-slate-100">
@@ -181,7 +180,7 @@ export function HeroPortraitInteractive({
 
             {/* Unobstructed top-left drag hint & bottom-right reset control */}
             <div className="absolute top-3 left-3">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-slate-200/90 text-[10px] font-mono font-semibold text-slate-700 shadow-xs">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 border border-slate-200 text-[10px] font-mono font-semibold text-slate-700">
                 <Move className="w-3 h-3 text-[#1d4ed8]" aria-hidden="true" />
                 <span>
                   {isDragging ? (
@@ -201,7 +200,7 @@ export function HeroPortraitInteractive({
               onPointerDown={(e) => e.stopPropagation()}
               aria-label="Reset posisi kartu profil"
               title="Reset posisi"
-              className="absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:text-[#1d4ed8] hover:border-blue-400 flex items-center justify-center transition-colors shadow-xs"
+              className="absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full bg-white/95 border border-slate-200 text-slate-700 hover:text-[#1d4ed8] hover:border-blue-400 flex items-center justify-center transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
@@ -209,12 +208,12 @@ export function HeroPortraitInteractive({
         </motion.div>
       </div>
 
-      {/* Floating Badge Top Right (real degree from DB, parallax + float matching index4.html) */}
+      {/* Floating Badge Top Right */}
       <motion.div
         style={
           shouldReduceMotion || !hasFinePointer ? undefined : { x: badgeShiftX, y: badgeShiftY }
         }
-        className={`absolute -top-3 right-0 sm:top-2 sm:-right-2 z-20 px-3.5 py-2 rounded-xl bg-white shadow-lg border border-slate-200/90 flex items-center gap-2 ${
+        className={`absolute -top-3 right-0 sm:top-2 sm:-right-2 z-20 px-3.5 py-2 rounded-xl bg-white border border-slate-200 flex items-center gap-2 ${
           shouldReduceMotion ? '' : 'animate-float-slow'
         }`}
       >
@@ -227,12 +226,12 @@ export function HeroPortraitInteractive({
         </div>
       </motion.div>
 
-      {/* Floating Badge Bottom Left (real role from DB) */}
+      {/* Floating Badge Bottom Left */}
       <motion.div
         style={
           shouldReduceMotion || !hasFinePointer ? undefined : { x: badgeShiftX, y: badgeShiftY }
         }
-        className={`absolute bottom-2 left-0 sm:-left-2 z-20 px-3.5 py-2 rounded-xl bg-white shadow-lg border border-slate-200/90 flex items-center gap-2.5 ${
+        className={`absolute bottom-2 left-0 sm:-left-2 z-20 px-3.5 py-2 rounded-xl bg-white border border-slate-200 flex items-center gap-2.5 ${
           shouldReduceMotion ? '' : 'animate-float-reverse'
         }`}
       >

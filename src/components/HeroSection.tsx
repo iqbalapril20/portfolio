@@ -136,7 +136,7 @@ export function HeroSection({
                     onClick={() => setIsRolePaused((p) => !p)}
                     aria-label={isRolePaused ? 'Lanjutkan animasi peran' : 'Jeda animasi peran'}
                     aria-pressed={isRolePaused}
-                    className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#1d4ed8] hover:border-blue-300 inline-flex items-center justify-center transition-colors shrink-0 shadow-xs"
+                    className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#1d4ed8] hover:border-blue-300 inline-flex items-center justify-center transition-colors shrink-0"
                   >
                     {isRolePaused ? (
                       <Play className="w-3 h-3" aria-hidden="true" />
@@ -162,12 +162,12 @@ export function HeroSection({
               />
             </div>
 
-            {/* Action Buttons matching legacy/index4.html pill + btn-glow (scroll without hash URL) */}
+            {/* Action Buttons matching index4 pill shape without neon glow */}
             <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-1">
               <button
                 type="button"
                 onClick={() => scrollToSection('portfolio')}
-                className="btn-glow min-h-[44px] px-6 py-3.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm shadow-md shadow-blue-600/25 hover:bg-[#0d5bff] transition-all flex items-center justify-center gap-2"
+                className="btn-glow min-h-[44px] px-6 py-3.5 rounded-full bg-[#1d4ed8] text-white font-semibold text-sm hover:bg-[#0d5bff] transition-colors flex items-center justify-center gap-2"
               >
                 <span>{settings.heroCtaPrimaryLabel}</span>
                 <ArrowDown className="w-4 h-4 btn-icon-move" aria-hidden="true" />
@@ -176,7 +176,7 @@ export function HeroSection({
               <button
                 type="button"
                 onClick={() => scrollToSection('contact')}
-                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-white text-slate-700 font-semibold text-sm border border-slate-300 hover:border-[#1d4ed8] hover:text-[#1d4ed8] hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-xs"
+                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-white text-slate-700 font-semibold text-sm border border-slate-300 hover:border-[#1d4ed8] hover:text-[#1d4ed8] hover:bg-slate-50 transition-colors flex items-center justify-center gap-2"
               >
                 <Mail className="w-4 h-4 text-[#1d4ed8]" aria-hidden="true" />
                 <span>{settings.heroCtaSecondaryLabel}</span>

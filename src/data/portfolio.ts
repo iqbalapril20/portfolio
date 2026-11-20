@@ -174,12 +174,30 @@ const techStacksData: TechStack[] = [
   },
   {
     id: 19,
-    name: 'ESP8266 / C++',
+    name: 'Arduino IDE / ESP8266',
     category: 'TOOLS',
     iconUrl: 'https://api.iconify.design/devicon/arduino.svg',
     iconName: 'devicon:arduino',
     shortDescription: 'Firmware Embedded & IoT',
     displayOrder: 20,
+  },
+  {
+    id: 21,
+    name: 'Chart.js',
+    category: 'FRONTEND',
+    iconUrl: 'https://api.iconify.design/simple-icons/chartdotjs.svg',
+    iconName: 'simple-icons:chartdotjs',
+    shortDescription: 'Visualisasi Data & Grafik',
+    displayOrder: 21,
+  },
+  {
+    id: 22,
+    name: 'Shadcn UI',
+    category: 'FRONTEND',
+    iconUrl: 'https://api.iconify.design/simple-icons/shadcnui.svg',
+    iconName: 'simple-icons:shadcnui',
+    shortDescription: 'Komponen UI Aksesibel',
+    displayOrder: 22,
   },
 ];
 
@@ -391,34 +409,34 @@ export const portfolioData: PortfolioData = {
       categoryId: 1,
       category: categoryById.get(1)!,
       shortDescription:
-        'Aplikasi web khusus pengelolaan penjualan toko emas, pencatatan kadar kemurnian, dan buku besar transaksi.',
+        'Aplikasi web khusus pengelolaan penjualan emas, penetapan harga jual harian per kadar, pencatatan stok, dan grafik laporan transaksi.',
       fullDescription:
-        'Aplikasi web terstruktur untuk operasional ritel perhiasan dan toko emas yang mencakup kalibrasi harga emas harian, pencatatan kadar kemurnian (karat), kalkulasi tukar tambah / jual kembali, serta pencatatan berat presisi.',
+        'Aplikasi web terstruktur untuk operasional penjualan emas yang berfokus pada pengelolaan stok perhiasan, penetapan harga jual harian berdasarkan kadar kemurnian (karat), pencatatan transaksi penjualan kasir, serta grafik laporan penjualan ritel.',
       problemSolved:
-        '<p>Ritel perhiasan emas memiliki variasi harga karat harian, presisi berat desimal dalam gram, serta potongan tukar tambah yang tidak tertangani oleh aplikasi kasir ritel biasa.</p>',
+        '<p>Toko perhiasan emas memerlukan penetapan harga jual per gram yang akurat sesuai kadar kemurnian dan presisi berat desimal agar proses transaksi penjualan berlangsung cepat dan tercatat rapi.</p>',
       keyFeatures: [
         {
-          title: 'Indeks Kemurnian Harian',
+          title: 'Indeks Harga Jual Harian',
           description:
-            'Pemetaan harga emas per gram terhadap matriks kadar kemurnian (18K, 22K, 24K).',
+            'Pemetaan harga jual emas per gram terhadap matriks kadar kemurnian (18K, 22K, 24K).',
         },
         {
-          title: 'Kalkulator Tukar Tambah',
+          title: 'Kalkulator Harga Penjualan',
           description:
-            'Perhitungan nilai buyback dan penukaran barang secara dinamis sesuai kondisi.',
+            'Perhitungan total harga jual otomatis berdasarkan berat gram, kadar kemurnian, dan tarif harga harian.',
         },
         {
-          title: 'Registri Sertifikat',
+          title: 'Inventori & SKU Perhiasan',
           description:
-            'Penyimpanan digital catatan keaslian emas yang terhubung langsung ke SKU stok.',
+            'Manajemen stok item perhiasan lengkap dengan catatan berat, kadar, dan ketersediaan etalase.',
         },
         {
-          title: 'Buku Besar Keuangan',
-          description: 'Pemisahan pencatatan nilai logam murni dan biaya ongkos pembuatan.',
+          title: 'Laporan & Grafik Penjualan',
+          description: 'Visualisasi tren omzet penjualan dan pencatatan riwayat nota penjualan toko.',
         },
       ],
-      role: 'Full-Stack Developer: Merancang mesin kalkulasi harga di frontend serta menjamin presisi desimal pada transaksi database backend.',
-      techTags: ['Laravel', 'MySQL', 'JavaScript', 'Tailwind CSS'],
+      role: 'Full-Stack Developer: Membangun aplikasi Laravel + Inertia.js & React.js dengan Shadcn UI, Chart.js untuk laporan penjualan, serta presisi desimal pada database MySQL.',
+      techTags: ['Laravel', 'Inertia.js', 'React.js', 'MySQL', 'Tailwind CSS', 'Chart.js', 'Shadcn UI'],
       thumbnailUrl: '/images/projects/sistem-manajemen-penjualan-emas.jpg',
       demoUrl: null,
       githubUrl: null,
@@ -426,7 +444,7 @@ export const portfolioData: PortfolioData = {
       isPublished: true,
       isFeatured: true,
       displayOrder: 2,
-      techStacks: pickTechs(3, 4, 5, 6, 10, 14),
+      techStacks: pickTechs(5, 6, 10, 14, 20, 21, 22),
     },
     {
       id: 3,
@@ -503,8 +521,8 @@ export const portfolioData: PortfolioData = {
           description: 'Pencetakan laporan hasil evaluasi untuk guru dan pembimbing akademik.',
         },
       ],
-      role: 'Web Developer: Membangun antarmuka pengisian asesmen, dasbor skor responsif dengan Tailwind CSS, serta normalisasi data.',
-      techTags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Chart.js'],
+      role: 'Full-Stack Developer: Membangun antarmuka asesmen dan komponen evaluasi dengan Inertia React, Tailwind CSS, Shadcn UI, visualisasi grafik Chart.js, serta backend Laravel & MySQL.',
+      techTags: ['Laravel', 'Inertia.js', 'React.js', 'MySQL', 'Tailwind CSS', 'Chart.js', 'Shadcn UI'],
       thumbnailUrl: '/images/projects/sistem-penilaian-multiliterasi-sains.jpg',
       demoUrl: null,
       githubUrl: null,
@@ -512,7 +530,7 @@ export const portfolioData: PortfolioData = {
       isPublished: true,
       isFeatured: false,
       displayOrder: 4,
-      techStacks: pickTechs(4, 5, 6, 10, 14, 20),
+      techStacks: pickTechs(5, 6, 10, 14, 20, 21, 22),
     },
     {
       id: 5,
@@ -564,32 +582,33 @@ export const portfolioData: PortfolioData = {
       categoryId: 6,
       category: categoryById.get(6)!,
       shortDescription:
-        'Website profil perusahaan profesional untuk menampilkan identitas brand, katalog layanan, dan formulir permintaan klien.',
+        'Website company profile full-stack dilengkapi CMS admin dinamis untuk mengatur struktur navbar, halaman custom, konten, dan isi layanan perusahaan.',
       fullDescription:
-        '<p>Website profil perusahaan yang dibangun dengan HTML semantik, tipografi responsif, katalog layanan terstruktur, dan formulir pertanyaan calon klien yang tervalidasi.</p>',
+        '<p>Aplikasi web company profile full-stack yang dibangun dengan CMS terintegrasi agar administrator dapat menambah, mengubah, dan menata halaman secara fleksibel, termasuk kustomisasi menu navbar, susunan konten section, dan seluruh isi halaman tanpa menyentuh kode.</p>',
       problemSolved:
-        '<p>Website perusahaan yang lambat dan sulit diakses dari perangkat mobile dapat menurunkan kepercayaan calon klien komersial.</p>',
+        '<p>Company profile statis menyulitkan tim internal saat perlu menambah halaman baru, memperbarui isi layanan, atau mengubah susunan navigasi dengan cepat.</p>',
       keyFeatures: [
         {
-          title: 'Performa Ringan',
+          title: 'CMS Manajemen Konten',
           description:
-            'Aset halaman dioptimalkan agar tampil cepat di perangkat mobile maupun desktop.',
+            'Panel admin terstruktur untuk mengelola dan memperbarui seluruh konten halaman secara mandiri.',
         },
         {
-          title: 'Tata Letak Responsif',
-          description: 'Hierarki tipografi dan grid adaptif di berbagai ukuran layar.',
+          title: 'Kustomisasi Navbar & Halaman',
+          description:
+            'Administrator dapat menambah halaman baru serta mengatur menu dan urutan tautan navbar.',
+        },
+        {
+          title: 'Katalog Layanan & Profil',
+          description: 'Penyajian profil perusahaan, layanan unggulan, dan visual statistik interaktif.',
         },
         {
           title: 'Formulir Prospek Klien',
-          description: 'Formulir pertanyaan tervalidasi dengan proteksi spam dasar.',
-        },
-        {
-          title: 'Katalog Layanan',
-          description: 'Penyajian ringkas layanan perusahaan beserta catatan studi kasus.',
+          description: 'Formulir pertanyaan tervalidasi yang tersimpan rapi ke database admin.',
         },
       ],
-      role: 'Frontend Engineer: Menyusun komponen HTML semantik modular dan styling responsif menggunakan Tailwind CSS.',
-      techTags: ['HTML5', 'Tailwind CSS', 'JavaScript'],
+      role: 'Full-Stack Web Developer: Merancang arsitektur CMS Laravel + Inertia.js & React.js dengan Shadcn UI, Chart.js, Tailwind CSS, dan database MySQL untuk kustomisasi navbar, halaman, dan konten.',
+      techTags: ['Laravel', 'Inertia.js', 'React.js', 'MySQL', 'Tailwind CSS', 'Chart.js', 'Shadcn UI'],
       thumbnailUrl: '/images/projects/website-company-profile.jpg',
       demoUrl: null,
       githubUrl: null,
@@ -597,7 +616,7 @@ export const portfolioData: PortfolioData = {
       isPublished: true,
       isFeatured: false,
       displayOrder: 6,
-      techStacks: pickTechs(1, 3, 5, 6, 10, 20),
+      techStacks: pickTechs(5, 6, 10, 14, 20, 21, 22),
     },
     {
       id: 7,
@@ -606,34 +625,35 @@ export const portfolioData: PortfolioData = {
       categoryId: 7,
       category: categoryById.get(7)!,
       shortDescription:
-        'Sistem gerbang otomatis berbasis IoT menggunakan mikrokontroler ESP8266 dengan portal kontrol web dan cadangan remote IR.',
+        'Sistem kendali gerbang rumah bermotor dinamo berbasis ESP8266 yang dapat dibuka dan ditutup melalui website maupun remote inframerah (IR).',
       fullDescription:
-        '<p>Sistem palang gerbang otomatis yang menghubungkan mikrokontroler ESP8266 ke portal web lokal terautentikasi, dilengkapi kendali cadangan inframerah (IR) dan pencatatan riwayat akses.</p>',
+        '<p>Sistem otomasi gerbang rumah yang menggerakkan motor dinamo melalui mikrokontroler ESP8266, terintegrasi dengan aplikasi web untuk perintah buka dan tutup gerbang serta kendali remote inframerah (IR) secara langsung.</p>',
       problemSolved:
-        '<p>Pengoperasian gerbang secara manual memperlambat akses keluar-masuk kendaraan dan tidak meninggalkan catatan riwayat buka-tutup yang teraudit.</p>',
+        '<p>Membuka dan menutup gerbang rumah secara manual memakan waktu saat berkendara atau hujan, sehingga dibutuhkan kendali ganda yang praktis melalui website maupun remote inframerah.</p>',
       keyFeatures: [
         {
-          title: 'Telemetri Mikrokontroler',
+          title: 'Penggerak Motor Dinamo & ESP8266',
           description:
-            'ESP8266 menggerakkan aktuator servo melalui jaringan Wi-Fi dengan respons cepat.',
+            'ESP8266 mengendalikan motor dinamo pengerak gerbang rumah secara stabil melalui Wi-Fi.',
         },
         {
-          title: 'Portal Web Terautentikasi',
+          title: 'Kontrol Buka & Tutup via Web',
           description:
-            'Panel kontrol berbasis browser bagi petugas berwenang untuk membuka atau mengunci gerbang.',
+            'Antarmuka web responsif bagi penghuni untuk mengirim perintah buka dan tutup gerbang dari browser.',
         },
         {
-          title: 'Cadangan Remote IR',
+          title: 'Kendali Remote Inframerah (IR)',
           description:
-            'Mekanisme remote inframerah sebagai jalur kontrol darurat saat jaringan offline.',
+            'Dukungan kontrol fisik menggunakan remote IR sebagai pengendali langsung di sekitar rumah.',
         },
         {
-          title: 'Riwayat Log Akses',
-          description: 'Pencatatan waktu buka dan tutup gerbang ke dalam daftar log terpusat.',
+          title: 'Integrasi API PHP & MySQL',
+          description:
+            'Komunikasi endpoint API antara modul ESP8266 dan server PHP/MySQL untuk sinkronisasi perintah kendali.',
         },
       ],
-      role: 'IoT & Embedded Web Programmer: Menulis firmware C++ untuk ESP8266 serta membangun antarmuka kontrol HTTP ringan.',
-      techTags: ['ESP8266', 'C++', 'HTML/CSS', 'WebSockets'],
+      role: 'IoT & Full-Stack Web Programmer: Memprogram ESP8266 di Arduino IDE untuk kontrol motor dinamo & sensor IR serta membangun web kendali buka-tutup gerbang dengan PHP, API, HTML, CSS, dan MySQL.',
+      techTags: ['Arduino IDE', 'ESP8266', 'PHP', 'HTML', 'CSS', 'API', 'MySQL'],
       thumbnailUrl: '/images/projects/sistem-pembuka-gerbang-otomatis-esp8266.jpg',
       demoUrl: null,
       githubUrl: null,
@@ -641,48 +661,54 @@ export const portfolioData: PortfolioData = {
       isPublished: true,
       isFeatured: false,
       displayOrder: 7,
-      techStacks: pickTechs(1, 2, 9, 19),
+      techStacks: pickTechs(1, 2, 9, 13, 14, 19),
     },
   ],
 
   certificates: [
     {
       id: 1,
-      title: 'Understanding Data Science',
-      issuer: 'DataCamp',
-      credentialNumber: 'DC-884920',
-      issuedAt: null,
+      title: 'Belajar Dasar Pemrograman Web',
+      issuer: 'Dicoding Indonesia',
+      credentialNumber: 'MEPJMQM36P3V',
+      issuedAt: 'Nov 2026',
       expiresAt: null,
       credentialUrl: null,
+      imageUrl: '/images/certificates/dicoding-pemrograman-web.jpg',
+      skills: ['HTML', 'CSS', 'Web Development'],
       description:
-        'Sertifikasi pengenalan dasar rekayasa data, pemodelan statistik dasar, kerangka visualisasi, serta pengambilan keputusan berbasis data.',
-      category: 'Data Science',
+        'Sertifikasi kompetensi kelulusan dasar pemrograman web yang mencakup HTML semantik, CSS Flexbox/Grid, serta struktur tampilan responsif.',
+      category: 'Web Development',
       displayOrder: 1,
     },
     {
       id: 2,
-      title: 'Full-Stack Web Development',
-      issuer: 'Engineering Academy',
-      credentialNumber: null,
-      issuedAt: null,
+      title: 'Python Fundamental for Data Science',
+      issuer: 'DQLab',
+      credentialNumber: '#DQLABINTP1QWGVQU',
+      issuedAt: 'Nov 2026',
       expiresAt: null,
       credentialUrl: null,
+      imageUrl: '/images/certificates/dqlab-python.jpg',
+      skills: ['Python (Programming Language)'],
       description:
-        'Kurikulum yang berfokus pada pola arsitektur aplikasi PHP/Laravel, manajemen sesi aman, arsitektur MVC, dan penyediaan layanan RESTful API.',
-      category: 'Web Development',
+        'Sertifikasi fundamental pemrograman Python untuk pengolahan data, struktur kontrol, fungsi dasar, dan eksplorasi dataset awal.',
+      category: 'Data Science',
       displayOrder: 2,
     },
     {
       id: 3,
-      title: 'Database Administration Fundamentals',
-      issuer: 'Technical Institute',
+      title: 'Ahli K3 Umum Kemnaker',
+      issuer: 'Kementerian Ketenagakerjaan Republik Indonesia',
       credentialNumber: null,
-      issuedAt: null,
+      issuedAt: 'Sep 2026',
       expiresAt: null,
       credentialUrl: null,
+      imageUrl: '/images/certificates/k3-kemnaker.jpg',
+      skills: ['Keselamatan dan Kesehatan Kerja (K3)'],
       description:
-        'Pembelajaran mendalam mengenai normalisasi skema relasional (1NF-3NF), optimasi indeks query, isolasi transaksi, dan integritas data.',
-      category: 'Database',
+        'Sertifikasi kompetensi Ahli Keselamatan dan Kesehatan Kerja (K3) Umum dari Kementerian Ketenagakerjaan Republik Indonesia.',
+      category: 'Sertifikasi Profesi',
       displayOrder: 3,
     },
   ],
@@ -742,7 +768,7 @@ export const portfolioData: PortfolioData = {
   techStacks: techStacksData,
 
   contact: {
-    email: 'iqbal.aprilianto@example.com',
+    email: 'iqballaprilianto@gmail.com',
     whatsapp: '08560867100',
     githubUrl: null,
     linkedinUrl: null,

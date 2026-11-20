@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Award, ChevronLeft, ChevronRight, Code2, Cpu, Database, Server } from 'lucide-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type {
   Certificate,
   Project,
@@ -32,12 +32,18 @@ const TECH_CATEGORY_META: Record<TechCategory, { label: string; icon: typeof Cod
   TOOLS: { label: 'Tools, Adapter & IoT', icon: Cpu },
 };
 
-function HorizontalProjectTrack({
-  projects,
-  onSelectProject,
+function HorizontalScrollTrack<T>({
+  items,
+  itemNoun,
+  cardWidthClass,
+  getKey,
+  renderItem,
 }: {
-  projects: Project[];
-  onSelectProject: (project: Project) => void;
+  items: T[];
+  itemNoun: string;
+  cardWidthClass: string;
+  getKey: (item: T) => string | number;
+  renderItem: (item: T, index: number) => ReactNode;
 }) {
   const shouldReduceMotion = Boolean(useReducedMotion());
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -84,7 +90,7 @@ function HorizontalProjectTrack({
       window.cancelAnimationFrame(rafId);
       ro.disconnect();
     };
-  }, [projects.length, isDesktopViewport, measureOverflow]);
+  }, [items.length, isDesktopViewport, measureOverflow]);
 
   const useStickyHorizontal = !shouldReduceMotion && isDesktopViewport && maxScrollX > 24;
 
@@ -109,7 +115,7 @@ function HorizontalProjectTrack({
     }
     if (viewportRef.current) {
       viewportRef.current.scrollBy({
-        left: direction * 340,
+        left: direction * 360,
         behavior: shouldReduceMotion ? 'auto' : 'smooth',
       });
     }
@@ -136,31 +142,31 @@ function HorizontalProjectTrack({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="font-mono text-xs font-semibold text-slate-600">
             {useStickyHorizontal
-              ? `Scroll ke bawah untuk menggeser ${projects.length} proyek`
-              : `Geser ke samping untuk melihat ${projects.length} proyek`}
+              ? `Scroll ke bawah untuk menggeser ${items.length} ${itemNoun}`
+              : `Geser ke samping untuk melihat ${items.length} ${itemNoun}`}
           </span>
 
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => scrollStep(-1)}
-              aria-label="Geser proyek ke kiri"
-              className="min-w-[40px] min-h-[40px] px-3 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#1d4ed8] hover:text-[#1d4ed8] inline-flex items-center justify-center transition-colors shadow-xs"
+              aria-label={`Geser ${itemNoun} ke kiri`}
+              className="min-w-[40px] min-h-[40px] px-3 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#1d4ed8] hover:text-[#1d4ed8] inline-flex items-center justify-center transition-colors"
             >
               <ChevronLeft className="w-4 h-4" aria-hidden="true" />
             </button>
             <button
               type="button"
               onClick={() => scrollStep(1)}
-              aria-label="Geser proyek ke kanan"
-              className="min-w-[40px] min-h-[40px] px-3 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#1d4ed8] hover:text-[#1d4ed8] inline-flex items-center justify-center transition-colors shadow-xs"
+              aria-label={`Geser ${itemNoun} ke kanan`}
+              className="min-w-[40px] min-h-[40px] px-3 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#1d4ed8] hover:text-[#1d4ed8] inline-flex items-center justify-center transition-colors"
             >
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
         </div>
 
-        {/* Horizontal Viewport Stage (overflow-x-clip keeps sticky scrolling locked) */}
+        {/* Horizontal Viewport Stage (overflow-x-clip prevents scrollLeft drift) */}
         <div
           ref={viewportRef}
           className={
@@ -174,41 +180,9 @@ function HorizontalProjectTrack({
             style={useStickyHorizontal ? { x: translateX } : undefined}
             className="flex flex-nowrap gap-6 sm:gap-7 w-max"
           >
-            {projects.map((project, idx) => (
-              <div
-                key={project.id}
-                className="w-[290px] sm:w-[350px] lg:w-[385px] shrink-0 snap-start"
-              >
-                <TiltCard className="h-full rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all overflow-hidden">
-                  <button
-                    type="button"
-                    onClick={() => onSelectProject(project)}
-                    aria-label={`Lihat detail proyek ${project.title}`}
-                    className="group w-full h-full text-left p-3.5 sm:p-4 flex flex-col gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1d4ed8]"
-                  >
-                    <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80">
-                      {project.thumbnailUrl ? (
-                        <Image
-                          src={project.thumbnailUrl}
-                          alt={`Pratinjau ${project.title}`}
-                          fill
-                          sizes="(max-width: 640px) 290px, 385px"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center font-mono text-xs text-slate-500">
-                          {String(idx + 1).padStart(2, '0')} {'//'} {project.title}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="px-1 pb-1">
-                      <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900 group-hover:text-[#1d4ed8] transition-colors leading-snug line-clamp-2">
-                        {project.title}
-                      </h3>
-                    </div>
-                  </button>
-                </TiltCard>
+            {items.map((item, idx) => (
+              <div key={getKey(item)} className={`${cardWidthClass} shrink-0 snap-start`}>
+                {renderItem(item, idx)}
               </div>
             ))}
           </motion.div>
@@ -276,7 +250,7 @@ export function PortfolioShowcase({
           <div
             role="tablist"
             aria-label="Kategori konten portofolio"
-            className="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-full bg-white border border-slate-200 shadow-xs mx-auto"
+            className="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-full bg-white border border-slate-200 mx-auto"
           >
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
@@ -297,7 +271,7 @@ export function PortfolioShowcase({
                     <motion.span
                       layoutId={shouldReduceMotion ? undefined : 'portfolio-tab-pill'}
                       transition={{ type: 'spring', stiffness: 360, damping: 30 }}
-                      className="absolute inset-0 rounded-full bg-[#1d4ed8] shadow-xs"
+                      className="absolute inset-0 rounded-full bg-[#1d4ed8]"
                       aria-hidden="true"
                     />
                   )}
@@ -309,7 +283,7 @@ export function PortfolioShowcase({
         </ScrollReveal>
 
         <AnimatePresence mode="wait">
-          {/* PROJECTS TAB: Horizontal Row with Sticky Scroll-Driven Auto-Shift */}
+          {/* PROJECTS TAB: Horizontal Row with Sticky Scroll Auto-Shift (Image + Name only) */}
           {activeTab === 'projects' && (
             <motion.div
               key="projects"
@@ -321,11 +295,48 @@ export function PortfolioShowcase({
               exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
               transition={{ duration: 0.22 }}
             >
-              <HorizontalProjectTrack projects={projects} onSelectProject={setSelectedProject} />
+              <HorizontalScrollTrack
+                items={projects}
+                itemNoun="proyek"
+                cardWidthClass="w-[290px] sm:w-[350px] lg:w-[385px]"
+                getKey={(p) => p.id}
+                renderItem={(project, idx) => (
+                  <TiltCard className="h-full rounded-2xl bg-white border border-slate-200 hover:border-[#1d4ed8] transition-colors overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(project)}
+                      aria-label={`Lihat detail proyek ${project.title}`}
+                      className="group w-full h-full text-left p-3.5 sm:p-4 flex flex-col gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1d4ed8]"
+                    >
+                      <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                        {project.thumbnailUrl ? (
+                          <Image
+                            src={project.thumbnailUrl}
+                            alt={`Pratinjau ${project.title}`}
+                            fill
+                            sizes="(max-width: 640px) 290px, 385px"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center font-mono text-xs text-slate-500">
+                            {String(idx + 1).padStart(2, '0')} {'//'} {project.title}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="px-1 pb-1">
+                        <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900 group-hover:text-[#1d4ed8] transition-colors leading-snug line-clamp-2">
+                          {project.title}
+                        </h3>
+                      </div>
+                    </button>
+                  </TiltCard>
+                )}
+              />
             </motion.div>
           )}
 
-          {/* CERTIFICATIONS TAB */}
+          {/* CERTIFICATIONS TAB: Landscape Certificate Cards with Horizontal Auto-Slider */}
           {activeTab === 'certificates' && (
             <motion.div
               key="certificates"
@@ -336,45 +347,63 @@ export function PortfolioShowcase({
               animate={{ opacity: 1, y: 0 }}
               exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
               transition={{ duration: 0.24 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
             >
-              {certificates.map((cert) => (
-                <TiltCard
-                  key={cert.id}
-                  as="article"
-                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl flex flex-col justify-between gap-4 h-full transition-shadow"
-                >
-                  <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#1d4ed8] flex items-center justify-center">
-                      <Award className="w-7 h-7" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="font-heading font-bold text-xl text-slate-900 leading-snug">
-                        {cert.title}
-                      </h3>
-                      <p className="text-xs font-semibold text-slate-600 mt-1">
-                        {cert.issuer} · {cert.category}
-                      </p>
-                    </div>
-                    {cert.description && (
-                      <p className="text-sm text-[#475569] leading-relaxed">{cert.description}</p>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100">
-                    <span className="text-xs font-semibold text-[#1d4ed8]">
-                      {cert.credentialNumber ? `ID: ${cert.credentialNumber}` : 'Terverifikasi'}
-                    </span>
+              <HorizontalScrollTrack
+                items={certificates}
+                itemNoun="sertifikat"
+                cardWidthClass="w-[310px] sm:w-[420px] lg:w-[470px]"
+                getKey={(c) => c.id}
+                renderItem={(cert) => (
+                  <TiltCard className="h-full rounded-2xl bg-white border border-slate-200 hover:border-[#1d4ed8] transition-colors overflow-hidden">
                     <button
                       type="button"
                       onClick={() => setSelectedCert(cert)}
-                      className="min-h-[38px] px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#1d4ed8] text-slate-800 hover:text-white text-xs font-bold transition-colors"
+                      aria-label={`Lihat detail sertifikat ${cert.title} dari ${cert.issuer}`}
+                      className="group w-full h-full text-left p-3.5 sm:p-4 flex flex-col gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1d4ed8]"
                     >
-                      Detail
+                      <div className="relative w-full aspect-[3/2] rounded-xl overflow-hidden bg-slate-50 border border-slate-200">
+                        {cert.imageUrl ? (
+                          <Image
+                            src={cert.imageUrl}
+                            alt={`Sertifikat ${cert.title} dari ${cert.issuer}`}
+                            fill
+                            sizes="(max-width: 640px) 310px, 470px"
+                            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <div className="w-full h-full p-5 flex flex-col justify-between bg-slate-50">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="font-mono text-xs font-bold text-[#1d4ed8]">
+                                {cert.issuer}
+                              </span>
+                              <Award className="w-5 h-5 text-[#1d4ed8]" aria-hidden="true" />
+                            </div>
+                            <p className="font-heading font-bold text-lg text-slate-900 leading-snug">
+                              {cert.title}
+                            </p>
+                            <div className="flex items-center justify-between text-[11px] font-mono text-slate-600">
+                              <span>{cert.issuedAt ? `Issued ${cert.issuedAt}` : cert.category}</span>
+                              {cert.credentialNumber && <span>{cert.credentialNumber}</span>}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="px-1 pb-0.5 flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="font-heading font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#1d4ed8] transition-colors leading-snug truncate">
+                            {cert.title}
+                          </h3>
+                          <p className="text-xs font-medium text-slate-600 truncate mt-0.5">
+                            {cert.issuer}
+                            {cert.issuedAt ? ` · Issued ${cert.issuedAt}` : ''}
+                          </p>
+                        </div>
+                      </div>
                     </button>
-                  </div>
-                </TiltCard>
-              ))}
+                  </TiltCard>
+                )}
+              />
             </motion.div>
           )}
 
@@ -398,7 +427,7 @@ export function PortfolioShowcase({
                 return (
                   <TiltCard
                     key={catKey}
-                    className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl flex flex-col gap-4 h-full transition-shadow"
+                    className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 flex flex-col gap-4 h-full transition-colors"
                   >
                     <div className="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
                       <div className="flex items-center gap-3">
