@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-page: #fafbfd;
+  --color-card: #ffffff;
+  --color-subtle: #f1f5f9;
+  --color-ink: #0f172a;
+  --color-body: #334155;
+  --color-muted: #475569;
+  --color-accent: #1d4ed8;
+  --color-accent-hover: #1e40af;
+  --color-accent-soft: #eff6ff;
+  --color-border: #e2e8f0;
+  --color-status-ok: #047857;
+  --color-status-ok-bg: #ecfdf5;
+
+  --font-heading: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  body {
+    background-color: #fafbfd;
+    color: #0f172a;
+    font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-heading {
+    font-family: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  /* Interactive pointer affordance (R-39) */
+  a[href],
+  button:not(:disabled),
+  summary,
+  select:not(:disabled),
+  label[for],
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  /* High-contrast keyboard focus indicator (R-32) */
+  :focus-visible {
+    outline: 2px solid #1d4ed8;
+    outline-offset: 3px;
+  }
+}
+
+/* Reduced motion guard (R-39) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Rich text rendering for DB HTML descriptions */
+.rich-content p {
+  margin-bottom: 0.75rem;
+}
+.rich-content p:last-child {
+  margin-bottom: 0;
+}
+.rich-content h2,
+.rich-content h3,
+.rich-content h4 {
+  font-family: var(--font-league-spartan), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.9rem;
+  margin-bottom: 0.45rem;
+}
+.rich-content h2 {
+  font-size: 1.2rem;
+}
+.rich-content ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.rich-content ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.rich-content li {
+  margin-bottom: 0.35rem;
+}
+
+/* Infinite tech stack marquee with hover, focus, and explicit pause states (R-39) */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 34s linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrapper:hover .marquee-track,
+.marquee-wrapper:focus-within .marquee-track,
+.marquee-wrapper[data-paused='true'] .marquee-track {
+  animation-play-state: paused;
+}

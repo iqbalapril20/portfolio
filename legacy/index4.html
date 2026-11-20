@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>John Doe — Senior Frontend Engineer &amp; Interactive Architect</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<!-- Typography: League Spartan (Headings) and Montserrat & Space Grotesk -->
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"League Spartan"', 'sans-serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#1d4ed8',
+              700: '#0d5bff',
+              800: '#1e40af',
+              900: '#002594'
+            },
+            slateText: {
+              heading: '#0f172a',
+              body: '#475569',
+              muted: '#64748b'
+            }
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #fafbfc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'League Spartan', sans-serif;
+    }
+
+    /* Ambient floating & pulse animations */
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(0.8deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(6px) rotate(-0.8deg); }
+    }
+    .animate-float-slow {
+      animation: floatSoft 5s ease-in-out infinite;
+    }
+    .animate-float-reverse {
+      animation: floatReverse 6s ease-in-out infinite;
+    }
+
+    /* Interactive button magnetic micro-lift & glow */
+    .btn-glow {
+      position: relative;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -4px rgba(29, 78, 216, 0.35), 0 4px 10px -2px rgba(29, 78, 216, 0.2);
+    }
+    .btn-glow:hover .btn-icon-move {
+      transform: translateX(4px);
+    }
+    .btn-glow:active {
+      transform: translateY(0);
+    }
+    .btn-icon-move {
+      transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Tilt effect card styling */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Architectural subtle backgrounds */
+    .hero-grid-pattern {
+      background-size: 32px 32px;
+      background-image: linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+    }
+    .about-contour-pattern {
+      background-image: radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 30%, rgba(13, 91, 255, 0.035) 0%, transparent 50%);
+    }
+    .portfolio-watermark {
+      background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+    }
+    .contact-wave-pattern {
+      background: linear-gradient(180deg, #fafbfc 0%, #eff6ff 100%);
+    }
+
+    /* Infinite Marquee */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-anim {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 26s linear infinite;
+    }
+    .marquee-anim:hover {
+      animation-play-state: paused;
+    }
+
+    /* Bidirectional Scroll Reveal */
+    .reveal-elem {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-elem.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Floating back-to-top bounce hover */
+    .btt-btn {
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+    }
+    .btt-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+  </style>
+</head>
+<body class="selection:bg-blue-100 selection:text-blue-900 antialiased" id="top">
+<!-- 1. NAVIGATION BAR -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all">
+<div class="max-w-7xl mx-auto h-20 px-4 sm:px-8 flex items-center justify-between">
+<!-- Logo & Availability Status -->
+<div class="flex items-center gap-3 sm:gap-4">
+<a class="font-heading font-extrabold text-2xl tracking-tight text-slate-900 flex items-center gap-0.5 hover:text-brand-600 transition-colors" href="#top">
+<span class="text-brand-600">&lt;</span>Dev.Craft<span class="text-brand-600">/&gt;</span>
+</a>
+<div class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="hidden xs:inline">Available for work</span>
+<span class="xs:hidden">Available</span>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/80 border border-slate-200/60 text-sm font-medium text-slate-600">
+<a class="px-4 py-1.5 rounded-full bg-white text-slate-900 font-semibold shadow-xs transition-all" href="#top">Home</a>
+<a class="px-4 py-1.5 rounded-full hover:text-slate-900 hover:bg-white/60 transition-all" href="#about">About</a>
+<a class="px-4 py-1.5 rounded-full hover:text-slate-900 hover:bg-white/60 transition-all" href="#portfolio">Portfolio</a>
+<a class="px-4 py-1.5 rounded-full hover:text-slate-900 hover:bg-white/60 transition-all" href="#portfolio" onclick="document.getElementById('show-skills').click();">Skills</a>
+<a class="px-4 py-1.5 rounded-full hover:text-slate-900 hover:bg-white/60 transition-all" href="#contact">Contact</a>
+</nav>
+<!-- CTA Button & Profile icon -->
+<div class="flex items-center gap-2.5 sm:gap-3">
+<a class="btn-glow inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-brand-600 text-white font-semibold text-xs sm:text-sm shadow-md shadow-blue-600/20 hover:bg-brand-700 transition-all" href="#contact">
+<span>Hire Me</span>
+<span class="material-symbols-outlined text-[16px] sm:text-[18px] ml-1 btn-icon-move">arrow_forward</span>
+</a>
+<a class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors" href="#about" title="About John">
+<span class="material-symbols-outlined text-[19px]">person</span>
+</a>
+</div>
+</div>
+</header>
+<main class="w-full pt-20">
+<!-- 2. HERO SECTION (Punchy Headline, Streamlined Copy, Rock-Solid Mobile Order) -->
+<section class="relative w-full py-10 sm:py-16 md:py-24 overflow-hidden bg-white hero-grid-pattern border-b border-slate-200/80">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+<!-- Responsive Grid / Stack -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+<!-- Text & Actions Column -->
+<div class="lg:col-span-7 flex flex-col gap-4 sm:gap-5 order-1">
+<!-- Subtitle Pill -->
+<div class="reveal-elem inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80">
+<span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+<span class="text-[11px] font-semibold tracking-wider sm:tracking-widest uppercase text-brand-600 font-sans">
+              Creative Frontend &amp; Interactive Architect
+            </span>
+</div>
+<!-- Punchy, Concise Headline -->
+<h1 class="reveal-elem font-heading font-bold text-3xl sm:text-5xl lg:text-6xl text-slate-900 leading-[1.12] sm:leading-[1.1] tracking-tight">
+            Hey, I'm <span class="italic font-serif font-normal text-brand-600 underline decoration-blue-200 decoration-wavy decoration-2 underline-offset-4">John Doe</span> — Crafting High-Grade Web Experiences.
+          </h1>
+<!-- Tight 1-2 Sentence Subtitle -->
+<p class="reveal-elem text-sm sm:text-base lg:text-lg text-slateText-body leading-relaxed max-w-xl font-normal">
+            Creative Developer specializing in scalable Next.js architectures, fluid motion design, and high-performance WebGL interfaces.
+          </p>
+<!-- Mobile Cutout Display (Centered between text and actions on small screens) -->
+<div class="reveal-elem lg:hidden w-full flex justify-center py-2 sm:py-4">
+<div class="relative w-full max-w-[290px] sm:max-w-[340px] flex items-center justify-center">
+<!-- Decorative Ambient Halo Behind Mobile Photo -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none -z-0">
+<div class="w-56 h-56 sm:w-64 sm:h-64 rounded-full border border-blue-300/40 animate-[spin_35s_linear_infinite]"></div>
+<div class="absolute w-44 h-44 sm:w-52 sm:h-52 rounded-full border border-dashed border-blue-400/40"></div>
+<div class="absolute w-36 h-36 rounded-full bg-blue-100/50 blur-xl"></div>
+</div>
+<!-- Badges in Mobile -->
+<div class="absolute top-2 -right-1 z-20 px-2.5 py-1.5 rounded-lg bg-white/95 backdrop-blur-md shadow-md border border-slate-200 flex items-center gap-1.5 animate-float-slow">
+<span class="material-symbols-outlined text-brand-600 text-[16px]">verified</span>
+<span class="text-[11px] font-bold text-slate-900">Senior Level</span>
+</div>
+<div class="absolute bottom-2 -left-1 z-20 px-2.5 py-1.5 rounded-lg bg-white/95 backdrop-blur-md shadow-md border border-slate-200 flex items-center gap-1.5 animate-float-reverse">
+<span class="material-symbols-outlined text-brand-600 text-[15px]">speed</span>
+<span class="text-[11px] font-bold text-slate-900">100/100 Perf</span>
+</div>
+<!-- Transparent Cutout Portrait -->
+<div class="relative z-10 w-full flex items-end justify-center">
+<img alt="John Doe - Senior Creative Frontend &amp; Web Developer portrait" class="w-auto h-[290px] sm:h-[340px] drop-shadow-sm select-none transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/ALJJyrCEusLQfjwsWfq-ywKvd1iGERvQEcEneHB9lLvnBSMfIJkOlEZQDVMK2mMMq-EqNKo4rL0ooCA32rpPD1LomNHebCrnVv5ySU9kFTw0h4zUdct4sLgTvB5thsBjpdtes44VTo7E_RCgz5T7Rb3O_ZPEPnv6_6HqZHIppa8Ff07mIGk-Vm4ey-HT7bbdCeEU3v65R2o5oA5YnTzQtVtQJRKMtYs2c8uU2NOrf8Ne20koxQ" style="mix-blend-mode: multiply; object-fit: contain;"/>
+</div>
+</div>
+</div>
+<!-- Action Buttons (Responsive Wrap & Touch Friendly) -->
+<div class="reveal-elem flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+<a class="btn-glow px-6 py-3.5 rounded-full bg-brand-600 text-white font-semibold text-sm shadow-md shadow-blue-600/25 hover:bg-brand-700 transition-all flex items-center justify-center gap-2" href="#portfolio">
+<span>Explore Selected Works</span>
+<span class="material-symbols-outlined text-[18px] btn-icon-move">arrow_downward</span>
+</a>
+<a class="btn-glow px-5 py-3.5 rounded-full bg-white text-slate-700 font-semibold text-sm border border-slate-300 hover:border-brand-600 hover:text-brand-600 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-xs" href="#contact">
+<span class="material-symbols-outlined text-brand-600 text-[18px]">calendar_month</span>
+<span>Schedule a Call</span>
+</a>
+<button class="btn-glow px-4 py-3.5 rounded-full bg-slate-100 text-slate-600 hover:text-brand-600 font-semibold text-sm border border-slate-200 hover:bg-slate-200/80 transition-all flex items-center justify-center gap-1.5" id="cli-trigger">
+<span class="material-symbols-outlined text-brand-600 text-[18px]">terminal</span>
+<span>CLI Mode</span>
+</button>
+</div>
+<!-- Animated Key Stats Row -->
+<div class="reveal-elem grid grid-cols-3 gap-2 sm:gap-4 pt-5 mt-2 border-t border-slate-200/90 text-left">
+<div class="flex flex-col">
+<div class="flex items-baseline">
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-brand-600 counter-stat" data-target="5">0</span>
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-brand-600">+</span>
+</div>
+<span class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Years Active</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline">
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-slate-900 counter-stat" data-target="30">0</span>
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-slate-900">+</span>
+</div>
+<span class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Shipped Apps</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline">
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-brand-600 counter-stat" data-decimals="1" data-target="99.8">0</span>
+<span class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-brand-600">%</span>
+</div>
+<span class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mt-0.5">Client CSAT</span>
+</div>
+</div>
+</div>
+<!-- Desktop Right Column: Hero Portrait (Visible on lg+) -->
+<div class="hidden lg:flex lg:col-span-5 relative justify-center items-center order-2">
+<div class="relative w-full max-w-[430px] flex items-center justify-center">
+<!-- Refined circular technical radar / ring line behind photo -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none -z-0">
+<div class="w-80 h-80 xl:w-96 xl:h-96 rounded-full border border-blue-300/40 animate-[spin_40s_linear_infinite]"></div>
+<div class="absolute w-64 h-64 xl:w-80 xl:h-80 rounded-full border border-dashed border-blue-400/40"></div>
+<div class="absolute w-48 h-48 rounded-full bg-blue-100/50 blur-2xl"></div>
+</div>
+<!-- Senior Level Badge Top Right -->
+<div class="absolute top-4 right-0 z-20 px-3.5 py-2 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-slate-200/80 flex items-center gap-2 animate-float-slow">
+<span class="material-symbols-outlined text-brand-600 text-[20px]">verified</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900">Senior Level</span>
+<span class="text-[10px] text-slate-500 leading-none">Full-Stack UX</span>
+</div>
+</div>
+<!-- Hero Portrait of John Doe using DataStore Image and mix-blend-mode: multiply -->
+<div class="relative z-10 w-full flex items-end justify-center">
+<img alt="John Doe - Senior Creative Frontend &amp; Web Developer portrait" class="w-auto h-[460px] drop-shadow-sm select-none transition-transform duration-500 hover:scale-[1.02]" src="https://lh3.googleusercontent.com/aida/ALJJyrCEusLQfjwsWfq-ywKvd1iGERvQEcEneHB9lLvnBSMfIJkOlEZQDVMK2mMMq-EqNKo4rL0ooCA32rpPD1LomNHebCrnVv5ySU9kFTw0h4zUdct4sLgTvB5thsBjpdtes44VTo7E_RCgz5T7Rb3O_ZPEPnv6_6HqZHIppa8Ff07mIGk-Vm4ey-HT7bbdCeEU3v65R2o5oA5YnTzQtVtQJRKMtYs2c8uU2NOrf8Ne20koxQ" style="mix-blend-mode: multiply; object-fit: contain;"/>
+</div>
+<!-- Floating Metric Badge Bottom Left -->
+<div class="absolute bottom-4 left-0 z-20 px-3.5 py-2 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-slate-200/80 flex items-center gap-2.5 animate-float-reverse">
+<div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-brand-600">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900">100 / 100</span>
+<span class="text-[10px] text-slate-500">Lighthouse Metrics</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. TECH STACK INFINITE MARQUEE TICKER -->
+<div class="w-full bg-slate-900 text-white py-3.5 sm:py-4 overflow-hidden border-y border-slate-800">
+<div class="marquee-anim flex items-center gap-8 font-sans text-xs tracking-widest uppercase font-semibold text-slate-300">
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>NEXT.JS 15 APP ROUTER</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>THREE.JS / GLSL SHADERS</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>TAILWIND CSS ARCHITECTURE</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>GRAPHQL &amp; APOLLO</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>DESIGN SYSTEMS ENGINEERING</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>RUST / WASM MICRO-MODULES</span>
+<!-- Seamless Loop -->
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>NEXT.JS 15 APP ROUTER</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>THREE.JS / GLSL SHADERS</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>TAILWIND CSS ARCHITECTURE</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>GRAPHQL &amp; APOLLO</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>DESIGN SYSTEMS ENGINEERING</span>
+<span class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-blue-500"></span>RUST / WASM MICRO-MODULES</span>
+</div>
+</div>
+<!-- 4. BIOGRAPHY & TRAJECTORY (ABOUT ME SECTION) -->
+<section class="relative w-full py-16 sm:py-20 bg-white about-contour-pattern border-b border-slate-200/80" id="about">
+<div class="max-w-7xl mx-auto px-4 sm:px-8">
+<!-- Category Header -->
+<div class="reveal-elem flex items-center gap-2 mb-8">
+<span class="text-xs font-bold tracking-widest text-brand-600 uppercase">01 // BIOGRAPHY &amp; TRAJECTORY</span>
+<div class="h-[1px] w-12 bg-blue-200"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+<!-- Left Side: Interactive 3D Tilt Profile Card -->
+<div class="reveal-elem lg:col-span-5 flex flex-col gap-4">
+<div class="tilt-card relative w-full rounded-2xl bg-slate-50 border border-slate-200/90 shadow-sm hover:shadow-xl p-6 flex flex-col items-center">
+<!-- Portrait Container with multiply blending -->
+<div class="relative w-full max-w-[280px] h-64 bg-slate-100/60 rounded-xl overflow-hidden flex items-end justify-center border border-slate-200">
+<img alt="John Doe profile view" class="w-auto h-60 object-contain select-none transition-transform duration-300 hover:scale-105" src="https://lh3.googleusercontent.com/aida/ALJJyrCBPopNUmpqgc8mw9nSHnZbRSydilJHwOPArZfWAc-vggG6cETKjD5o46s1vU0Cozflbo6AAdzOChaIRBGh9Dl85c6QH9aQDVe3oXyhgS3CMzsSMz6NIDe5zW8qyk2X9vuFvnaZxLSghsFLjfBwW75MUi-_jaN6O_Th5BSqAdhHLT8NOtwjOv9YrRU3PvP_Ibt0r-VIJcJiWxqDCVce2GukoAoozCKX8FwARWqyXKBChg" style="mix-blend-mode: multiply;"/>
+</div>
+<!-- Profile Details -->
+<div class="w-full mt-5 flex flex-col items-start gap-1">
+<div class="flex items-center justify-between w-full">
+<h3 class="font-heading font-bold text-2xl text-slate-900">John Doe</h3>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold">Active &amp; Remote</span>
+</div>
+<p class="text-xs font-medium text-slate-500">Senior Frontend Engineer &amp; Interactive Architect</p>
+</div>
+<!-- Skill Tags -->
+<div class="w-full flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200">
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-xs text-slate-600 font-medium">Sub-100ms TTFB</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-xs text-slate-600 font-medium">Sub-pixel Grid</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-xs text-slate-600 font-medium">Physics-based Motion</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-xs text-slate-600 font-medium">Accessible A11y AA</span>
+</div>
+<!-- Download CV Button -->
+<a class="btn-glow w-full mt-5 py-3 rounded-xl bg-slate-900 hover:bg-brand-600 text-white text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 transition-all shadow-xs" href="#contact">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Download Full CV (PDF)</span>
+</a>
+</div>
+</div>
+<!-- Right Side: Narrative & Tabs -->
+<div class="reveal-elem lg:col-span-7 flex flex-col gap-6">
+<div>
+<h2 class="font-heading font-bold text-2xl sm:text-4xl text-slate-900 leading-tight">
+              Merging engineering rigor with human-centric motion design.
+            </h2>
+<p class="text-sm sm:text-base text-slateText-body mt-3 leading-relaxed font-normal">
+              Over the past 5+ years, I have engineered digital products for high-growth tech firms, VC-backed Web3 protocols, and boutique luxury retailers. My methodology bridges the gap between Figma design systems and production micro-frontends with uncompromising attention to latency, typography rendering, and device ergonomics.
+            </p>
+</div>
+<!-- Tab Switcher with dynamic active pill indicator -->
+<div class="relative flex items-center gap-2 p-1.5 rounded-full bg-slate-100 max-w-fit border border-slate-200">
+<button class="px-5 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs" id="tab-btn-exp">
+              Work Experience
+            </button>
+<button class="px-5 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900" id="tab-btn-edu">
+              Education &amp; Honors
+            </button>
+</div>
+<!-- Tab Pane: Experience -->
+<div class="flex flex-col gap-4 transition-all duration-300" id="tab-content-exp">
+<!-- Item 1 -->
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-brand-200 transition-colors">
+<div>
+<h4 class="font-heading font-bold text-xl text-slate-900">Lead Frontend Engineer</h4>
+<p class="text-xs font-semibold text-brand-600">Lumina Technologies Inc. • Full-time</p>
+<p class="text-sm text-slateText-body mt-2 leading-relaxed">
+                  Spearheaded the redesign of the core cloud dashboard, cutting bundle sizes by 42% and implementing real-time WebGL financial charts seen by 1.2M monthly users.
+                </p>
+</div>
+<span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 whitespace-nowrap self-start">
+                2022 — Present
+              </span>
+</div>
+<!-- Item 2 -->
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-brand-200 transition-colors">
+<div>
+<h4 class="font-heading font-bold text-xl text-slate-900">Creative Web Developer</h4>
+<p class="text-xs font-semibold text-brand-600">Studio Motion • Agency</p>
+<p class="text-sm text-slateText-body mt-2 leading-relaxed">
+                  Constructed 18 bespoke e-commerce and brand portfolio destinations. Won 3 Awwwards Site of the Day honors using custom GLSL shaders and GSAP animations.
+                </p>
+</div>
+<span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 whitespace-nowrap self-start">
+                2020 — 2022
+              </span>
+</div>
+<!-- Item 3 -->
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-brand-200 transition-colors">
+<div>
+<h4 class="font-heading font-bold text-xl text-slate-900">UI/UX Software Specialist</h4>
+<p class="text-xs font-semibold text-brand-600">Apex Labs Global</p>
+<p class="text-sm text-slateText-body mt-2 leading-relaxed">
+                  Standardized an accessible React &amp; Tailwind component library across 4 cross-functional development squads.
+                </p>
+</div>
+<span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 whitespace-nowrap self-start">
+                2019 — 2020
+              </span>
+</div>
+</div>
+<!-- Tab Pane: Education & Honors -->
+<div class="hidden flex-col gap-4 transition-all duration-300" id="tab-content-edu">
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-brand-200 transition-colors">
+<div>
+<h4 class="font-heading font-bold text-xl text-slate-900">B.S. in Computer Science &amp; Interaction</h4>
+<p class="text-xs font-semibold text-brand-600">University of California, Berkeley</p>
+<p class="text-sm text-slateText-body mt-2 leading-relaxed">
+                  Graduated Magna Cum Laude. Focused on Human-Computer Interaction, distributed systems, and computer graphics theory.
+                </p>
+</div>
+<span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 whitespace-nowrap self-start">
+                2015 — 2019
+              </span>
+</div>
+<div class="p-5 rounded-xl bg-slate-50 border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-start justify-between gap-4 hover:border-brand-200 transition-colors">
+<div>
+<h4 class="font-heading font-bold text-xl text-slate-900">Awwwards &amp; FWA Site of the Day</h4>
+<p class="text-xs font-semibold text-brand-600">Triple Honoree (3x Site of the Day)</p>
+<p class="text-sm text-slateText-body mt-2 leading-relaxed">
+                  Recognized internationally for exceptional technical execution, 60fps physics motion, and innovative web micro-interactions.
+                </p>
+</div>
+<span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 whitespace-nowrap self-start">
+                2021, 2023
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. SELECTED CASE STUDIES (PORTFOLIO SECTION with 3D Tilt Effect) -->
+<section class="relative w-full py-16 sm:py-20 bg-slate-50/70 portfolio-watermark border-b border-slate-200/80" id="portfolio">
+<div class="max-w-7xl mx-auto px-4 sm:px-8">
+<!-- Header & Filter Tabs -->
+<div class="reveal-elem flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold tracking-widest text-brand-600 uppercase">02 // PORTFOLIO &amp; INDEX</span>
+<div class="h-[1px] w-12 bg-blue-200"></div>
+</div>
+<h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900">Selected Case Studies</h2>
+</div>
+<!-- Switcher Buttons -->
+<div class="flex items-center gap-1.5 p-1 rounded-full bg-white border border-slate-200 shadow-xs self-start md:self-auto">
+<button class="port-tab-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs" id="show-projects">
+              Projects (03)
+            </button>
+<button class="port-tab-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900" id="show-certs">
+              Certifications (04)
+            </button>
+<button class="port-tab-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900" id="show-skills">
+              Skills Matrix
+            </button>
+</div>
+</div>
+<!-- Interactive 3D Tilt Cards Grid: Projects View -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="grid-projects">
+<!-- Card 1: FinPulse Dashboard -->
+<div class="reveal-elem tilt-card flex flex-col rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden group">
+<!-- Chrome Header -->
+<div class="px-4 py-2.5 bg-slate-100/90 border-b border-slate-200 flex items-center gap-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+</div>
+<div class="flex-1 bg-white rounded-md px-3 py-0.5 text-[10px] font-mono text-slate-400 text-center truncate">
+                https://finpulse.wealth-engine.io
+              </div>
+</div>
+<!-- Image Mockup -->
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
+<img alt="FinPulse Dashboard visual preview" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2qEL-jAf62nDuIokXIVbbsDOvtlsGD_zbgt4OLIugceKd1yhIS4DfkRmwX9Ih14yy8l0q1E42H_wt5XWMPA9lL5qs769tfajenRZJEG_3KxnGczrMTden4DIsFRUBHmQwtTm5iTTr2aYlil2niy6zHIYF1bh0CsWgefp8YyHfoKuixHnnudY1hoDbaaPFZukGWWMH8i2RUFSbTFv4hlXS5lFzMIx6sYiBbFcinRsT"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-[10px] font-bold text-brand-600 shadow-sm">
+                AI Wealth Core
+              </span>
+</div>
+<!-- Content -->
+<div class="p-6 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<h3 class="font-heading font-bold text-xl text-slate-900 group-hover:text-brand-600 transition-colors">FinPulse Dashboard</h3>
+<span class="font-mono text-xs text-slate-400">2024</span>
+</div>
+<p class="text-sm text-slateText-body line-clamp-2 leading-relaxed">
+                  Autonomous wealth analytics engine delivering predictive real-time liquidity forecasts using Next.js 14 server components.
+                </p>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">Next.js 14</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">TypeScript</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">ECharts</span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-slate-100">
+<a class="btn-glow text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1" href="#contact">
+<span>Case Study</span>
+<span class="material-symbols-outlined text-[15px] btn-icon-move">arrow_forward</span>
+</a>
+<a class="p-1.5 rounded-full bg-slate-100 hover:bg-brand-50 text-slate-600 hover:text-brand-600 transition-colors" href="#contact" title="Live Preview">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 2: Aura Spatial Store -->
+<div class="reveal-elem tilt-card flex flex-col rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden group">
+<div class="px-4 py-2.5 bg-slate-100/90 border-b border-slate-200 flex items-center gap-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+</div>
+<div class="flex-1 bg-white rounded-md px-3 py-0.5 text-[10px] font-mono text-slate-400 text-center truncate">
+                https://aura.spatial-commerce.design
+              </div>
+</div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
+<img alt="Aura Spatial Store mockup" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8IA-967ApRpkpTs8hRpHctZXYrblZCLpibBu2jZWRqU8xXPrw9D5oDwY3PNICDRf9E_mcH59g7rjYS-8XCmbCG1Q9_ZQKtHCSlzKvVBMrY3Pbx2w19JedDqvSs8yJRWIR4BlHkj2qSDCwCAx4g4IfL2_To0fmGlXvfBqQn5jZw4EPD4nWfnzM7Si2-YENuXT2jX9CqYEC83aPGA-bogdkl6mGhHOcl6oU07IU4Gha"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-[10px] font-bold text-brand-600 shadow-sm">
+                Spatial 3D
+              </span>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<h3 class="font-heading font-bold text-xl text-slate-900 group-hover:text-brand-600 transition-colors">Aura Spatial Store</h3>
+<span class="font-mono text-xs text-slate-400">2024</span>
+</div>
+<p class="text-sm text-slateText-body line-clamp-2 leading-relaxed">
+                  Experimental 3D e-commerce showcase featuring dynamic ray-marched refraction shaders and physical kinematics.
+                </p>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">Three.js</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">GLSL Shaders</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">React Three Fiber</span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-slate-100">
+<a class="btn-glow text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1" href="#contact">
+<span>Case Study</span>
+<span class="material-symbols-outlined text-[15px] btn-icon-move">arrow_forward</span>
+</a>
+<a class="p-1.5 rounded-full bg-slate-100 hover:bg-brand-50 text-slate-600 hover:text-brand-600 transition-colors" href="#contact" title="Live Preview">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 3: DevStream Engine -->
+<div class="reveal-elem tilt-card flex flex-col rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl overflow-hidden group">
+<div class="px-4 py-2.5 bg-slate-100/90 border-b border-slate-200 flex items-center gap-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+</div>
+<div class="flex-1 bg-white rounded-md px-3 py-0.5 text-[10px] font-mono text-slate-400 text-center truncate">
+                https://devstream.telemetry.run
+              </div>
+</div>
+<div class="relative w-full aspect-[16/10] overflow-hidden bg-slate-100">
+<img alt="DevStream Engine preview" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDESq9SMDc4qrEvofqck6WUQSgylFyNqHT3dcTs2CRdS_5YIqyAYx-xOvZZAxoBLov9K58qPmoN6cBVQLgj0TjVoSzvWjErh66_5UDaulb8jEXqpGuMoVm-_-VnVL6WxxR4HEvXH5n218o1XBnwu-FnHHQAkXHrk5kzhVeLbPwNH3PzJsk1gyeoYhvTQxoipqWBD80Ru2Fl9NUOP9P-4gOULISb4atPpnPGFeWXMel"/>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-[10px] font-bold text-brand-600 shadow-sm">
+                DevOps Suite
+              </span>
+</div>
+<div class="p-6 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<h3 class="font-heading font-bold text-xl text-slate-900 group-hover:text-brand-600 transition-colors">DevStream Engine</h3>
+<span class="font-mono text-xs text-slate-400">2023</span>
+</div>
+<p class="text-sm text-slateText-body line-clamp-2 leading-relaxed">
+                  Sub-second distributed telemetry dashboard parsing 50k logs/sec through streaming WebSockets pipelines.
+                </p>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">Vue 3</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">GraphQL</span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] font-medium text-slate-600">Rust / WASM</span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-slate-100">
+<a class="btn-glow text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1" href="#contact">
+<span>Case Study</span>
+<span class="material-symbols-outlined text-[15px] btn-icon-move">arrow_forward</span>
+</a>
+<a class="p-1.5 rounded-full bg-slate-100 hover:bg-brand-50 text-slate-600 hover:text-brand-600 transition-colors" href="#contact" title="Live Preview">
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Certifications View (Initially hidden) -->
+<div class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="grid-certs">
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">workspace_premium</span>
+</div>
+<div>
+<h4 class="font-heading font-bold text-lg text-slate-900 leading-snug">AWS Certified Solutions Architect</h4>
+<p class="text-xs text-slate-500 mt-1">Amazon Web Services • Associate</p>
+</div>
+<span class="text-xs font-semibold text-brand-600">Issued 2024 • Active</span>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">token</span>
+</div>
+<div>
+<h4 class="font-heading font-bold text-lg text-slate-900 leading-snug">Meta Certified Frontend Engineer</h4>
+<p class="text-xs text-slate-500 mt-1">Meta Platforms • Professional</p>
+</div>
+<span class="text-xs font-semibold text-brand-600">Issued 2023 • Active</span>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">developer_mode</span>
+</div>
+<div>
+<h4 class="font-heading font-bold text-lg text-slate-900 leading-snug">GraphQL Apollo Specialist</h4>
+<p class="text-xs text-slate-500 mt-1">Apollo Federation Architecture</p>
+</div>
+<span class="text-xs font-semibold text-brand-600">Issued 2023 • Active</span>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">security</span>
+</div>
+<div>
+<h4 class="font-heading font-bold text-lg text-slate-900 leading-snug">Certified Secure Web Developer</h4>
+<p class="text-xs text-slate-500 mt-1">OWASP Top 10 • Security Audit</p>
+</div>
+<span class="text-xs font-semibold text-brand-600">Issued 2022 • Active</span>
+</div>
+</div>
+<!-- Skills Matrix View (Initially hidden) -->
+<div class="hidden grid-cols-1 md:grid-cols-3 gap-6" id="grid-skills">
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-600 text-[26px]">code_blocks</span>
+<h4 class="font-heading font-bold text-xl text-slate-900">Frontend Architecture</h4>
+</div>
+<ul class="space-y-3 text-sm text-slateText-body">
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>React 19 / Next.js 15</span><span class="font-semibold text-brand-600 text-xs">Mastery</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>TypeScript &amp; Type-safety</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>Tailwind CSS &amp; Radix UI</span><span class="font-semibold text-brand-600 text-xs">Mastery</span></li>
+<li class="flex items-center justify-between"><span>State &amp; Cache (Zustand/TanStack)</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+</ul>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-600 text-[26px]">animation</span>
+<h4 class="font-heading font-bold text-xl text-slate-900">Motion &amp; 3D Realtime</h4>
+</div>
+<ul class="space-y-3 text-sm text-slateText-body">
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>Three.js / WebGL / GLSL</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>Framer Motion &amp; GSAP</span><span class="font-semibold text-brand-600 text-xs">Mastery</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>Shader Physics &amp; Post-processing</span><span class="font-semibold text-brand-600 text-xs">Intermediate</span></li>
+<li class="flex items-center justify-between"><span>Canvas 2D / ECharts Telemetry</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+</ul>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brand-600 text-[26px]">cloud_sync</span>
+<h4 class="font-heading font-bold text-xl text-slate-900">Infrastructure &amp; Perf</h4>
+</div>
+<ul class="space-y-3 text-sm text-slateText-body">
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>Vercel Edge &amp; Cloudflare</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>GraphQL / REST / WebSockets</span><span class="font-semibold text-brand-600 text-xs">Mastery</span></li>
+<li class="flex items-center justify-between pb-1 border-b border-slate-100"><span>CI/CD &amp; Automated Playwright</span><span class="font-semibold text-brand-600 text-xs">Advanced</span></li>
+<li class="flex items-center justify-between"><span>Lighthouse 100 Audit Optimization</span><span class="font-semibold text-brand-600 text-xs">Mastery</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. CONNECT & ENGAGE (CONTACT SECTION) -->
+<section class="relative w-full py-16 sm:py-20 bg-white contact-wave-pattern" id="contact">
+<div class="max-w-7xl mx-auto px-4 sm:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
+<!-- Left Side: Pitch, Channels & Socials -->
+<div class="reveal-elem lg:col-span-5 flex flex-col gap-6">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold tracking-widest text-brand-600 uppercase">03 // CONNECT &amp; ENGAGE</span>
+<span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 uppercase">ACCEPTING Q2/Q3 PROJECTS</span>
+</div>
+<h2 class="font-heading font-bold text-3xl sm:text-4xl text-slate-900 leading-tight">
+              Let's build something extraordinary together.
+            </h2>
+<p class="text-sm sm:text-base text-slateText-body mt-3 leading-relaxed">
+              Whether you need end-to-end technical leadership for a 0-to-1 build, WebGL creative direction, or optimization of an existing enterprise platform.
+            </p>
+</div>
+<!-- Direct Channel Email Copy Card -->
+<div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<div>
+<span class="text-[11px] font-medium text-slate-400 block uppercase tracking-wider">Direct Inbox</span>
+<span class="text-sm font-bold text-slate-900 select-all" id="email-address">hello@johndoe.dev</span>
+</div>
+</div>
+<!-- Copy Email Button with Animated Micro-Interaction -->
+<button class="btn-glow px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-700 text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95" id="copy-email">
+<span class="material-symbols-outlined text-[15px]" id="copy-icon">content_copy</span>
+<span id="copy-text">Copy Email</span>
+</button>
+</div>
+<div class="h-[1px] w-full bg-slate-100"></div>
+<!-- Consultation Booking Card -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+</div>
+<div>
+<span class="text-[11px] font-medium text-slate-400 block uppercase tracking-wider">Consultation</span>
+<span class="text-sm font-bold text-slate-900">15-Minute Intro Call</span>
+</div>
+</div>
+<a class="btn-glow px-4 py-1.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold transition-all" href="#contact">
+                Book Slot
+              </a>
+</div>
+</div>
+<!-- Social Links (GitHub, LinkedIn, Twitter/X, Discord) -->
+<div class="flex items-center gap-3 pt-1">
+<a class="btt-btn w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-brand-600 hover:border-brand-300 shadow-xs" href="https://github.com" rel="noopener noreferrer" target="_blank" title="GitHub">
+<span class="material-symbols-outlined text-[19px]">code</span>
+</a>
+<a class="btt-btn w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-brand-600 hover:border-brand-300 shadow-xs" href="https://linkedin.com" rel="noopener noreferrer" target="_blank" title="LinkedIn">
+<span class="material-symbols-outlined text-[19px]">share</span>
+</a>
+<a class="btt-btn w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-brand-600 hover:border-brand-300 shadow-xs" href="https://twitter.com" rel="noopener noreferrer" target="_blank" title="Twitter / X">
+<span class="material-symbols-outlined text-[19px]">alternate_email</span>
+</a>
+<a class="btt-btn w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 hover:text-brand-600 hover:border-brand-300 shadow-xs" href="https://discord.com" rel="noopener noreferrer" target="_blank" title="Discord">
+<span class="material-symbols-outlined text-[19px]">forum</span>
+</a>
+</div>
+</div>
+<!-- Right Side: Send an Inquiry Form Card -->
+<div class="reveal-elem lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-lg">
+<h3 class="font-heading font-bold text-2xl text-slate-900 mb-6">Send an Inquiry</h3>
+<form class="flex flex-col gap-5" id="contact-form" onsubmit="event.preventDefault(); handleInquirySubmit();">
+<!-- Budget Selector Pills -->
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Estimated Project Scope / Budget</label>
+<div class="flex flex-wrap gap-2" id="budget-pill-group">
+<button class="budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs" type="button">
+                  $3k — $5k
+                </button>
+<button class="budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200" type="button">
+                  $5k — $10k
+                </button>
+<button class="budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200" type="button">
+                  $10k — $25k
+                </button>
+<button class="budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200" type="button">
+                  $25k+ / Retainer
+                </button>
+</div>
+</div>
+<!-- Inputs: Name & Email -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-600" for="input-name">Your Name / Organization *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:border-brand-600 focus:ring-4 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400" id="input-name" placeholder="e.g. Alex Vance, Meridian AI" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-600" for="input-email">Work Email Address *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:border-brand-600 focus:ring-4 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400" id="input-email" placeholder="alex@meridian.io" required="" type="email"/>
+</div>
+</div>
+<!-- Textarea: Project Vision -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-semibold text-slate-600" for="input-vision">Project Vision &amp; Objectives *</label>
+<textarea class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:border-brand-600 focus:ring-4 focus:ring-blue-100 outline-none transition-all placeholder:text-slate-400 resize-none" id="input-vision" placeholder="Tell me about your product timeline, tech stack prerequisites, and primary challenges..." required="" rows="4"></textarea>
+</div>
+<!-- Action & Confirmation -->
+<div class="flex items-center justify-between pt-2">
+<span class="text-xs font-semibold text-emerald-600" id="form-msg"></span>
+<button class="btn-glow px-8 py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-md shadow-blue-600/25 flex items-center gap-2 transition-all" type="submit">
+<span>Send Dispatch</span>
+<span class="material-symbols-outlined text-[17px] btn-icon-move">send</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- CLI MODAL -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300" id="cli-modal">
+<div class="w-full max-w-xl mx-4 bg-slate-900 text-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-slate-700">
+<div class="px-4 py-3 bg-slate-800/90 flex items-center justify-between border-b border-slate-700">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+<span class="text-xs font-mono text-slate-400 ml-2">john-doe@devcraft-shell ~ zsh</span>
+</div>
+<button class="text-slate-400 hover:text-white transition-colors" id="cli-close">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="p-4 font-mono text-xs text-slate-300 space-y-2 h-64 overflow-y-auto" id="cli-output">
+<p class="text-blue-400">Type <span class="text-amber-300 font-bold">'help'</span>, <span class="text-amber-300 font-bold">'bio'</span>, <span class="text-amber-300 font-bold">'skills'</span>, <span class="text-amber-300 font-bold">'contact'</span>, or <span class="text-amber-300 font-bold">'clear'</span>.</p>
+<p class="text-slate-500">&gt; Dev.Craft runtime initialized.</p>
+</div>
+<div class="p-3 bg-slate-800/50 flex items-center gap-2 border-t border-slate-700">
+<span class="text-blue-400 font-mono text-xs">&gt;</span>
+<input class="bg-transparent font-mono text-xs text-white outline-none w-full placeholder:text-slate-500" id="cli-input" placeholder="Enter command..." type="text"/>
+</div>
+</div>
+</div>
+<!-- 7. FOOTER & BACK-TO-TOP -->
+<footer class="w-full bg-slate-50 border-t border-slate-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<!-- Brand & Description -->
+<div class="flex flex-col items-center md:items-start gap-1">
+<a class="font-heading font-extrabold text-xl tracking-tight text-slate-900 flex items-center gap-0.5 hover:text-brand-600 transition-colors" href="#top">
+<span class="text-brand-600">&lt;</span>Dev.Craft<span class="text-brand-600">/&gt;</span>
+</a>
+<p class="text-xs text-slate-500">Senior Creative Frontend &amp; Web Developer crafting luminous digital architecture.</p>
+</div>
+<!-- Social Icons -->
+<div class="flex items-center gap-2">
+<a class="btt-btn w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-brand-600 shadow-xs" href="https://github.com" rel="noopener noreferrer" target="_blank" title="Code">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</a>
+<a class="btt-btn w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-brand-600 shadow-xs" href="https://linkedin.com" rel="noopener noreferrer" target="_blank" title="Share">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</a>
+<a class="btt-btn w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-brand-600 shadow-xs" href="https://twitter.com" rel="noopener noreferrer" target="_blank" title="Email">
+<span class="material-symbols-outlined text-[18px]">alternate_email</span>
+</a>
+<a class="btt-btn w-9 h-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-brand-600 shadow-xs" href="https://dribbble.com" rel="noopener noreferrer" target="_blank" title="Palette">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+</a>
+</div>
+</div>
+<!-- Copyright Sub-bar -->
+<div class="max-w-7xl mx-auto px-4 sm:px-8 pb-8 pt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
+<p>© 2025 &lt;Dev.Craft/&gt;. All rights reserved.</p>
+<p>Engineered with architectural discipline.</p>
+</div>
+</footer>
+<!-- Floating Back-to-Top Button with Hover Bounce -->
+<a aria-label="Back to top" class="btt-btn fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-slate-300 text-slate-700 shadow-lg flex items-center justify-center hover:bg-brand-50 hover:text-brand-600 transition-all cursor-pointer" href="#top">
+<span class="material-symbols-outlined text-[20px]">arrow_upward</span>
+</a>
+<!-- SCRIPTS: 3D TILT, COUNTERS, TABS, COPY TOAST, CLI, BIDIRECTIONAL SCROLL REVEAL -->
+<script>
+    // 1. Bidirectional Scroll Reveal Observer
+    const revealElems = document.querySelectorAll('.reveal-elem');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealElems.forEach(el => observer.observe(el));
+
+    // 2. Interactive Number Counter Animation
+    let countersStarted = false;
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersStarted) {
+          countersStarted = true;
+          document.querySelectorAll('.counter-stat').forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isDecimal = counter.getAttribute('data-decimals') === '1';
+            const duration = 1600; // ms
+            const startTime = performance.now();
+
+            function updateCounter(currentTime) {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              // EaseOutQuad
+              const easeProgress = 1 - (1 - progress) * (1 - progress);
+              const currentVal = target * easeProgress;
+
+              counter.textContent = isDecimal ? currentVal.toFixed(1) : Math.floor(currentVal);
+
+              if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.textContent = isDecimal ? target.toFixed(1) : target;
+              }
+            }
+            requestAnimationFrame(updateCounter);
+          });
+        }
+      });
+    }, { threshold: 0.2 });
+
+    const statsElem = document.querySelector('.counter-stat');
+    if (statsElem) {
+      statsObserver.observe(statsElem.closest('.grid'));
+    }
+
+    // 3. 3D Tilt Effect on interactive cards
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6; // max -6 to 6 deg
+        const rotateY = ((x - centerX) / centerX) * 6;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    // 4. About Tab Switcher
+    const expBtn = document.getElementById('tab-btn-exp');
+    const eduBtn = document.getElementById('tab-btn-edu');
+    const expContent = document.getElementById('tab-content-exp');
+    const eduContent = document.getElementById('tab-content-edu');
+
+    expBtn.addEventListener('click', () => {
+      expBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs';
+      eduBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900';
+      expContent.classList.remove('hidden');
+      expContent.classList.add('flex');
+      eduContent.classList.add('hidden');
+      eduContent.classList.remove('flex');
+    });
+
+    eduBtn.addEventListener('click', () => {
+      eduBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs';
+      expBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900';
+      eduContent.classList.remove('hidden');
+      eduContent.classList.add('flex');
+      expContent.classList.add('hidden');
+      expContent.classList.remove('flex');
+    });
+
+    // 5. Portfolio Category Switcher
+    const pBtn = document.getElementById('show-projects');
+    const cBtn = document.getElementById('show-certs');
+    const sBtn = document.getElementById('show-skills');
+
+    const gProjects = document.getElementById('grid-projects');
+    const gCerts = document.getElementById('grid-certs');
+    const gSkills = document.getElementById('grid-skills');
+
+    function switchPort(activeBtn, activeGrid) {
+      [pBtn, cBtn, sBtn].forEach(b => {
+        b.className = 'port-tab-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-600 hover:text-slate-900';
+      });
+      activeBtn.className = 'port-tab-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs';
+
+      [gProjects, gCerts, gSkills].forEach(g => {
+        g.classList.add('hidden');
+        g.classList.remove('grid');
+      });
+      activeGrid.classList.remove('hidden');
+      activeGrid.classList.add('grid');
+    }
+
+    pBtn.addEventListener('click', () => switchPort(pBtn, gProjects));
+    cBtn.addEventListener('click', () => switchPort(cBtn, gCerts));
+    sBtn.addEventListener('click', () => switchPort(sBtn, gSkills));
+
+    // 6. Budget Selector Pills
+    const budgetBtns = document.querySelectorAll('.budget-btn');
+    budgetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        budgetBtns.forEach(b => {
+          b.className = 'budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200';
+        });
+        btn.className = 'budget-btn px-4 py-2 rounded-full text-xs font-bold transition-all bg-brand-600 text-white shadow-xs';
+      });
+    });
+
+    // 7. Interactive Copy Email Toast with Check Icon
+    const copyBtn = document.getElementById('copy-email');
+    const copyText = document.getElementById('copy-text');
+    const copyIcon = document.getElementById('copy-icon');
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('hello@johndoe.dev').then(() => {
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = 'check';
+        copyBtn.classList.add('bg-emerald-600', 'text-white');
+        copyBtn.classList.remove('bg-slate-100', 'text-slate-700');
+
+        setTimeout(() => {
+          copyText.textContent = 'Copy Email';
+          copyIcon.textContent = 'content_copy';
+          copyBtn.classList.remove('bg-emerald-600', 'text-white');
+          copyBtn.classList.add('bg-slate-100', 'text-slate-700');
+        }, 2200);
+      });
+    });
+
+    // 8. Form Submission Feedback
+    function handleInquirySubmit() {
+      const msg = document.getElementById('form-msg');
+      msg.textContent = '✓ Dispatch transmitted successfully. Expect reply within 24h.';
+      document.getElementById('contact-form').reset();
+      setTimeout(() => { msg.textContent = ''; }, 6000);
+    }
+
+    // 9. Interactive CLI Terminal
+    const cliTrigger = document.getElementById('cli-trigger');
+    const cliModal = document.getElementById('cli-modal');
+    const cliClose = document.getElementById('cli-close');
+    const cliInput = document.getElementById('cli-input');
+    const cliOutput = document.getElementById('cli-output');
+
+    if (cliTrigger && cliModal) {
+      cliTrigger.addEventListener('click', () => {
+        cliModal.classList.remove('opacity-0', 'pointer-events-none');
+        cliInput.focus();
+      });
+      cliClose.addEventListener('click', () => {
+        cliModal.classList.add('opacity-0', 'pointer-events-none');
+      });
+      cliModal.addEventListener('click', (e) => {
+        if (e.target === cliModal) cliModal.classList.add('opacity-0', 'pointer-events-none');
+      });
+      cliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const cmd = cliInput.value.trim().toLowerCase();
+          cliInput.value = '';
+          const lineUser = document.createElement('p');
+          lineUser.className = 'text-white font-semibold';
+          lineUser.textContent = `$ ${cmd}`;
+          cliOutput.appendChild(lineUser);
+
+          const lineResp = document.createElement('p');
+          lineResp.className = 'text-blue-300';
+          if (cmd === 'help') {
+            lineResp.textContent = 'Available commands: bio, skills, contact, clear, help';
+          } else if (cmd === 'bio') {
+            lineResp.textContent = 'John Doe: Senior Frontend Engineer & Interactive Architect with 5+ yrs experience.';
+          } else if (cmd === 'skills') {
+            lineResp.textContent = 'Next.js 15, TypeScript, Three.js, Tailwind CSS, GraphQL, Rust / WASM.';
+          } else if (cmd === 'contact') {
+            lineResp.textContent = 'Email: hello@johndoe.dev | Available for Q2/Q3 projects.';
+          } else if (cmd === 'clear') {
+            cliOutput.innerHTML = '';
+            return;
+          } else {
+            lineResp.textContent = `Command not recognized: '${cmd}'. Type 'help' for options.`;
+          }
+          cliOutput.appendChild(lineResp);
+          cliOutput.scrollTop = cliOutput.scrollHeight;
+        }
+      });
+    }
+  </script>
+</body></html>

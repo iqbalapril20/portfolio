@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>John Doe — Creative Web Developer &amp; Frontend Architect</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&amp;family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+        background-color: #FAF8FF;
+        color: #0F172A;
+        font-family: 'Montserrat', sans-serif;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Bidirectional Scroll Reveal Transition Rules */
+    .reveal-elem {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-elem.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-header {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-header.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ambient Flowing Undulating Background Waves */
+    @keyframes waveDriftSlow {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(-2%, -15px, 0) scale(1.02);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+    @keyframes waveDriftReverse {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(2%, 10px, 0) rotate(0.8deg);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+    }
+    .animate-wave-flow {
+      animation: waveDriftSlow 18s ease-in-out infinite;
+    }
+    .animate-wave-flow-rev {
+      animation: waveDriftReverse 22s ease-in-out infinite;
+    }
+
+    /* Infinite Marquee */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 26s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* 3D Tilt Card Base Setup */
+    .tilt-card {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+    }
+    .tilt-card-inner {
+      transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .specular-glare {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.75), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      mix-blend-mode: overlay;
+      z-index: 30;
+    }
+    .tilt-card:hover .specular-glare {
+      opacity: 1;
+    }
+
+    /* Magnetic micro-interaction elements */
+    .magnetic-item {
+      display: inline-flex;
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Smooth animated tabs transitions */
+    .tab-pane-transition {
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-pane-transition.tab-hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .tab-pane-transition.tab-visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Architectural Subtle Grid Pattern */
+    .bg-grid-architectural {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(226, 232, 240, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(226, 232, 240, 0.45) 1px, transparent 1px);
+    }
+
+    /* Micro-dots pattern */
+    .bg-dot-pattern {
+      background-image: radial-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    /* Pure Blend Cutout Photo Effect */
+    .blend-cutout-photo {
+      mix-blend-mode: multiply;
+      filter: contrast(1.04) brightness(1.01);
+    }
+
+    /* Accessibility: Reduced motion query */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-elem, .reveal-header {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      #cursor-glow {
+        display: none !important;
+      }
+      .animate-wave-flow, .animate-wave-flow-rev, .animate-marquee {
+        animation: none !important;
+      }
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#FAF8FF",
+            "background": "#FAF8FF",
+            "surface-dim": "#F1F5F9",
+            "surface-container": "#F8FAFC",
+            "surface-container-high": "#EEF2F6",
+            "primary": "#0F2B5C",
+            "primary-container": "#1D4ED8",
+            "secondary": "#2563EB",
+            "secondary-container": "#3B82F6",
+            "tertiary": "#0284C7",
+            "outline": "#64748B",
+            "outline-variant": "#E2E8F0",
+            "on-surface": "#0F172A",
+            "on-surface-variant": "#475569",
+            "on-background": "#0F172A"
+          },
+          fontFamily: {
+            "heading": ["League Spartan", "sans-serif"],
+            "body": ["Montserrat", "sans-serif"],
+            "mono": ["JetBrains Mono", "monospace"]
+          },
+          spacing: {
+            "margin-mobile": "1.25rem",
+            "margin": "4rem",
+            "space-lg": "1.75rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "3rem",
+            "space-sm": "0.5rem"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8FF] font-body text-slate-900 antialiased selection:bg-blue-700 selection:text-white relative min-h-screen">
+<!-- ========================================== -->
+<!-- MOUSE GLOW CURSOR FOLLOWER -->
+<!-- ========================================== -->
+<div class="fixed top-0 left-0 w-[450px] h-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none z-30 transition-transform duration-75 ease-out opacity-0 md:opacity-40 bg-[radial-gradient(circle,rgba(37,99,235,0.12)_0%,rgba(99,102,241,0.05)_40%,transparent_70%)] blur-2xl" id="cursor-glow"></div>
+<!-- ========================================== -->
+<!-- FLOATING LIGHT GLASSMORPHISM NAVBAR -->
+<!-- ========================================== -->
+<header class="fixed top-0 left-0 right-0 z-50 px-margin-mobile md:px-margin pointer-events-none transition-all duration-300">
+<div class="h-24 max-w-6xl mx-auto flex items-center justify-between pt-space-sm">
+<div class="pointer-events-auto w-full bg-white/90 backdrop-blur-xl border border-slate-200/90 shadow-[0_8px_24px_rgba(15,23,42,0.05)] px-5 md:px-6 py-2.5 rounded-full flex items-center justify-between transition-all duration-300">
+<!-- Logo & Status -->
+<div class="flex items-center gap-4">
+<a class="group flex items-center gap-2 focus:outline-none magnetic-item" data-path="hero" href="#hero">
+<span class="text-[#0F2B5C] font-extrabold text-xl font-heading tracking-tight transition-transform duration-200 group-hover:scale-105">&lt;Dev.Craft/&gt;</span>
+</a>
+<div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 shadow-2xs">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="font-body text-[11px] font-semibold text-emerald-800 uppercase tracking-wider">Available for work</span>
+</div>
+</div>
+<!-- Center Nav Links -->
+<nav class="hidden md:flex items-center gap-1 bg-slate-100/90 p-1.5 rounded-full border border-slate-200/80">
+<a aria-current="page" class="magnetic-item px-space-md py-1.5 rounded-full transition-all duration-200 bg-[#0F2B5C] text-white font-body font-semibold text-xs shadow-sm" data-path="hero" href="#hero">Home</a>
+<a class="magnetic-item px-space-md py-1.5 rounded-full font-body font-medium text-xs text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-200" data-path="about" href="#about">About</a>
+<a class="magnetic-item px-space-md py-1.5 rounded-full font-body font-medium text-xs text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-200" data-path="portfolio" href="#portfolio">Portfolio</a>
+<a class="magnetic-item px-space-md py-1.5 rounded-full font-body font-medium text-xs text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-200" data-path="skills" href="#skills-anchor">Skills</a>
+<a class="magnetic-item px-space-md py-1.5 rounded-full font-body font-medium text-xs text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-200" data-path="contact" href="#contact">Contact</a>
+</nav>
+<!-- Right CTA Button -->
+<div class="flex items-center gap-3">
+<a class="magnetic-item relative group overflow-hidden rounded-full p-[1px] focus:outline-none" data-path="contact" href="#contact">
+<span class="absolute inset-0 bg-gradient-to-r from-[#0F2B5C] via-blue-700 to-indigo-600 rounded-full transition-all duration-500 group-hover:scale-105"></span>
+<span class="relative px-5 py-2 rounded-full bg-white text-[#0F172A] font-body text-xs font-bold flex items-center gap-1.5 transition-all duration-300 group-hover:bg-[#0F2B5C] group-hover:text-white active:scale-[0.98]">
+<span>Hire Me</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</span>
+</a>
+<div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 text-slate-600">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================== -->
+<!-- MAIN CONTENT CONTAINER -->
+<!-- ========================================== -->
+<main class="relative z-10 w-full min-h-screen bg-transparent">
+<div class="flex flex-col w-full">
+<!-- ========================================== -->
+<!-- 1. HERO SECTION -->
+<!-- ========================================== -->
+<section class="relative w-full min-h-[96vh] pt-28 pb-16 flex flex-col justify-between overflow-hidden bg-[#FAF8FF] bg-grid-architectural" id="hero">
+<!-- Delicate Iridescent Light Ribbon Vectors & Undulating Animated Mesh -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+<svg class="absolute w-[180%] h-[120%] -left-[40%] -top-[10%] opacity-35 mix-blend-multiply animate-wave-flow" fill="none" viewbox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="heroLightGrad1" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#1D4ED8" stop-opacity="0.3"></stop>
+<stop offset="50%" stop-color="#4F46E5" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0284C7" stop-opacity="0.1"></stop>
+</lineargradient>
+<lineargradient id="heroLightGrad2" x1="100%" x2="0%" y1="20%" y2="80%">
+<stop offset="0%" stop-color="#2563EB" stop-opacity="0.35"></stop>
+<stop offset="60%" stop-color="#6366F1" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#38BDF8" stop-opacity="0.1"></stop>
+</lineargradient>
+<filter height="140%" id="lightWaveGlow" width="140%" x="-20%" y="-20%">
+<fegaussianblur in="SourceGraphic" result="blur" stddeviation="12"></fegaussianblur>
+<femerge>
+<femergenode in="blur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<path d="M-100,520 C240,430 420,720 780,560 C1140,400 1320,580 1600,480" filter="url(#lightWaveGlow)" stroke="url(#heroLightGrad1)" stroke-width="3.5"></path>
+<path d="M-60,560 C280,480 460,760 820,600 C1180,440 1360,620 1640,510" opacity="0.35" stroke="url(#heroLightGrad1)" stroke-width="1.8"></path>
+<path class="animate-wave-flow-rev" d="M-150,390 C180,260 490,620 860,420 C1230,220 1380,480 1620,380" filter="url(#lightWaveGlow)" stroke="url(#heroLightGrad2)" stroke-width="2.5"></path>
+<path d="M-120,430 C210,300 520,660 890,460 C1260,260 1410,520 1650,420" opacity="0.25" stroke="url(#heroLightGrad2)" stroke-width="1.5"></path>
+</svg>
+<!-- Soft ambient subtle light blurs -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(219,234,254,0.6)_0%,rgba(240,245,255,0.3)_50%,transparent_75%)] blur-3xl pointer-events-none"></div>
+<div class="absolute -top-24 right-10 w-[420px] h-[420px] bg-blue-100/40 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-4 left-1/4 w-[480px] h-[280px] bg-indigo-50/50 rounded-full blur-[100px]"></div>
+</div>
+<!-- Three.js Canvas Scene for 3D Geometry Depth -->
+<div class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-30" id="threejs-hero-canvas"></div>
+<div class="relative z-10 max-w-6xl mx-auto w-full px-margin-mobile md:px-margin grid grid-cols-1 lg:grid-cols-12 gap-8 items-center flex-1 my-auto">
+<!-- LEFT COLUMN: Headline & Intro -->
+<div class="lg:col-span-4 flex flex-col items-start text-left z-20 order-2 lg:order-1 pt-4 lg:pt-0 reveal-header">
+<!-- Decorative Accent line -->
+<div class="w-12 h-1 bg-[#1D4ED8] mb-6 rounded-full"></div>
+<h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tight leading-[1.05] mb-5">
+              I'm John, a <span class="block text-[#1D4ED8] font-black">Web Developer</span>
+</h1>
+<p class="font-body text-[#475569] text-sm sm:text-base leading-relaxed max-w-sm mb-8 font-normal">
+              Architecting high-grade web experiences, bespoke 3D micro-interactions, and high-velocity digital systems for world-class products.
+            </p>
+<!-- Scroll Indicator -->
+<div class="flex items-center gap-4">
+<a class="magnetic-item w-12 h-12 rounded-full bg-[#0F2B5C] hover:bg-[#1D4ED8] text-white flex items-center justify-center shadow-md active:scale-95 transition-all duration-300 group" href="#about" id="hero-scroll-indicator">
+<span class="material-symbols-outlined text-[24px] group-hover:translate-y-0.5 transition-transform">keyboard_arrow_down</span>
+</a>
+<div class="flex flex-col">
+<span class="font-body text-xs uppercase tracking-wider text-[#0F172A] font-bold">Scroll to explore</span>
+<span class="font-mono text-[11px] text-[#1D4ED8] font-medium">Fluid morph transitions</span>
+</div>
+</div>
+</div>
+<!-- CENTER COLUMN: Large Grand Cutout Portrait with mix-blend-mode: multiply (Seamless Transparent Integration) -->
+<div class="lg:col-span-4 flex justify-center items-end relative z-10 order-1 lg:order-2">
+<div class="relative w-full max-w-[380px] md:max-w-[460px] h-[490px] sm:h-[530px] md:h-[570px] flex items-end justify-center transition-all duration-700 ease-out" id="hero-morph-portrait-container">
+<!-- Soft ambient back glow -->
+<div class="absolute bottom-6 w-72 h-72 md:w-88 md:h-88 rounded-full bg-gradient-to-tr from-blue-100/60 via-indigo-100/50 to-sky-100/50 blur-2xl -z-10 animate-pulse" style="animation-duration: 5s;"></div>
+<!-- Grand Studio Cutout Image: No border, No white box, 100% blended smoothly -->
+<img alt="Portrait of John Doe, web developer with arms crossed wearing black t-shirt" class="w-full h-full object-contain object-bottom select-none transition-transform duration-300 z-10 blend-cutout-photo" id="hero-morph-img" src="https://lh3.googleusercontent.com/aida/ALJJyrCEusLQfjwsWfq-ywKvd1iGERvQEcEneHB9lLvnBSMfIJkOlEZQDVMK2mMMq-EqNKo4rL0ooCA32rpPD1LomNHebCrnVv5ySU9kFTw0h4zUdct4sLgTvB5thsBjpdtes44VTo7E_RCgz5T7Rb3O_ZPEPnv6_6HqZHIppa8Ff07mIGk-Vm4ey-HT7bbdCeEU3v65R2o5oA5YnTzQtVtQJRKMtYs2c8uU2NOrf8Ne20koxQ"/>
+</div>
+</div>
+<!-- RIGHT COLUMN: Flanking Information Blocks -->
+<div class="lg:col-span-4 flex flex-col justify-center space-y-7 text-left z-20 order-3 lg:pl-6 reveal-header">
+<!-- Block 1: About Me Teaser -->
+<div class="group border-l-2 border-[#1D4ED8]/60 hover:border-[#1D4ED8] pl-4 transition-all duration-300 hover:translate-x-1">
+<span class="block font-heading text-xs font-bold text-[#1D4ED8] tracking-widest uppercase mb-1.5">About Me</span>
+<p class="font-body text-xs text-[#475569] leading-relaxed mb-2.5">
+                With 5+ years of digital craft, I unite engineering rigor with emotional fluidity to build memorable web experiences.
+              </p>
+<a class="magnetic-item inline-flex items-center gap-1.5 font-body text-xs font-bold text-[#0F172A] group-hover:text-[#1D4ED8] tracking-wide transition-colors" href="#about">
+<span>LEARN MORE</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Block 2: My Work Teaser -->
+<div class="group border-l-2 border-indigo-500/60 hover:border-indigo-600 pl-4 transition-all duration-300 hover:translate-x-1">
+<span class="block font-heading text-xs font-bold text-indigo-700 tracking-widest uppercase mb-1.5">My Work</span>
+<p class="font-body text-xs text-[#475569] leading-relaxed mb-2.5">
+                Explore a curated anthology of production fintech engines, 3D web applications, and developer cloud suites.
+              </p>
+<a class="magnetic-item inline-flex items-center gap-1.5 font-body text-xs font-bold text-[#0F172A] group-hover:text-indigo-700 tracking-wide transition-colors" href="#portfolio">
+<span>BROWSE PORTFOLIO</span>
+<span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Block 3: Follow Me & Social Icons -->
+<div class="pl-4">
+<span class="block font-heading text-xs font-bold text-[#64748B] tracking-widest uppercase mb-3">Follow Me</span>
+<div class="flex items-center gap-2.5 text-[#0F172A]">
+<a aria-label="GitHub" class="magnetic-item w-9 h-9 rounded-full bg-white hover:bg-[#0F2B5C] hover:text-white border border-slate-200/90 flex items-center justify-center transition-all duration-200 shadow-xs" href="#">
+<span class="material-symbols-outlined text-[17px]">code</span>
+</a>
+<a aria-label="LinkedIn" class="magnetic-item w-9 h-9 rounded-full bg-white hover:bg-[#0F2B5C] hover:text-white border border-slate-200/90 flex items-center justify-center transition-all duration-200 shadow-xs" href="#">
+<span class="material-symbols-outlined text-[17px]">badge</span>
+</a>
+<a aria-label="Twitter / X" class="magnetic-item w-9 h-9 rounded-full bg-white hover:bg-[#0F2B5C] hover:text-white border border-slate-200/90 flex items-center justify-center transition-all duration-200 shadow-xs" href="#">
+<span class="material-symbols-outlined text-[17px]">tag</span>
+</a>
+<a aria-label="Instagram" class="magnetic-item w-9 h-9 rounded-full bg-white hover:bg-[#0F2B5C] hover:text-white border border-slate-200/90 flex items-center justify-center transition-all duration-200 shadow-xs" href="#">
+<span class="material-symbols-outlined text-[17px]">photo_camera</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Marquee Ribbon Divider to Bridge Into About with Micro-Dot Pattern -->
+<div class="relative z-10 w-full mt-12 py-3.5 bg-white border-y border-slate-200/80 overflow-hidden select-none bg-dot-pattern">
+<div class="animate-marquee gap-10 font-heading text-xs font-bold tracking-widest text-[#475569] uppercase items-center">
+<span>Next.js 15</span><span class="text-[#1D4ED8]">•</span>
+<span>TypeScript</span><span class="text-indigo-600">•</span>
+<span>Three.js / WebGL</span><span class="text-sky-600">•</span>
+<span>Tailwind CSS</span><span class="text-[#1D4ED8]">•</span>
+<span>Design Systems</span><span class="text-indigo-600">•</span>
+<span>Microfrontends</span><span class="text-sky-600">•</span>
+<span>GraphQL</span><span class="text-[#1D4ED8]">•</span>
+<span>Motion Physics</span><span class="text-[#1D4ED8]">•</span>
+<span>React 19</span><span class="text-indigo-600">•</span>
+<span>Lighthouse 100</span><span class="text-[#1D4ED8]">•</span>
+<!-- Duplicate for continuous stream -->
+<span>Next.js 15</span><span class="text-[#1D4ED8]">•</span>
+<span>TypeScript</span><span class="text-indigo-600">•</span>
+<span>Three.js / WebGL</span><span class="text-sky-600">•</span>
+<span>Tailwind CSS</span><span class="text-[#1D4ED8]">•</span>
+<span>Design Systems</span><span class="text-indigo-600">•</span>
+<span>Microfrontends</span><span class="text-sky-600">•</span>
+<span>GraphQL</span><span class="text-[#1D4ED8]">•</span>
+<span>Motion Physics</span><span class="text-[#1D4ED8]">•</span>
+<span>React 19</span><span class="text-indigo-600">•</span>
+<span>Lighthouse 100</span>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 2. ABOUT SECTION -->
+<!-- ========================================== -->
+<section class="relative w-full py-28 bg-[#F8FAFC] border-b border-slate-200/80 transition-colors duration-700 overflow-hidden" id="about">
+<!-- Architectural Asymmetrical Geometry & Diagonal Contour Lines -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-24 left-1/3 w-[600px] h-[600px] bg-blue-100/35 rounded-full blur-[140px]"></div>
+<div class="absolute -bottom-20 right-10 w-[550px] h-[550px] bg-indigo-100/35 rounded-full blur-[130px]"></div>
+<!-- Diagonal fine architectural contour lines -->
+<svg class="absolute inset-0 w-full h-full opacity-[0.25]" preserveaspectratio="none" viewbox="0 0 1200 800">
+<line stroke="#94A3B8" stroke-dasharray="4 8" stroke-width="1" x1="0" x2="1200" y1="100" y2="700"></line>
+<line stroke="#94A3B8" stroke-dasharray="6 12" stroke-width="1" x1="200" x2="1200" y1="0" y2="600"></line>
+<line stroke="#CBD5E1" stroke-width="0.8" x1="0" x2="900" y1="250" y2="800"></line>
+</svg>
+</div>
+<div class="relative z-10 max-w-6xl mx-auto px-margin-mobile md:px-margin">
+<!-- Section Label -->
+<div class="flex items-center gap-3 mb-12 reveal-header">
+<span class="font-heading text-sm font-bold text-[#1D4ED8] uppercase tracking-widest">// ABOUT ME</span>
+<div class="h-[1px] flex-1 bg-slate-200"></div>
+<span class="font-mono text-xs text-[#64748B] uppercase tracking-wider font-semibold">BIOGRAPHY &amp; TRAJECTORY</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Tilt Card with Blend Cutout & CV Download -->
+<div class="lg:col-span-5 flex flex-col gap-6 reveal-elem">
+<div class="tilt-card relative rounded-3xl overflow-hidden bg-white/80 backdrop-blur-sm border border-slate-200 shadow-[0_12px_32px_rgba(15,23,42,0.05)] p-4 transition-all duration-500 hover:shadow-[0_20px_45px_rgba(29,78,216,0.1)] hover:border-blue-300" id="about-morph-target-card">
+<div class="specular-glare"></div>
+<div class="tilt-card-inner relative w-full h-[420px] rounded-2xl overflow-hidden bg-gradient-to-b from-slate-50 via-blue-50/20 to-indigo-50/30 flex items-end justify-center">
+<!-- Ambient soft glow behind subject -->
+<div class="absolute -top-8 -right-8 w-44 h-44 bg-blue-100/50 rounded-full blur-2xl"></div>
+<!-- Cutout Image with mix-blend-mode: multiply to dissolve white completely -->
+<img alt="John Doe - Developer Profile Photograph" class="w-full h-full object-contain object-bottom transition-transform duration-700 select-none z-10 blend-cutout-photo" id="about-target-img" src="https://lh3.googleusercontent.com/aida/ALJJyrCEusLQfjwsWfq-ywKvd1iGERvQEcEneHB9lLvnBSMfIJkOlEZQDVMK2mMMq-EqNKo4rL0ooCA32rpPD1LomNHebCrnVv5ySU9kFTw0h4zUdct4sLgTvB5thsBjpdtes44VTo7E_RCgz5T7Rb3O_ZPEPnv6_6HqZHIppa8Ff07mIGk-Vm4ey-HT7bbdCeEU3v65R2o5oA5YnTzQtVtQJRKMtYs2c8uU2NOrf8Ne20koxQ"/>
+<!-- Current Focus Floating Pill -->
+<div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-md z-20 pointer-events-auto">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-heading text-[11px] text-emerald-800 font-bold uppercase tracking-wider">Current Focus</span>
+</div>
+<p class="font-body text-xs text-[#475569] font-medium">Spatial interfaces, 120fps motion design, and enterprise frontend architecture.</p>
+</div>
+</div>
+</div>
+<!-- CV Download Button with Magnetic Spring -->
+<a class="magnetic-item w-full py-4 px-6 rounded-2xl bg-white border border-slate-200 hover:border-[#1D4ED8] hover:bg-blue-50/30 text-[#0F172A] shadow-xs font-body text-xs tracking-wider uppercase font-bold flex items-center justify-between transition-all duration-300 group" href="#contact" id="download-cv-btn">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-50 text-[#1D4ED8] flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="text-left font-body">
+<span class="block font-semibold text-[#0F172A]">Download Resume / CV</span>
+<span class="block text-[11px] text-[#64748B] font-mono">PDF Format • 2.4 MB • Updated 2025</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-[#1D4ED8] group-hover:translate-y-0.5 transition-all">download</span>
+</a>
+<!-- Mini Core Philosophy Triad -->
+<div class="grid grid-cols-3 gap-3">
+<div class="tilt-card p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs text-center transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-[#1D4ED8] text-[20px] mb-1">speed</span>
+<span class="block font-heading text-xs uppercase text-[#0F172A] font-bold">Speed</span>
+<span class="font-body text-[11px] text-[#64748B]">Sub-100ms TTFB</span>
+</div>
+<div class="tilt-card p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs text-center transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-indigo-600 text-[20px] mb-1">crop_square</span>
+<span class="block font-heading text-xs uppercase text-[#0F172A] font-bold">Precision</span>
+<span class="font-body text-[11px] text-[#64748B]">Sub-pixel grid</span>
+</div>
+<div class="tilt-card p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs text-center transition-transform hover:-translate-y-1">
+<span class="material-symbols-outlined text-emerald-600 text-[20px] mb-1">animation</span>
+<span class="block font-heading text-xs uppercase text-[#0F172A] font-bold">Fluidity</span>
+<span class="font-body text-[11px] text-[#64748B]">Physics-based</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Biography, Animated Metrics & Dynamic Tabs -->
+<div class="lg:col-span-7 flex flex-col gap-8 reveal-elem">
+<div>
+<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-4">
+                  I've been developing websites since 2019.
+                </h2>
+<p class="font-body text-[#475569] text-sm sm:text-base leading-relaxed mb-4">
+                  I operate at the intersection of strict architectural engineering and bespoke digital aesthetics. Over the past half-decade, I've engineered solutions for high-growth tech companies and creative consultancies globally.
+                </p>
+<p class="font-body text-[#64748B] text-sm leading-relaxed">
+                  When I'm not tuning Three.js shader passes or orchestrating microfrontends, I mentor emerging developers and design responsive component primitives for the open-source community.
+                </p>
+</div>
+<!-- High Impact Metrics Row with Animated Counter -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-6 py-6 border-y border-slate-200" id="metrics-counters-container">
+<div>
+<div class="font-heading text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight flex items-baseline">
+<span class="counter-num" data-suffix="+" data-target="5">0</span>
+<span>+</span>
+</div>
+<span class="font-body text-xs text-[#64748B] font-semibold uppercase tracking-wider block mt-1">Years of Experience</span>
+</div>
+<div>
+<div class="font-heading text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight flex items-baseline">
+<span class="counter-num" data-suffix="+" data-target="30">0</span>
+<span>+</span>
+</div>
+<span class="font-body text-xs text-[#64748B] font-semibold uppercase tracking-wider block mt-1">Successful Projects</span>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<div class="font-heading text-4xl sm:text-5xl font-extrabold text-[#1D4ED8] tracking-tight flex items-baseline">
+<span class="counter-num" data-decimal="1" data-suffix="%" data-target="99.8">0.0</span>
+<span>%</span>
+</div>
+<span class="font-body text-xs text-[#64748B] font-semibold uppercase tracking-wider block mt-1">Client Satisfaction</span>
+</div>
+</div>
+<!-- Interactive Experience vs Education Tab Switcher -->
+<div class="w-full bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
+<div class="flex items-center gap-3 border-b border-slate-200 pb-4 mb-6">
+<button class="magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-[#0F2B5C] text-white shadow-sm transition-all duration-200 focus:outline-none" id="tab-exp-btn">
+                    Experience
+                  </button>
+<button class="magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-slate-100 text-[#475569] hover:text-[#0F172A] transition-all duration-200 focus:outline-none" id="tab-edu-btn">
+                    Education &amp; Honors
+                  </button>
+</div>
+<!-- Experience Tab Content -->
+<div class="tab-pane-transition tab-visible space-y-6" id="content-experience">
+<div class="relative pl-6 border-l-2 border-[#1D4ED8]">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-white border-4 border-[#1D4ED8]"></div>
+<div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">Lead Frontend Engineer</h3>
+<span class="font-mono text-[11px] text-[#1D4ED8] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200">2022 — Present</span>
+</div>
+<div class="font-body text-xs font-semibold text-[#64748B] mb-2">Tech Unicorn Indonesia • Jakarta HQ</div>
+<p class="font-body text-xs text-[#475569] mb-3 leading-relaxed">
+                      Directing the core design system utilized across 40+ engineering pods. Cut core bundle weight by 38% and elevated Core Web Vitals to the 99th percentile across 4M daily active users.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">Next.js 15</span>
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">Microfrontends</span>
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">Design Systems</span>
+</div>
+</div>
+<div class="relative pl-6 border-l-2 border-slate-300">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-white border-4 border-slate-400"></div>
+<div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">Creative Web Developer</h3>
+<span class="font-mono text-[11px] text-[#64748B] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200">2020 — 2022</span>
+</div>
+<div class="font-body text-xs font-semibold text-[#64748B] mb-2">Studio Motion • Creative Consultancy</div>
+<p class="font-body text-xs text-[#475569] mb-3 leading-relaxed">
+                      Delivered 18 bespoke international brand campaigns and interactive 3D microsites, earning 3 Awwwards Site of the Day honors and FWA accolades.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">Three.js</span>
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">GLSL Shaders</span>
+<span class="px-2.5 py-0.5 rounded text-[10px] font-body font-semibold bg-slate-100 border border-slate-200 text-[#475569]">GSAP</span>
+</div>
+</div>
+</div>
+<!-- Education Tab Content -->
+<div class="tab-pane-transition tab-hidden space-y-6" id="content-education">
+<div class="relative pl-6 border-l-2 border-[#1D4ED8]">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-white border-4 border-[#1D4ED8]"></div>
+<div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">B.Comp.Sc in Computer Science</h3>
+<span class="font-mono text-[11px] text-[#1D4ED8] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200">2018 — 2022</span>
+</div>
+<div class="font-body text-xs font-semibold text-[#64748B] mb-2">Universitas Indonesia • Jakarta</div>
+<p class="font-body text-xs text-[#475569] mb-3 leading-relaxed">
+                      Graduated <strong class="text-[#0F172A]">Magna Cum Laude</strong> (GPA 3.92 / 4.00). Specialization in Computer Graphics, Algorithms, Human-Computer Interaction (HCI).
+                    </p>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-body text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">school</span> Dean's High Honor Roll (All Semesters)
+                    </span>
+</div>
+<div class="relative pl-6 border-l-2 border-slate-300">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-white border-4 border-slate-400"></div>
+<div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">Full-Stack Frontend Architecture Intensive</h3>
+<span class="font-mono text-[11px] text-[#64748B] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200">2021</span>
+</div>
+<p class="font-body text-xs text-[#475569] leading-relaxed">
+                      Rigorous immersion into state machines, compiler-level micro-optimizations, WebAssembly runtimes, and progressive web application performance pipelines.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 3. PORTFOLIO SECTION -->
+<!-- ========================================== -->
+<section class="relative w-full py-28 bg-[#FAF8FF] border-b border-slate-200/80 transition-colors duration-700 overflow-hidden" id="portfolio">
+<!-- Porcelain Texture, Blueprint Coordinates & Oversized Watermark Typography -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
+<div class="absolute -top-10 left-10 font-heading text-[120px] sm:text-[180px] lg:text-[220px] font-black text-slate-200/30 whitespace-nowrap -z-10 leading-none">
+          WORKS // INDEX
+        </div>
+<div class="absolute top-1/2 right-6 font-mono text-[10px] text-slate-400/60 rotate-90 tracking-widest">
+          LAT 40.7128° N // LON 74.0060° W [SYS_REF_2025]
+        </div>
+<div class="absolute bottom-10 left-10 w-[500px] h-[500px] bg-sky-100/30 rounded-full blur-[130px]"></div>
+</div>
+<div class="relative z-10 max-w-6xl mx-auto px-margin-mobile md:px-margin">
+<!-- Section Header & Filter Switcher -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal-header">
+<div>
+<span class="font-heading text-sm font-bold text-[#1D4ED8] uppercase tracking-widest">// PORTFOLIO</span>
+<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight mt-2">
+                Selected Works &amp; Capability Index
+              </h2>
+<p class="font-body text-sm text-[#475569] mt-2 max-w-xl">
+                A curated anthology of production applications, verified certifications, and interactive technical proficiencies.
+              </p>
+</div>
+<!-- Category Switcher Pill -->
+<div class="inline-flex p-1.5 rounded-full bg-white border border-slate-200 self-start md:self-auto shadow-xs">
+<button class="portfolio-tab-trigger active px-5 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider bg-[#0F2B5C] text-white shadow-xs transition-all duration-200" id="view-projects-btn">
+                Projects (03)
+              </button>
+<button class="portfolio-tab-trigger px-5 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider text-[#475569] hover:text-[#0F172A] transition-all duration-200" id="view-certs-btn">
+                Certifications (04)
+              </button>
+<button class="portfolio-tab-trigger px-5 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider text-[#475569] hover:text-[#0F172A] transition-all duration-200" id="view-skills-btn">
+                Skills Matrix
+              </button>
+</div>
+</div>
+<!-- TAB 1: FEATURED PROJECTS (Layered Elevation & 3D Tilt) -->
+<div class="tab-pane-transition tab-visible space-y-12" id="portfolio-projects-view">
+<!-- Project 1: FinPulse -->
+<div class="tilt-card group relative rounded-3xl bg-white border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_rgba(29,78,216,0.12)] hover:border-blue-300 transition-all duration-500 overflow-hidden reveal-elem">
+<div class="specular-glare"></div>
+<div class="tilt-card-inner grid grid-cols-1 lg:grid-cols-12 gap-0">
+<div class="lg:col-span-7 bg-[#F8FAFC] p-6 md:p-8 flex flex-col justify-center relative border-b lg:border-b-0 lg:border-r border-slate-200/80">
+<div class="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white relative z-10 transition-transform duration-500 group-hover:scale-[1.01]">
+<div class="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+</div>
+<div class="bg-white px-3 py-0.5 rounded text-[11px] font-mono text-[#64748B] flex items-center gap-1 border border-slate-200/60">
+<span class="material-symbols-outlined text-[12px] text-emerald-600">lock</span> https://finpulse.ai/analytics
+                      </div>
+<div class="w-4"></div>
+</div>
+<div class="relative aspect-video overflow-hidden">
+<img alt="Modern AI wealth dashboard with clear charts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmy2_D-2AyF745Bl6-bu8nbWYoj-1pC4dkjJRg41CjsOksJN5EHSZJgYHXqa8ndI_Q2IQjAj7gZ9k8pZ7DqDBm2r2QLVKoHd_5qGHJNgv40avfe9eTAfc1e3uFqqo4tUfuRNQFJJ815IVMTWuKImzZ2geIlOkMzlMmFAK0pC0-pwF3tl8hEzVJsJcG06LULEaMKmekbgCss5QpTt_abKiH-47cfLRtIC84aRXMTQZN"/>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 rounded-full font-body text-[10px] font-bold uppercase tracking-wider bg-blue-50 border border-blue-200 text-[#1D4ED8]">Fintech / AI</span>
+<span class="font-mono text-xs text-[#64748B]">2024</span>
+</div>
+<h3 class="font-heading text-2xl font-bold text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors">
+                      FinPulse — AI Wealth Dashboard
+                    </h3>
+<p class="font-body text-xs sm:text-sm text-[#475569] mt-3 leading-relaxed">
+                      Real-time algorithmic trading interface with live WebSockets, automated risk anomaly detection, and sub-frame rendering updates.
+                    </p>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Next.js 14</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">TypeScript</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Tailwind</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">ECharts</span>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-8 border-t border-slate-100 mt-6">
+<a class="magnetic-item inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F2B5C] hover:bg-[#1D4ED8] text-white font-body text-xs font-bold uppercase tracking-wider transition-colors shadow-xs" href="#contact">
+<span>Live Preview</span>
+<span class="material-symbols-outlined text-[15px]">open_in_new</span>
+</a>
+<a class="magnetic-item inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 hover:border-slate-400 text-[#475569] hover:text-[#0F172A] font-body text-xs font-bold uppercase tracking-wider transition-colors" href="#contact">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span>Source Code</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: Aura Studio -->
+<div class="tilt-card group relative rounded-3xl bg-white border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_rgba(29,78,216,0.12)] hover:border-indigo-300 transition-all duration-500 overflow-hidden reveal-elem">
+<div class="specular-glare"></div>
+<div class="tilt-card-inner grid grid-cols-1 lg:grid-cols-12 gap-0">
+<div class="lg:col-span-7 bg-[#F8FAFC] p-6 md:p-8 flex flex-col justify-center order-1 lg:order-2 relative border-b lg:border-b-0 lg:border-l border-slate-200/80">
+<div class="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white relative z-10 transition-transform duration-500 group-hover:scale-[1.01]">
+<div class="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+</div>
+<div class="bg-white px-3 py-0.5 rounded text-[11px] font-mono text-[#64748B] flex items-center gap-1 border border-slate-200/60">
+<span class="material-symbols-outlined text-[12px] text-emerald-600">lock</span> https://aurastudio.design/experience
+                      </div>
+<div class="w-4"></div>
+</div>
+<div class="relative aspect-video overflow-hidden">
+<img alt="Interactive 3D ecommerce web interface" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX8_MF5vg0e54H9tZhsAekSKYOL-sL2p9_HAXntLgUd65fS6LFx1Tb1cmb5s8dlkfEJ6b8_XoLfeKUmBPvj_c_Bx8WZdCFGU_hJu3VVpK6f8u4DqO57GbbrK0dohUcQJjSmRKu_BTOdHkvNlLEtHltb8rd2KOzBJRFNS0hBSOgqtxUjwWXqHaSbEdaLSKPInP35kvydKVs3nabeKjnM90XRyWoYkYplIRQyZawtSx6"/>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 p-8 flex flex-col justify-between order-2 lg:order-1">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 rounded-full font-body text-[10px] font-bold uppercase tracking-wider bg-indigo-50 border border-indigo-200 text-indigo-700">WebGL / 3D E-Commerce</span>
+<span class="font-mono text-xs text-[#64748B]">2024</span>
+</div>
+<h3 class="font-heading text-2xl font-bold text-[#0F172A] group-hover:text-indigo-700 transition-colors">
+                      Aura Studio — 3D Spatial Store
+                    </h3>
+<p class="font-body text-xs sm:text-sm text-[#475569] mt-3 leading-relaxed">
+                      Immersive browser spatial commerce featuring custom Three.js PBR lighting, GLTF compression pipeline, and physics drag interaction.
+                    </p>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Three.js</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">GLSL Shaders</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">React Three Fiber</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Zustand</span>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-8 border-t border-slate-100 mt-6">
+<a class="magnetic-item inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F2B5C] hover:bg-indigo-700 text-white font-body text-xs font-bold uppercase tracking-wider transition-colors shadow-xs" href="#contact">
+<span>Live Preview</span>
+<span class="material-symbols-outlined text-[15px]">open_in_new</span>
+</a>
+<a class="magnetic-item inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 hover:border-slate-400 text-[#475569] hover:text-[#0F172A] font-body text-xs font-bold uppercase tracking-wider transition-colors" href="#contact">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span>Case Study</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 3: DevStream -->
+<div class="tilt-card group relative rounded-3xl bg-white border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_rgba(29,78,216,0.12)] hover:border-sky-300 transition-all duration-500 overflow-hidden reveal-elem">
+<div class="specular-glare"></div>
+<div class="tilt-card-inner grid grid-cols-1 lg:grid-cols-12 gap-0">
+<div class="lg:col-span-7 bg-[#F8FAFC] p-6 md:p-8 flex flex-col justify-center relative border-b lg:border-b-0 lg:border-r border-slate-200/80">
+<div class="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white relative z-10 transition-transform duration-500 group-hover:scale-[1.01]">
+<div class="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+</div>
+<div class="bg-white px-3 py-0.5 rounded text-[11px] font-mono text-[#64748B] flex items-center gap-1 border border-slate-200/60">
+<span class="material-symbols-outlined text-[12px] text-emerald-600">lock</span> https://devstream.cloud/metrics
+                      </div>
+<div class="w-4"></div>
+</div>
+<div class="relative aspect-video overflow-hidden">
+<img alt="Cloud developer analytics and observability software" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvhLHZ2RhxtWKMbvOzlx8GmwMuIhLhW_rvbWi4RCVengg_45GCI6W6YAUPl-f41Rieazfz63X3I9FA_jfN8BBX794KNNZvg7k6xzlQE8YqoS9gX4d2bGBjvHQoRLtvRznxTqrZlUkpksd16VSfG_G2QjTThwZ3_8YkO4ZQgwasfzL34wUfd-IOhvGSWWfSTbmQrzI20_tbZQlM-9oohCAIDvbPKnQ-zbVTlZGZN0TI"/>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2.5 py-0.5 rounded-full font-body text-[10px] font-bold uppercase tracking-wider bg-sky-50 border border-sky-200 text-sky-800">Developer Tooling / SaaS</span>
+<span class="font-mono text-xs text-[#64748B]">2023</span>
+</div>
+<h3 class="font-heading text-2xl font-bold text-[#0F172A] group-hover:text-sky-700 transition-colors">
+                      DevStream — Developer Observability
+                    </h3>
+<p class="font-body text-xs sm:text-sm text-[#475569] mt-3 leading-relaxed">
+                      Lightweight telemetry platform for frontend deployment pipelines with automated regression catchers and Lighthouse CI integration.
+                    </p>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Vue 3 / Nuxt</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">GraphQL</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Rust / WASM</span>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[#475569] font-body text-[11px] font-semibold">Tailwind</span>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-8 border-t border-slate-100 mt-6">
+<a class="magnetic-item inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0F2B5C] hover:bg-[#1D4ED8] text-white font-body text-xs font-bold uppercase tracking-wider transition-colors shadow-xs" href="#contact">
+<span>Live Preview</span>
+<span class="material-symbols-outlined text-[15px]">open_in_new</span>
+</a>
+<a class="magnetic-item inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 hover:border-slate-400 text-[#475569] hover:text-[#0F172A] font-body text-xs font-bold uppercase tracking-wider transition-colors" href="#contact">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>CLI Tool</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: CERTIFICATIONS -->
+<div class="tab-pane-transition tab-hidden grid grid-cols-1 md:grid-cols-2 gap-6" id="portfolio-certs-view">
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 shadow-xs flex items-start gap-4 transition-all">
+<div class="specular-glare"></div>
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 border border-blue-100">
+<span class="material-symbols-outlined text-[28px]">cloud_done</span>
+</div>
+<div class="flex-1">
+<span class="font-heading text-xs font-bold text-[#1D4ED8] uppercase">Amazon Web Services</span>
+<h4 class="font-heading text-base font-bold text-[#0F172A] mt-1 mb-2">AWS Certified Solutions Architect – Associate</h4>
+<p class="font-body text-xs text-[#475569] mb-3">Architecting resilient, high-performance distributed architectures with AWS CloudFront and S3 infrastructure.</p>
+<div class="flex items-center justify-between text-xs text-[#64748B] font-mono">
+<span>ID: AWS-SAA-904281</span>
+<span class="text-[#1D4ED8] font-body font-semibold">Verified Credential</span>
+</div>
+</div>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 hover:border-indigo-400 shadow-xs flex items-start gap-4 transition-all">
+<div class="specular-glare"></div>
+<div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-100">
+<span class="material-symbols-outlined text-[28px]">integration_instructions</span>
+</div>
+<div class="flex-1">
+<span class="font-heading text-xs font-bold text-indigo-600 uppercase">Google Cloud Platform</span>
+<h4 class="font-heading text-base font-bold text-[#0F172A] mt-1 mb-2">Google Professional Cloud Developer</h4>
+<p class="font-body text-xs text-[#475569] mb-3">Validated expertise in cloud-native application deployment, Cloud Run containers, and observability stacks.</p>
+<div class="flex items-center justify-between text-xs text-[#64748B] font-mono">
+<span>ID: GCP-PCD-782190</span>
+<span class="text-indigo-600 font-body font-semibold">Verified Credential</span>
+</div>
+</div>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 shadow-xs flex items-start gap-4 transition-all">
+<div class="specular-glare"></div>
+<div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+<span class="material-symbols-outlined text-[28px]">devices</span>
+</div>
+<div class="flex-1">
+<span class="font-heading text-xs font-bold text-emerald-700 uppercase">Meta Professional</span>
+<h4 class="font-heading text-base font-bold text-[#0F172A] mt-1 mb-2">Meta Certified Frontend Engineer</h4>
+<p class="font-body text-xs text-[#475569] mb-3">Advanced validation of modern React paradigms, concurrent mode rendering, and custom hook architectures.</p>
+<div class="flex items-center justify-between text-xs text-[#64748B] font-mono">
+<span>ID: META-FE-10938</span>
+<span class="text-emerald-700 font-body font-semibold">Verified Credential</span>
+</div>
+</div>
+</div>
+<div class="tilt-card p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 shadow-xs flex items-start gap-4 transition-all">
+<div class="specular-glare"></div>
+<div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 border border-sky-100">
+<span class="material-symbols-outlined text-[28px]">speed</span>
+</div>
+<div class="flex-1">
+<span class="font-heading text-xs font-bold text-sky-700 uppercase">Awwwards Academy</span>
+<h4 class="font-heading text-base font-bold text-[#0F172A] mt-1 mb-2">Creative Web Development &amp; Shaders Master</h4>
+<p class="font-body text-xs text-[#475569] mb-3">Certification in advanced WebGL rendering techniques, custom vertex and fragment GLSL shaders.</p>
+<div class="flex items-center justify-between text-xs text-[#64748B] font-mono">
+<span>ID: AWW-CWD-4482</span>
+<span class="text-sky-700 font-body font-semibold">Verified Credential</span>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 3: SKILLS MATRIX -->
+<div class="tab-pane-transition tab-hidden space-y-8" id="portfolio-skills-view">
+<div class="tilt-card p-8 rounded-3xl bg-white border border-slate-200 shadow-xs" id="skills-anchor">
+<div class="specular-glare"></div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-50 text-[#1D4ED8] flex items-center justify-center font-heading font-bold text-sm border border-blue-200">FE</div>
+<div>
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">Frontend Engineering</h3>
+<p class="font-body text-xs text-[#64748B]">Core client-side execution &amp; reactive frameworks</p>
+</div>
+</div>
+<span class="font-heading text-xs font-bold text-[#1D4ED8] bg-blue-50 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider">Primary Core</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="font-heading text-xs font-bold text-[#0F172A]">React / Next.js</span>
+<span class="font-mono text-xs text-[#1D4ED8] font-semibold">98%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#1D4ED8] h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 98%"></div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="font-heading text-xs font-bold text-[#0F172A]">TypeScript</span>
+<span class="font-mono text-xs text-[#1D4ED8] font-semibold">95%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#1D4ED8] h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 95%"></div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="font-heading text-xs font-bold text-[#0F172A]">Tailwind CSS</span>
+<span class="font-mono text-xs text-[#1D4ED8] font-semibold">99%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#1D4ED8] h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 99%"></div>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2">
+<span class="font-heading text-xs font-bold text-[#0F172A]">Vue.js / Nuxt</span>
+<span class="font-mono text-xs text-[#1D4ED8] font-semibold">88%</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#1D4ED8] h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tilt-card p-8 rounded-3xl bg-white border border-slate-200 shadow-xs">
+<div class="specular-glare"></div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-heading font-bold text-sm border border-indigo-200">3D</div>
+<div>
+<h3 class="font-heading text-lg font-bold text-[#0F172A]">Creative Motion &amp; Spatial Graphics</h3>
+<p class="font-body text-xs text-[#64748B]">Hardware-accelerated visual storytelling</p>
+</div>
+</div>
+<span class="font-heading text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full uppercase tracking-wider">Aesthetic Focus</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2"><span class="font-heading text-xs font-bold text-[#0F172A]">Three.js / R3F</span><span class="font-mono text-xs text-indigo-600 font-semibold">92%</span></div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden"><div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 92%"></div></div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2"><span class="font-heading text-xs font-bold text-[#0F172A]">GLSL Shaders</span><span class="font-mono text-xs text-indigo-600 font-semibold">85%</span></div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden"><div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 85%"></div></div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2"><span class="font-heading text-xs font-bold text-[#0F172A]">GSAP &amp; Framer</span><span class="font-mono text-xs text-indigo-600 font-semibold">96%</span></div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden"><div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 96%"></div></div>
+</div>
+<div class="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200 hover:bg-white transition-colors">
+<div class="flex justify-between items-center mb-2"><span class="font-heading text-xs font-bold text-[#0F172A]">Canvas 2D API</span><span class="font-mono text-xs text-indigo-600 font-semibold">90%</span></div>
+<div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden"><div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-1000 ease-out" style="width: 90%"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ========================================== -->
+<!-- 4. CONTACT SECTION -->
+<!-- ========================================== -->
+<section class="w-full py-28 bg-[#F8FAFC] relative overflow-hidden" id="contact">
+<!-- Delicate Soft Gradient Ambient Glows & Bottom Organic Contour Wave -->
+<div class="absolute inset-0 pointer-events-none z-0">
+<div class="absolute -bottom-20 right-10 w-[600px] h-[500px] bg-blue-100/40 rounded-full blur-[140px]"></div>
+<div class="absolute top-10 left-12 w-[550px] h-[450px] bg-indigo-100/35 rounded-full blur-[140px]"></div>
+<!-- Subtle bottom decorative wave SVG -->
+<svg class="absolute bottom-0 left-0 w-full opacity-20 pointer-events-none" preserveaspectratio="none" viewbox="0 0 1440 280">
+<path d="M0,160 C320,240 480,80 800,180 C1120,280 1280,120 1440,160 L1440,280 L0,280 Z" fill="#93C5FD"></path>
+</svg>
+</div>
+<div class="relative z-10 max-w-6xl mx-auto px-margin-mobile md:px-margin">
+<div class="flex items-center gap-3 mb-12 reveal-header">
+<span class="font-heading text-sm font-bold text-[#1D4ED8] uppercase tracking-widest">// CONTACT</span>
+<div class="h-[1px] flex-1 bg-slate-200"></div>
+<span class="font-body text-xs text-emerald-700 font-bold uppercase tracking-wider">ACCEPTING Q2/Q3 PROJECTS</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Direct Inquiries & Scheduler -->
+<div class="lg:col-span-5 flex flex-col gap-6 reveal-elem">
+<div>
+<h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-tight mb-4">
+                  Let's Build Something Extraordinary Together.
+                </h2>
+<p class="font-body text-[#475569] text-sm leading-relaxed">
+                  Have an ambitious vision, a critical frontend overhaul, or an interactive launch campaign? My desk is always open for bold collaborators.
+                </p>
+</div>
+<!-- Copy Email Hub with Animated Tooltip -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs backdrop-blur-md relative">
+<span class="font-heading text-xs font-bold text-[#1D4ED8] uppercase tracking-wider block mb-2">Direct Channel</span>
+<div class="flex items-center justify-between gap-3">
+<span class="font-heading text-lg md:text-xl font-bold text-[#0F172A] select-all" id="target-email">hello@johndoe.dev</span>
+<div class="relative">
+<button class="magnetic-item px-4 py-2 rounded-xl bg-slate-100 hover:bg-[#0F2B5C] hover:text-white text-[#0F172A] font-body text-xs font-bold flex items-center gap-1.5 transition-colors shadow-2xs border border-slate-200 focus:outline-none" id="copy-email-btn" title="Copy to clipboard">
+<span class="material-symbols-outlined text-[16px]" id="copy-btn-icon">content_copy</span>
+<span id="copy-btn-text">Copy</span>
+</button>
+<!-- Floating animated tooltip bubble -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-slate-950 text-white font-mono text-[11px] rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-200 transform translate-y-1" id="copy-tooltip">
+                      Copied!
+                    </div>
+</div>
+</div>
+<div class="text-xs text-emerald-600 font-medium mt-2 hidden" id="copy-feedback">✓ Copied to clipboard! Ready to paste.</div>
+</div>
+<!-- Calendly Discovery Card -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs backdrop-blur-md flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1D4ED8] flex items-center justify-center shrink-0 border border-blue-100">
+<span class="material-symbols-outlined text-[24px]">video_camera_front</span>
+</div>
+<div>
+<h3 class="font-heading text-base font-bold text-[#0F172A] mb-1">Book a 15-Minute Discovery Call</h3>
+<p class="font-body text-xs text-[#475569] mb-3">
+                    Grab an instant slot directly on my calendar to explore timeline feasibility and project fit.
+                  </p>
+<a class="magnetic-item inline-flex items-center gap-1 font-body text-xs font-bold uppercase tracking-wider text-[#1D4ED8] hover:text-[#0F2B5C]" href="https://calendly.com" rel="noopener noreferrer" target="_blank">
+<span>View Live Schedule</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Socials -->
+<div class="flex flex-wrap gap-2 pt-2">
+<a class="magnetic-item px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-blue-400 text-[#475569] hover:text-[#1D4ED8] font-body text-[11px] font-bold tracking-wider uppercase transition-all shadow-2xs" href="#">GitHub</a>
+<a class="magnetic-item px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-blue-400 text-[#475569] hover:text-[#1D4ED8] font-body text-[11px] font-bold tracking-wider uppercase transition-all shadow-2xs" href="#">LinkedIn</a>
+<a class="magnetic-item px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-blue-400 text-[#475569] hover:text-[#1D4ED8] font-body text-[11px] font-bold tracking-wider uppercase transition-all shadow-2xs" href="#">Twitter / X</a>
+<a class="magnetic-item px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-blue-400 text-[#475569] hover:text-[#1D4ED8] font-body text-[11px] font-bold tracking-wider uppercase transition-all shadow-2xs" href="#">Discord</a>
+</div>
+</div>
+<!-- Right Column: Interactive Inquiry Form with Animated Budget Selection -->
+<div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-8 shadow-[0_12px_32px_rgba(15,23,42,0.05)] reveal-elem">
+<h3 class="font-heading text-2xl font-bold text-[#0F172A] mb-1">Send an Inquiry</h3>
+<p class="font-body text-xs text-[#64748B] mb-6">Guaranteed human response within 24 hours on business days.</p>
+<form class="space-y-6" id="portfolio-contact-form" onsubmit="return false;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-1.5">
+<label class="font-body text-xs font-bold text-[#475569] uppercase tracking-wider" for="contact-name">Your Name *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#1D4ED8] focus:bg-white focus:outline-none font-body text-xs text-[#0F172A] transition-all placeholder:text-slate-400" id="contact-name" placeholder="e.g. Alex Morgan" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body text-xs font-bold text-[#475569] uppercase tracking-wider" for="contact-email">Work Email *</label>
+<input class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#1D4ED8] focus:bg-white focus:outline-none font-body text-xs text-[#0F172A] transition-all placeholder:text-slate-400" id="contact-email" placeholder="alex@company.com" required="" type="email"/>
+</div>
+</div>
+<!-- Interactive Budget Selector Buttons with Active State Transitions -->
+<div class="flex flex-col gap-2">
+<label class="font-body text-xs font-bold text-[#475569] uppercase tracking-wider">Project Scope / Budget</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="budget-buttons-group">
+<button class="budget-option-btn py-2.5 px-3 rounded-xl text-center border border-slate-200 text-xs font-semibold font-body transition-all duration-200 text-[#475569] hover:bg-slate-50" data-budget="3-5k" type="button">
+                      $3k – $5k
+                    </button>
+<button class="budget-option-btn active py-2.5 px-3 rounded-xl text-center border border-[#0F2B5C] bg-[#0F2B5C] text-white text-xs font-semibold font-body transition-all duration-200 shadow-xs" data-budget="5-10k" type="button">
+                      $5k – $10k
+                    </button>
+<button class="budget-option-btn py-2.5 px-3 rounded-xl text-center border border-slate-200 text-xs font-semibold font-body transition-all duration-200 text-[#475569] hover:bg-slate-50" data-budget="10-25k" type="button">
+                      $10k – $25k
+                    </button>
+<button class="budget-option-btn py-2.5 px-3 rounded-xl text-center border border-slate-200 text-xs font-semibold font-body transition-all duration-200 text-[#475569] hover:bg-slate-50" data-budget="25k+" type="button">
+                      $25k+ / Retainer
+                    </button>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-body text-xs font-bold text-[#475569] uppercase tracking-wider" for="contact-message">Your Vision &amp; Timeline *</label>
+<textarea class="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#1D4ED8] focus:bg-white focus:outline-none font-body text-xs text-[#0F172A] transition-all placeholder:text-slate-400 resize-y" id="contact-message" placeholder="Tell me about what you're building..." required="" rows="4"></textarea>
+</div>
+<button class="magnetic-item w-full py-4 rounded-xl bg-[#0F2B5C] hover:bg-[#1D4ED8] text-white font-body text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs active:scale-[0.99] transition-all duration-300" id="submit-contact-btn" type="submit">
+<span id="btn-text">Transmit Message</span>
+<span class="material-symbols-outlined text-[18px]" id="btn-icon">send</span>
+</button>
+<div class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-body text-xs text-center font-medium" id="form-success-banner">
+                  🎉 Message transmitted successfully! John will follow up within 24 hours.
+                </div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ========================================== -->
+<!-- BACK TO TOP FLOATING BUTTON WITH PROGRESS RING -->
+<!-- ========================================== -->
+<aside aria-label="Quick Actions" class="fixed bottom-8 right-8 z-40">
+<a aria-label="Back to top" class="magnetic-item relative flex items-center justify-center w-12 h-12 rounded-full bg-white/95 backdrop-blur-xl border border-slate-200 shadow-md text-[#0F172A] hover:text-[#1D4ED8] hover:scale-105 active:scale-95 transition-all duration-300 group" href="#hero" id="back-to-top">
+<!-- SVG Circular Scroll Progress Ring -->
+<svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none p-[1px]" viewbox="0 0 48 48">
+<circle class="stroke-slate-200/50 fill-none" cx="24" cy="24" r="22" stroke-width="2.5"></circle>
+<circle class="stroke-[#1D4ED8] fill-none transition-all duration-150" cx="24" cy="24" id="scroll-progress-ring" r="22" stroke-dasharray="138.23" stroke-dashoffset="138.23" stroke-linecap="round" stroke-width="2.5"></circle>
+</svg>
+<span class="material-symbols-outlined text-[20px] group-hover:-translate-y-0.5 transition-transform duration-300">arrow_upward</span>
+</a>
+</aside>
+<!-- ========================================== -->
+<!-- FOOTER -->
+<!-- ========================================== -->
+<footer class="relative z-10 w-full bg-white border-t border-slate-200 py-12">
+<div class="max-w-6xl mx-auto px-margin-mobile md:px-margin flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex flex-col items-center md:items-start gap-1">
+<span class="font-heading text-lg font-bold text-[#0F172A]">&lt;Developer X/&gt;</span>
+<p class="font-body text-xs text-[#64748B]">Architecture, creative direction &amp; high-performance frontend engineering.</p>
+</div>
+<div class="flex items-center gap-6">
+<a class="magnetic-item font-body text-xs uppercase tracking-wider text-[#64748B] hover:text-[#1D4ED8] transition-colors" href="#">GitHub</a>
+<a class="magnetic-item font-body text-xs uppercase tracking-wider text-[#64748B] hover:text-[#1D4ED8] transition-colors" href="#">LinkedIn</a>
+<a class="magnetic-item font-body text-xs uppercase tracking-wider text-[#64748B] hover:text-[#1D4ED8] transition-colors" href="#">Twitter/X</a>
+</div>
+<div class="text-center md:text-right font-body text-xs text-[#64748B]">© 2025 John Doe. All rights reserved.</div>
+</div>
+</footer>
+<!-- Three.js CDN for Floating 3D Geometries Scene -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Master Interactive Engine Scripts -->
+<script>
+    (function initFullInteractiveEngine() {
+      // ---------------------------------------------------------------------
+      // 1. MOUSE CURSOR GLOW FOLLOWER
+      // ---------------------------------------------------------------------
+      const cursorGlow = document.getElementById('cursor-glow');
+      let mouseCurrentX = window.innerWidth / 2;
+      let mouseCurrentY = window.innerHeight / 2;
+      let targetX = mouseCurrentX;
+      let targetY = mouseCurrentY;
+
+      window.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+      });
+
+      function renderCursorGlow() {
+        mouseCurrentX += (targetX - mouseCurrentX) * 0.15;
+        mouseCurrentY += (targetY - mouseCurrentY) * 0.15;
+        if (cursorGlow) {
+          cursorGlow.style.transform = `translate3d(${mouseCurrentX - 225}px, ${mouseCurrentY - 225}px, 0)`;
+        }
+        requestAnimationFrame(renderCursorGlow);
+      }
+      renderCursorGlow();
+
+      // ---------------------------------------------------------------------
+      // 2. MAGNETIC HOVER / SPRING EFFECT ON BUTTONS & PILLS
+      // ---------------------------------------------------------------------
+      const magneticItems = document.querySelectorAll('.magnetic-item');
+      magneticItems.forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const deltaX = (e.clientX - centerX) * 0.28;
+          const deltaY = (e.clientY - centerY) * 0.28;
+          el.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'translate3d(0, 0, 0)';
+        });
+      });
+
+      // ---------------------------------------------------------------------
+      // 3. 3D TILT & MOUSE SPECULAR GLARE ON PROJECT & PROFILE CARDS
+      // ---------------------------------------------------------------------
+      const tiltCards = document.querySelectorAll('.tilt-card');
+      tiltCards.forEach((card) => {
+        const inner = card.querySelector('.tilt-card-inner');
+        
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          if (inner) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+            inner.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (inner) {
+            inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+          }
+        });
+      });
+
+      // ---------------------------------------------------------------------
+      // 4. ANIMATED METRICS COUNTER (Scroll-Triggered)
+      // ---------------------------------------------------------------------
+      const counterElems = document.querySelectorAll('.counter-num');
+      let countersStarted = false;
+
+      function startCounters() {
+        if (countersStarted) return;
+        countersStarted = true;
+
+        counterElems.forEach((counter) => {
+          const target = parseFloat(counter.getAttribute('data-target'));
+          const isDecimal = counter.getAttribute('data-decimal') === '1';
+          const duration = 1800; // ms
+          const startTime = performance.now();
+
+          function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = 1 - (1 - progress) * (1 - progress);
+            const currentVal = target * easeProgress;
+
+            counter.textContent = isDecimal ? currentVal.toFixed(1) : Math.floor(currentVal);
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = isDecimal ? target.toFixed(1) : target;
+            }
+          }
+          requestAnimationFrame(updateCounter);
+        });
+      }
+
+      const metricsContainer = document.getElementById('metrics-counters-container');
+      if (metricsContainer) {
+        const metricsObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            startCounters();
+          }
+        }, { threshold: 0.3 });
+        metricsObserver.observe(metricsContainer);
+      }
+
+      // ---------------------------------------------------------------------
+      // 5. BIDIRECTIONAL SCROLL REVEAL ANIMATIONS
+      // ---------------------------------------------------------------------
+      const revealElements = document.querySelectorAll('.reveal-elem, .reveal-header');
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.12
+      };
+
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          } else {
+            entry.target.classList.remove('revealed');
+          }
+        });
+      }, observerOptions);
+
+      revealElements.forEach((el) => scrollObserver.observe(el));
+
+      // ---------------------------------------------------------------------
+      // 6. BACK TO TOP PROGRESS RING & HERO SCROLL MORPH
+      // ---------------------------------------------------------------------
+      const progressRing = document.getElementById('scroll-progress-ring');
+      const circumference = 2 * Math.PI * 22; // ~138.23
+      const heroPortrait = document.getElementById('hero-morph-portrait-container');
+      const heroSection = document.getElementById('hero');
+
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min(Math.max(scrollY / (totalHeight || 1), 0), 1);
+
+        if (progressRing) {
+          const offset = circumference - (progress * circumference);
+          progressRing.style.strokeDashoffset = offset;
+        }
+
+        // Hero portrait morph
+        if (heroPortrait && heroSection) {
+          const heroHeight = heroSection.offsetHeight || 800;
+          const heroProgress = Math.min(Math.max(scrollY / (heroHeight * 0.8), 0), 1);
+          const scale = 1 - heroProgress * 0.08;
+          const translateY = heroProgress * 40;
+          const opacity = 1 - heroProgress * 0.5;
+          heroPortrait.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+          heroPortrait.style.opacity = `${opacity}`;
+        }
+      }, { passive: true });
+
+      // ---------------------------------------------------------------------
+      // 7. TAB SWITCHERS (Experience vs Education)
+      // ---------------------------------------------------------------------
+      const tabExpBtn = document.getElementById('tab-exp-btn');
+      const tabEduBtn = document.getElementById('tab-edu-btn');
+      const expContent = document.getElementById('content-experience');
+      const eduContent = document.getElementById('content-education');
+
+      if (tabExpBtn && tabEduBtn && expContent && eduContent) {
+        tabExpBtn.addEventListener('click', () => {
+          tabExpBtn.className = "magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-[#0F2B5C] text-white shadow-sm transition-all duration-200 focus:outline-none";
+          tabEduBtn.className = "magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-slate-100 text-[#475569] hover:text-[#0F172A] transition-all duration-200 focus:outline-none";
+          
+          eduContent.classList.remove('tab-visible');
+          eduContent.classList.add('tab-hidden');
+          setTimeout(() => {
+            expContent.classList.remove('tab-hidden');
+            expContent.classList.add('tab-visible');
+          }, 100);
+        });
+
+        tabEduBtn.addEventListener('click', () => {
+          tabEduBtn.className = "magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-[#0F2B5C] text-white shadow-sm transition-all duration-200 focus:outline-none";
+          tabExpBtn.className = "magnetic-item font-body text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-slate-100 text-[#475569] hover:text-[#0F172A] transition-all duration-200 focus:outline-none";
+          
+          expContent.classList.remove('tab-visible');
+          expContent.classList.add('tab-hidden');
+          setTimeout(() => {
+            eduContent.classList.remove('tab-hidden');
+            eduContent.classList.add('tab-visible');
+          }, 100);
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 8. PORTFOLIO TABS SWITCHER (Projects / Certs / Skills)
+      // ---------------------------------------------------------------------
+      const btnProjects = document.getElementById('view-projects-btn');
+      const btnCerts = document.getElementById('view-certs-btn');
+      const btnSkills = document.getElementById('view-skills-btn');
+
+      const viewProjects = document.getElementById('portfolio-projects-view');
+      const viewCerts = document.getElementById('portfolio-certs-view');
+      const viewSkills = document.getElementById('portfolio-skills-view');
+
+      const pTabs = [
+        { btn: btnProjects, view: viewProjects },
+        { btn: btnCerts, view: viewCerts },
+        { btn: btnSkills, view: viewSkills }
+      ];
+
+      function setPortfolioActiveTab(targetIndex) {
+        pTabs.forEach((tab, index) => {
+          if (index === targetIndex) {
+            tab.btn.className = "portfolio-tab-trigger active px-5 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider bg-[#0F2B5C] text-white shadow-xs transition-all duration-200";
+            tab.view.classList.remove('tab-hidden');
+            tab.view.classList.add('tab-visible');
+          } else {
+            tab.btn.className = "portfolio-tab-trigger px-5 py-2 rounded-full font-body text-xs font-bold uppercase tracking-wider text-[#475569] hover:text-[#0F172A] transition-all duration-200";
+            tab.view.classList.remove('tab-visible');
+            tab.view.classList.add('tab-hidden');
+          }
+        });
+      }
+
+      if (btnProjects && btnCerts && btnSkills) {
+        btnProjects.addEventListener('click', () => setPortfolioActiveTab(0));
+        btnCerts.addEventListener('click', () => setPortfolioActiveTab(1));
+        btnSkills.addEventListener('click', () => setPortfolioActiveTab(2));
+      }
+
+      // ---------------------------------------------------------------------
+      // 9. COPY EMAIL BUTTON WITH ANIMATED TOOLTIP
+      // ---------------------------------------------------------------------
+      const copyBtn = document.getElementById('copy-email-btn');
+      const emailText = document.getElementById('target-email');
+      const copyFeedback = document.getElementById('copy-feedback');
+      const copyBtnText = document.getElementById('copy-btn-text');
+      const copyBtnIcon = document.getElementById('copy-btn-icon');
+      const copyTooltip = document.getElementById('copy-tooltip');
+
+      if (copyBtn && emailText && copyFeedback) {
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(emailText.textContent.trim()).then(() => {
+            copyBtnText.textContent = "Copied!";
+            if (copyBtnIcon) copyBtnIcon.textContent = "done";
+            copyFeedback.classList.remove('hidden');
+            
+            if (copyTooltip) {
+              copyTooltip.classList.remove('opacity-0', 'translate-y-1');
+              copyTooltip.classList.add('opacity-100', '-translate-y-1');
+            }
+
+            setTimeout(() => {
+              copyBtnText.textContent = "Copy";
+              if (copyBtnIcon) copyBtnIcon.textContent = "content_copy";
+              copyFeedback.classList.add('hidden');
+              if (copyTooltip) {
+                copyTooltip.classList.add('opacity-0', 'translate-y-1');
+                copyTooltip.classList.remove('opacity-100', '-translate-y-1');
+              }
+            }, 2600);
+          });
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 10. INTERACTIVE BUDGET SELECTOR BUTTONS
+      // ---------------------------------------------------------------------
+      const budgetButtons = document.querySelectorAll('.budget-option-btn');
+      budgetButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          budgetButtons.forEach((b) => {
+            b.classList.remove('active', 'border-[#0F2B5C]', 'bg-[#0F2B5C]', 'text-white', 'shadow-xs');
+            b.classList.add('border-slate-200', 'text-[#475569]', 'hover:bg-slate-50');
+          });
+          btn.classList.add('active', 'border-[#0F2B5C]', 'bg-[#0F2B5C]', 'text-white', 'shadow-xs');
+          btn.classList.remove('border-slate-200', 'text-[#475569]', 'hover:bg-slate-50');
+        });
+      });
+
+      // ---------------------------------------------------------------------
+      // 11. FORM TRANSMISSION SIMULATION
+      // ---------------------------------------------------------------------
+      const contactForm = document.getElementById('portfolio-contact-form');
+      const submitBtn = document.getElementById('submit-contact-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnIcon = document.getElementById('btn-icon');
+      const successBanner = document.getElementById('form-success-banner');
+
+      if (contactForm && submitBtn) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          submitBtn.disabled = true;
+          btnText.textContent = "Transmitting Packet...";
+          btnIcon.textContent = "sync";
+          btnIcon.classList.add('animate-spin');
+
+          setTimeout(() => {
+            btnIcon.classList.remove('animate-spin');
+            btnIcon.textContent = "check_circle";
+            btnText.textContent = "Message Delivered";
+            submitBtn.classList.replace('bg-[#0F2B5C]', 'bg-emerald-600');
+            submitBtn.classList.replace('hover:bg-[#1D4ED8]', 'hover:bg-emerald-700');
+            successBanner.classList.remove('hidden');
+            contactForm.reset();
+
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              btnText.textContent = "Transmit Message";
+              btnIcon.textContent = "send";
+              submitBtn.classList.replace('bg-emerald-600', 'bg-[#0F2B5C]');
+              submitBtn.classList.replace('hover:bg-emerald-700', 'hover:bg-[#1D4ED8]');
+            }, 4500);
+          }, 900);
+        });
+      }
+
+      // ---------------------------------------------------------------------
+      // 12. THREE.JS 3D FLOATING SCENE
+      // ---------------------------------------------------------------------
+      const canvasContainer = document.getElementById('threejs-hero-canvas');
+      if (canvasContainer && typeof THREE !== 'undefined') {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / (window.innerHeight * 0.9), 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        canvasContainer.appendChild(renderer.domElement);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+        scene.add(ambientLight);
+        const pointLight1 = new THREE.PointLight(0x1d4ed8, 1.2, 50);
+        pointLight1.position.set(10, 10, 10);
+        scene.add(pointLight1);
+        const pointLight2 = new THREE.PointLight(0x4f46e5, 1.0, 50);
+        pointLight2.position.set(-10, -5, 5);
+        scene.add(pointLight2);
+
+        const geometryIco = new THREE.IcosahedronGeometry(1.6, 0);
+        const materialIco = new THREE.MeshStandardMaterial({
+          color: 0x1d4ed8,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.22
+        });
+        const icoMesh = new THREE.Mesh(geometryIco, materialIco);
+        icoMesh.position.set(-5.5, 1.5, -4);
+        scene.add(icoMesh);
+
+        const geometryTorus = new THREE.TorusGeometry(1.4, 0.25, 16, 40);
+        const materialTorus = new THREE.MeshStandardMaterial({
+          color: 0x4338ca,
+          roughness: 0.4,
+          metalness: 0.3,
+          transparent: true,
+          opacity: 0.18
+        });
+        const torusMesh = new THREE.Mesh(geometryTorus, materialTorus);
+        torusMesh.position.set(5.5, 0.5, -5);
+        scene.add(torusMesh);
+
+        const geometryOcta = new THREE.OctahedronGeometry(1.2, 0);
+        const materialOcta = new THREE.MeshStandardMaterial({
+          color: 0x0284c7,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.2
+        });
+        const octaMesh = new THREE.Mesh(geometryOcta, materialOcta);
+        octaMesh.position.set(-3.5, -3, -3);
+        scene.add(octaMesh);
+
+        camera.position.z = 10;
+
+        let mouseNormX = 0, mouseNormY = 0;
+        window.addEventListener('mousemove', (e) => {
+          mouseNormX = (e.clientX / window.innerWidth - 0.5) * 2;
+          mouseNormY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        function animateScene() {
+          requestAnimationFrame(animateScene);
+          icoMesh.rotation.x += 0.002;
+          icoMesh.rotation.y += 0.004;
+          torusMesh.rotation.x += 0.003;
+          torusMesh.rotation.y += 0.002;
+          octaMesh.rotation.y += 0.003;
+
+          camera.position.x += (mouseNormX * 0.6 - camera.position.x) * 0.05;
+          camera.position.y += (-mouseNormY * 0.6 - camera.position.y) * 0.05;
+          camera.lookAt(scene.position);
+
+          renderer.render(scene, camera);
+        }
+        animateScene();
+
+        window.addEventListener('resize', () => {
+          if (!canvasContainer) return;
+          camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+        });
+      }
+    })();
+  </script>
+</body></html>
