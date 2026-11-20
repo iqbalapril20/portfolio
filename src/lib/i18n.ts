@@ -291,8 +291,9 @@ const ID_TRANSLATIONS: UiTranslations = {
     whatsappLabel: 'WhatsApp',
     whatsappAction: 'Chat WhatsApp',
     locationLabel: 'Lokasi',
-    formTitle: 'Kirim Pesan & Diskusi',
-    formSubtitle: 'Mode frontend aktif. Validasi formulir berjalan langsung di browser.',
+    formTitle: 'Kirim Pesan via WhatsApp',
+    formSubtitle:
+      'Isi formulir di bawah ini untuk mengirim pesan langsung ke WhatsApp dengan rincian yang terformat rapi.',
     nameLabel: 'Nama Lengkap *',
     namePlaceholder: 'Nama Lengkap Anda',
     nameError: 'Nama minimal 2 karakter',
@@ -306,10 +307,10 @@ const ID_TRANSLATIONS: UiTranslations = {
     messagePlaceholder: 'Ceritakan kebutuhan aplikasi web atau kolaborasi Anda...',
     messageError: 'Pesan minimal 10 karakter',
     emailAppLink: 'Atau kirim lewat aplikasi email',
-    submitting: 'Mengirim...',
-    submit: 'Kirim Pesan',
+    submitting: 'Membuka WhatsApp...',
+    submit: 'Kirim via WhatsApp',
     submittedMessage: (name, subject) =>
-      `Terima kasih, ${name}. Pesan "${subject}" telah tercatat di pratinjau frontend. Untuk respons tercepat, silakan hubungi langsung lewat WhatsApp atau Email di sebelah kiri.`,
+      `Terima kasih, ${name}. Tab WhatsApp telah dibuka dengan pesan "${subject}". Jika tidak terbuka otomatis, silakan klik tombol WhatsApp di sebelah kiri.`,
     whatsappPrefill:
       'Halo Iqbal, saya tertarik untuk berdiskusi mengenai proyek atau kolaborasi pengembangan web.',
   },
@@ -461,8 +462,9 @@ const EN_TRANSLATIONS: UiTranslations = {
     whatsappLabel: 'WhatsApp',
     whatsappAction: 'Chat on WhatsApp',
     locationLabel: 'Location',
-    formTitle: 'Send a Message',
-    formSubtitle: 'Frontend mode active. Form validation runs directly in your browser.',
+    formTitle: 'Send a Message via WhatsApp',
+    formSubtitle:
+      'Fill in the form below to send your message directly to WhatsApp with pre-formatted details.',
     nameLabel: 'Full Name *',
     namePlaceholder: 'Your Full Name',
     nameError: 'Name must be at least 2 characters',
@@ -476,10 +478,10 @@ const EN_TRANSLATIONS: UiTranslations = {
     messagePlaceholder: 'Tell me about your web project or collaboration idea...',
     messageError: 'Message must be at least 10 characters',
     emailAppLink: 'Or open in your email client',
-    submitting: 'Sending...',
-    submit: 'Send Message',
+    submitting: 'Opening WhatsApp...',
+    submit: 'Send via WhatsApp',
     submittedMessage: (name, subject) =>
-      `Thank you, ${name}. Your inquiry "${subject}" has been recorded in the frontend preview. For the fastest reply, reach out directly via WhatsApp or Email on the left.`,
+      `Thank you, ${name}. A WhatsApp tab has opened with your message "${subject}". If it didn't open automatically, you can also reach out using the WhatsApp button on the left.`,
     whatsappPrefill:
       'Hi Iqbal, I am interested in discussing a web development project or collaboration.',
   },

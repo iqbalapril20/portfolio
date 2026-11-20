@@ -8,7 +8,6 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  Send,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -71,7 +70,16 @@ export function ContactSection({ contact, profile, settings, locale }: ContactSe
   }
 
   async function onSubmit(values: InquiryValues) {
-    await new Promise((resolve) => window.setTimeout(resolve, 400));
+    const formattedMessage =
+      locale === 'id'
+        ? `Halo Iqbal, saya ${values.name} (${values.email}).\n\nSubjek: ${values.subject}\n\nPesan:\n${values.message}`
+        : `Hi Iqbal, I am ${values.name} (${values.email}).\n\nSubject: ${values.subject}\n\nMessage:\n${values.message}`;
+
+    const waUrl = formatWhatsAppUrl(contact.whatsapp, formattedMessage);
+    if (typeof window !== 'undefined' && waUrl) {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }
+
     setSubmittedNotice(t.contact.submittedMessage(values.name, values.subject));
     reset();
   }
@@ -311,7 +319,7 @@ export function ContactSection({ contact, profile, settings, locale }: ContactSe
                   className="btn-glow min-h-[44px] px-8 py-3.5 rounded-full bg-[#1d4ed8] hover:bg-[#0d5bff] text-white font-semibold text-sm flex items-center gap-2 transition-colors disabled:opacity-60"
                 >
                   <span>{isSubmitting ? t.contact.submitting : t.contact.submit}</span>
-                  <Send className="w-4 h-4 btn-icon-move" aria-hidden="true" />
+                  <MessageCircle className="w-4 h-4 btn-icon-move" aria-hidden="true" />
                 </button>
               </div>
             </form>
