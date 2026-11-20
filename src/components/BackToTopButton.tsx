@@ -3,9 +3,11 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { getTranslations, type Locale } from '@/lib/i18n';
 import { scrollToSection } from '@/lib/scroll';
 
-export function BackToTopButton() {
+export function BackToTopButton({ locale }: { locale: Locale }) {
+  const t = getTranslations(locale);
   const shouldReduceMotion = Boolean(useReducedMotion());
   const [visible, setVisible] = useState(false);
 
@@ -24,7 +26,7 @@ export function BackToTopButton() {
         <motion.button
           type="button"
           onClick={() => scrollToSection('top')}
-          aria-label="Kembali ke atas halaman"
+          aria-label={t.backToTop.ariaLabel}
           initial={shouldReduceMotion ? undefined : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           exit={shouldReduceMotion ? undefined : { opacity: 0, y: 14 }}

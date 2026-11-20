@@ -1,5 +1,6 @@
 'use client';
 
+import { getTranslations, type Locale } from '@/lib/i18n';
 import { formatWhatsAppUrl } from '@/lib/richText';
 import { scrollToSection } from '@/lib/scroll';
 import type { ContactInfo, Profile, WebsiteSetting } from '@/types/portfolio';
@@ -8,13 +9,12 @@ interface SiteFooterProps {
   profile: Profile;
   contact: ContactInfo;
   settings: WebsiteSetting;
+  locale: Locale;
 }
 
-export function SiteFooter({ profile, contact, settings }: SiteFooterProps) {
-  const whatsappHref = formatWhatsAppUrl(
-    contact.whatsapp,
-    'Halo Iqbal, saya menghubungi melalui website portofolio.',
-  );
+export function SiteFooter({ profile, contact, settings, locale }: SiteFooterProps) {
+  const t = getTranslations(locale);
+  const whatsappHref = formatWhatsAppUrl(contact.whatsapp, t.footer.whatsappPrefill);
 
   return (
     <footer className="w-full bg-slate-50 border-t border-slate-200">
@@ -40,21 +40,21 @@ export function SiteFooter({ profile, contact, settings }: SiteFooterProps) {
             onClick={() => scrollToSection('about')}
             className="hover:text-[#1d4ed8] py-2 transition-colors"
           >
-            About
+            {t.footer.about}
           </button>
           <button
             type="button"
             onClick={() => scrollToSection('portfolio')}
             className="hover:text-[#1d4ed8] py-2 transition-colors"
           >
-            Portfolio
+            {t.footer.portfolio}
           </button>
           <button
             type="button"
             onClick={() => scrollToSection('contact')}
             className="hover:text-[#1d4ed8] py-2 transition-colors"
           >
-            Contact
+            {t.footer.contact}
           </button>
           <a href={`mailto:${contact.email}`} className="hover:text-[#1d4ed8] py-2 transition-colors">
             {contact.email}
@@ -66,7 +66,7 @@ export function SiteFooter({ profile, contact, settings }: SiteFooterProps) {
               rel="noopener noreferrer"
               className="hover:text-[#1d4ed8] py-2 transition-colors"
             >
-              WhatsApp
+              {t.footer.whatsapp}
             </a>
           )}
         </div>
@@ -74,7 +74,7 @@ export function SiteFooter({ profile, contact, settings }: SiteFooterProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-8 pt-2 border-t border-slate-200/70 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-2">
         <p>{settings.footerText}</p>
-        <p>Built with Next.js, TypeScript &amp; Tailwind CSS.</p>
+        <p>{t.footer.builtWith}</p>
       </div>
     </footer>
   );

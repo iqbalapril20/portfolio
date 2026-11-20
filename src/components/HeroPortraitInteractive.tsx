@@ -11,23 +11,27 @@ import {
 import { Code2, Move, RotateCcw, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
+import { getTranslations, type Locale } from '@/lib/i18n';
 import { useFinePointer } from './MotionPrimitives';
 
 interface HeroPortraitInteractiveProps {
   imageUrl: string;
   fullName: string;
   degreeLabel: string | null;
+  locale: Locale;
 }
 
-/**
- * Interactive Hero Portrait Stage styled after legacy/index4.html (radar rings + floating badges)
- * combined with draggable spring snap-back and 3D hover parallax.
- */
 export function HeroPortraitInteractive({
   imageUrl,
   fullName,
   degreeLabel,
+  locale,
 }: HeroPortraitInteractiveProps) {
+  const t = getTranslations(locale);
+  const shortDegree =
+    locale === 'en' && degreeLabel?.includes('Bachelor of Computer Science')
+      ? 'Bachelor of CS (S.Kom)'
+      : degreeLabel || t.hero.degreeFallback;
   const shouldReduceMotion = Boolean(useReducedMotion());
   const hasFinePointer = useFinePointer();
   const stageRef = useRef<HTMLDivElement>(null);
@@ -119,7 +123,7 @@ export function HeroPortraitInteractive({
           ref={stageRef}
           tabIndex={0}
           role="region"
-          aria-label={`Kartu foto interaktif ${fullName}. Bisa digeser dengan mouse atau tombol panah keyboard.`}
+          aria-label={`${fullName} - ${t.hero.cardRegionAria}`}
           onKeyDown={handleKeyDown}
           drag={!shouldReduceMotion}
           dragConstraints={{ top: -40, bottom: 40, left: -40, right: 40 }}
@@ -160,7 +164,7 @@ export function HeroPortraitInteractive({
             >
               <Image
                 src={imageUrl}
-                alt={`Foto studio ${fullName}`}
+                alt={`${t.hero.photoAltPrefix} ${fullName}`}
                 fill
                 priority
                 sizes="(max-width: 768px) 280px, 310px"
@@ -184,10 +188,11 @@ export function HeroPortraitInteractive({
                 <Move className="w-3 h-3 text-[#1d4ed8]" aria-hidden="true" />
                 <span>
                   {isDragging ? (
-                    'Lepas'
+                    t.hero.dragRelease
                   ) : (
                     <>
-                      Geser<span className="hidden sm:inline"> / Hover</span>
+                      {t.hero.dragHint}
+                      <span className="hidden sm:inline">{t.hero.dragHoverSuffix}</span>
                     </>
                   )}
                 </span>
@@ -198,8 +203,8 @@ export function HeroPortraitInteractive({
               type="button"
               onClick={handleResetPosition}
               onPointerDown={(e) => e.stopPropagation()}
-              aria-label="Reset posisi kartu profil"
-              title="Reset posisi"
+              aria-label={t.hero.resetCardAria}
+              title={t.hero.resetCardTitle}
               className="absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full bg-white/95 border border-slate-200 text-slate-700 hover:text-[#1d4ed8] hover:border-blue-400 flex items-center justify-center transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
@@ -213,16 +218,18 @@ export function HeroPortraitInteractive({
         style={
           shouldReduceMotion || !hasFinePointer ? undefined : { x: badgeShiftX, y: badgeShiftY }
         }
-        className={`absolute -top-3 right-0 sm:top-2 sm:-right-2 z-20 px-3.5 py-2 rounded-xl bg-white border border-slate-200 flex items-center gap-2 ${
+        className={`absolute -top-4 right-0 sm:-top-4 sm:-right-5 z-20 px-3.5 py-2 rounded-xl bg-white border border-slate-200 flex items-center gap-2 ${
           shouldReduceMotion ? '' : 'animate-float-slow'
         }`}
       >
         <ShieldCheck className="w-5 h-5 text-[#1d4ed8] shrink-0" aria-hidden="true" />
         <div className="flex flex-col">
-          <span className="text-xs font-bold text-slate-900 leading-tight">
-            {degreeLabel || 'Sarjana Komputer'}
+          <span className="text-xs font-bold text-slate-900 leading-tight whitespace-nowrap">
+            {shortDegree}
           </span>
-          <span className="text-[10px] text-slate-600 leading-none mt-0.5">Teknik Informatika</span>
+          <span className="text-[10px] text-slate-600 leading-none mt-0.5">
+            {t.hero.department}
+          </span>
         </div>
       </motion.div>
 
@@ -239,7 +246,9 @@ export function HeroPortraitInteractive({
           <Code2 className="w-4 h-4" aria-hidden="true" />
         </div>
         <div className="flex flex-col">
-          <span className="text-xs font-bold text-slate-900 leading-tight">Full-Stack Web</span>
+          <span className="text-xs font-bold text-slate-900 leading-tight">
+            {t.hero.roleBadgeTitle}
+          </span>
           <span className="text-[10px] text-slate-600 leading-none mt-0.5">
             Next.js &amp; Laravel
           </span>

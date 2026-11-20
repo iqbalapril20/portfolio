@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getPortfolioData } from '@/data/portfolio.en';
+import type { Locale } from '@/lib/i18n';
 import type { PortfolioData } from '@/types/portfolio';
 import { AboutSection } from './AboutSection';
 import { BackToTopButton } from './BackToTopButton';
@@ -17,8 +19,31 @@ interface PortfolioAppProps {
 }
 
 export function PortfolioApp({ data }: PortfolioAppProps) {
+  const [locale, setLocale] = useState<Locale>('id');
   const [activePortfolioTab, setActivePortfolioTab] = useState<PortfolioTabKey>('projects');
   const [cliOpen, setCliOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem('portfolio-locale');
+      if (saved === 'en' || saved === 'id') {
+        setLocale(saved);
+      }
+    } catch {
+      // Ignore storage access restrictions
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    try {
+      window.localStorage.setItem('portfolio-locale', locale);
+    } catch {
+      // Ignore storage write restrictions
+    }
+  }, [locale]);
+
+  const localizedData = locale === 'id' ? data : getPortfolioData('en');
 
   function handleJumpToTab(tab: PortfolioTabKey) {
     setActivePortfolioTab(tab);
@@ -31,60 +56,68 @@ export function PortfolioApp({ data }: PortfolioAppProps) {
   return (
     <>
       <SiteHeader
-        brandMark={data.profile.brandMark}
-        isAvailable={data.profile.isAvailable}
+        brandMark={localizedData.profile.brandMark}
+        isAvailable={localizedData.profile.isAvailable}
+        locale={locale}
+        onLocaleChange={setLocale}
         onJumpToTab={handleJumpToTab}
         onOpenCli={() => setCliOpen(true)}
       />
 
       <main id="main-content" tabIndex={-1} className="w-full pt-20 focus:outline-none">
         <HeroSection
-          profile={data.profile}
-          settings={data.settings}
-          projectCount={data.projects.length}
-          certificateCount={data.certificates.length}
-          techCount={data.techStacks.length}
+          profile={localizedData.profile}
+          settings={localizedData.settings}
+          projectCount={localizedData.projects.length}
+          certificateCount={localizedData.certificates.length}
+          techCount={localizedData.techStacks.length}
+          locale={locale}
           onJumpToTab={handleJumpToTab}
           onOpenCli={() => setCliOpen(true)}
         />
 
-        <TechMarqueeStrip techStacks={data.techStacks} />
+        <TechMarqueeStrip techStacks={localizedData.techStacks} locale={locale} />
 
         <AboutSection
-          profile={data.profile}
-          experiences={data.experiences}
-          educations={data.educations}
-          skills={data.skills}
+          profile={localizedData.profile}
+          experiences={localizedData.experiences}
+          educations={localizedData.educations}
+          skills={localizedData.skills}
+          locale={locale}
         />
 
         <PortfolioShowcase
-          projects={data.projects}
-          categories={data.categories}
-          certificates={data.certificates}
-          techStacks={data.techStacks}
+          projects={localizedData.projects}
+          categories={localizedData.categories}
+          certificates={localizedData.certificates}
+          techStacks={localizedData.techStacks}
           activeTab={activePortfolioTab}
+          locale={locale}
           onTabChange={setActivePortfolioTab}
         />
 
         <ContactSection
-          contact={data.contact}
-          profile={data.profile}
-          settings={data.settings}
+          contact={localizedData.contact}
+          profile={localizedData.profile}
+          settings={localizedData.settings}
+          locale={locale}
         />
       </main>
 
       <SiteFooter
-        profile={data.profile}
-        contact={data.contact}
-        settings={data.settings}
+        profile={localizedData.profile}
+        contact={localizedData.contact}
+        settings={localizedData.settings}
+        locale={locale}
       />
 
-      <BackToTopButton />
+      <BackToTopButton locale={locale} />
 
       <CliTerminalModal
         open={cliOpen}
         onClose={() => setCliOpen(false)}
-        data={data}
+        data={localizedData}
+        locale={locale}
       />
     </>
   );

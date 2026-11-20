@@ -3,10 +3,12 @@
 import { Pause, Play } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { getTranslations, type Locale } from '@/lib/i18n';
 import type { TechStack } from '@/types/portfolio';
 
 interface TechMarqueeStripProps {
   techStacks: TechStack[];
+  locale: Locale;
 }
 
 function MarqueeLogoItem({ tech }: { tech: TechStack }) {
@@ -34,19 +36,20 @@ function MarqueeLogoItem({ tech }: { tech: TechStack }) {
   );
 }
 
-export function TechMarqueeStrip({ techStacks }: TechMarqueeStripProps) {
+export function TechMarqueeStrip({ techStacks, locale }: TechMarqueeStripProps) {
+  const t = getTranslations(locale);
   const [isPaused, setIsPaused] = useState(false);
 
   return (
     <div
       className="w-full bg-[#0F172A] text-slate-200 border-b border-slate-800 py-4"
-      aria-label="Logo teknologi yang dikuasai"
+      aria-label={t.marquee.regionAria}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center gap-3 sm:gap-4">
         <button
           type="button"
           onClick={() => setIsPaused((prev) => !prev)}
-          aria-label={isPaused ? 'Jalankan marquee teknologi' : 'Jeda marquee teknologi'}
+          aria-label={isPaused ? t.marquee.playLabel : t.marquee.pauseLabel}
           aria-pressed={isPaused}
           className="min-w-[40px] min-h-[38px] px-3 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:border-blue-400 hover:text-white inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold shrink-0 transition-colors"
         >
@@ -55,7 +58,7 @@ export function TechMarqueeStrip({ techStacks }: TechMarqueeStripProps) {
           ) : (
             <Pause className="w-3.5 h-3.5" aria-hidden="true" />
           )}
-          <span className="hidden sm:inline">{isPaused ? 'Jalan' : 'Jeda'}</span>
+          <span className="hidden sm:inline">{isPaused ? t.marquee.playText : t.marquee.pauseText}</span>
         </button>
 
         <div

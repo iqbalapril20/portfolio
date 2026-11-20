@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDown, Mail, Pause, Play, Terminal } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
+import { getTranslations, type Locale } from '@/lib/i18n';
 import { scrollToSection } from '@/lib/scroll';
 import type { Profile, WebsiteSetting } from '@/types/portfolio';
 import { HeroPortraitInteractive } from './HeroPortraitInteractive';
@@ -15,6 +16,7 @@ interface HeroSectionProps {
   projectCount: number;
   certificateCount: number;
   techCount: number;
+  locale: Locale;
   onJumpToTab: (tab: PortfolioTabKey) => void;
   onOpenCli: () => void;
 }
@@ -78,16 +80,18 @@ export function HeroSection({
   projectCount,
   certificateCount,
   techCount,
+  locale,
   onJumpToTab,
   onOpenCli,
 }: HeroSectionProps) {
+  const t = getTranslations(locale);
   const shouldReduceMotion = Boolean(useReducedMotion());
   const [isRolePaused, setIsRolePaused] = useState(false);
 
   const metrics: Array<{ label: string; count: number; tab: PortfolioTabKey; accent: boolean }> = [
-    { label: 'Proyek Utama', count: projectCount, tab: 'projects', accent: true },
-    { label: 'Sertifikasi', count: certificateCount, tab: 'certificates', accent: false },
-    { label: 'Teknologi', count: techCount, tab: 'techstack', accent: true },
+    { label: t.hero.statProjects, count: projectCount, tab: 'projects', accent: true },
+    { label: t.hero.statCertificates, count: certificateCount, tab: 'certificates', accent: false },
+    { label: t.hero.statTech, count: techCount, tab: 'techstack', accent: true },
   ];
 
   return (
@@ -104,7 +108,7 @@ export function HeroSection({
             {/* Punchy Integrated Hero Headline with Running Typewriter Role */}
             <div className="space-y-2.5">
               <h1 className="font-heading font-bold text-4xl sm:text-5xl lg:text-[58px] text-slate-900 leading-[1.08] tracking-tight">
-                Halo, Saya{' '}
+                {t.hero.greetingPrefix}{' '}
                 <span className="italic font-serif font-normal text-[#1d4ed8] underline decoration-blue-200 decoration-wavy decoration-2 underline-offset-4">
                   Iqbal
                 </span>
@@ -116,7 +120,7 @@ export function HeroSection({
                   aria-live="polite"
                   className="flex flex-wrap items-center gap-2 font-heading font-bold text-2xl sm:text-3xl lg:text-[34px] text-slate-800 leading-tight"
                 >
-                  <span>Saya</span>
+                  <span>{t.hero.rolePrefix}</span>
                   <TypewriterRole
                     roles={profile.heroRoles}
                     isPaused={isRolePaused}
@@ -134,7 +138,7 @@ export function HeroSection({
                   <button
                     type="button"
                     onClick={() => setIsRolePaused((p) => !p)}
-                    aria-label={isRolePaused ? 'Lanjutkan animasi peran' : 'Jeda animasi peran'}
+                    aria-label={isRolePaused ? t.hero.playRole : t.hero.pauseRole}
                     aria-pressed={isRolePaused}
                     className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#1d4ed8] hover:border-blue-300 inline-flex items-center justify-center transition-colors shrink-0"
                   >
@@ -153,16 +157,17 @@ export function HeroSection({
               {profile.shortBio}
             </p>
 
-            {/* Mobile Portrait Display (between bio & actions on small screens, matching index4.html) */}
+            {/* Mobile Portrait Display */}
             <div className="lg:hidden w-full flex justify-center py-2">
               <HeroPortraitInteractive
                 imageUrl={profile.heroImageUrl || profile.profileImageUrl}
                 fullName={profile.fullName}
                 degreeLabel={profile.degreeLabel}
+                locale={locale}
               />
             </div>
 
-            {/* Action Buttons matching index4 pill shape without neon glow */}
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-1">
               <button
                 type="button"
@@ -185,21 +190,21 @@ export function HeroSection({
               <button
                 type="button"
                 onClick={onOpenCli}
-                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-slate-100 text-slate-700 hover:text-[#1d4ed8] font-semibold text-sm border border-slate-200 hover:bg-slate-200/70 transition-all flex items-center justify-center gap-1.5"
+                className="btn-glow min-h-[44px] px-5 py-3.5 rounded-full bg-slate-100 text-slate-700 hover:text-[#1d4ed8] font-semibold text-sm border border-slate-200 hover:bg-slate-200/70 transition-colors flex items-center justify-center gap-1.5"
               >
                 <Terminal className="w-4 h-4 text-[#1d4ed8]" aria-hidden="true" />
-                <span>CLI Mode</span>
+                <span>{t.hero.cliMode}</span>
               </button>
             </div>
 
-            {/* Verified Key Stats Row matching legacy/index4.html 3-col layout */}
+            {/* Key Stats Row */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-5 mt-2 border-t border-slate-200/90 text-left">
               {metrics.map((m) => (
                 <button
                   key={m.tab}
                   type="button"
                   onClick={() => onJumpToTab(m.tab)}
-                  aria-label={`Lihat ${m.count} ${m.label}`}
+                  aria-label={`${t.hero.statAriaPrefix} ${m.count} ${m.label}`}
                   className="group flex flex-col text-left p-2 -m-2 rounded-xl hover:bg-slate-50 transition-colors"
                 >
                   <span
@@ -230,6 +235,7 @@ export function HeroSection({
               imageUrl={profile.heroImageUrl || profile.profileImageUrl}
               fullName={profile.fullName}
               degreeLabel={profile.degreeLabel}
+              locale={locale}
             />
           </motion.div>
         </div>

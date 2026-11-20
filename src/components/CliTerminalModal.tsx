@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { getTranslations, type Locale } from '@/lib/i18n';
 import type { PortfolioData } from '@/types/portfolio';
 import { AccessibleModal } from './AccessibleModal';
 
@@ -8,6 +9,7 @@ interface CliTerminalModalProps {
   open: boolean;
   onClose: () => void;
   data: PortfolioData;
+  locale: Locale;
 }
 
 interface TerminalLine {
@@ -16,23 +18,23 @@ interface TerminalLine {
   text: string;
 }
 
-export function CliTerminalModal({ open, onClose, data }: CliTerminalModalProps) {
+export function CliTerminalModal({ open, onClose, data, locale }: CliTerminalModalProps) {
+  const t = getTranslations(locale);
   const [command, setCommand] = useState('');
-  const [lines, setLines] = useState<TerminalLine[]>([
-    {
-      id: 1,
-      kind: 'accent',
-      text: "Ketik 'help', 'whoami', 'bio', 'projects', 'skills', 'contact', 'clear', atau 'exit'.",
-    },
-    {
-      id: 2,
-      kind: 'output',
-      text: `Shell portofolio ${data.profile.fullName} siap digunakan.`,
-    },
+  const nextIdRef = useRef(3);
+  const outputRef = useRef<HTMLDivElement>(null);
+
+  const [lines, setLines] = useState<TerminalLine[]>(() => [
+    { id: 1, kind: 'accent', text: t.cli.welcomeAccent },
+    { id: 2, kind: 'output', text: t.cli.welcomeReady(data.profile.fullName) },
   ]);
 
-  const outputRef = useRef<HTMLDivElement>(null);
-  const nextIdRef = useRef(3);
+  useEffect(() => {
+    setLines([
+      { id: nextIdRef.current++, kind: 'accent', text: t.cli.welcomeAccent },
+      { id: nextIdRef.current++, kind: 'output', text: t.cli.welcomeReady(data.profile.fullName) },
+    ]);
+  }, [locale, data.profile.fullName, t.cli]);
 
   useEffect(() => {
     if (outputRef.current) {
@@ -70,44 +72,35 @@ export function CliTerminalModal({ open, onClose, data }: CliTerminalModalProps)
     ];
 
     if (cmd === 'help') {
-      responses.push({
-        kind: 'output',
-        text: 'Perintah tersedia: help, whoami, bio, projects, skills, contact, clear, exit',
-      });
+      responses.push({ kind: 'output', text: t.cli.helpText });
     } else if (cmd === 'whoami') {
       responses.push({
         kind: 'output',
         text: `${data.profile.fullName} (${data.profile.degreeLabel}) - ${data.profile.heroRoles.join(', ')}`,
       });
     } else if (cmd === 'bio') {
-      responses.push({
-        kind: 'output',
-        text: data.profile.aboutSummary,
-      });
+      responses.push({ kind: 'output', text: data.profile.aboutSummary });
     } else if (cmd === 'projects') {
       responses.push({
         kind: 'output',
-        text: `${data.projects.length} Proyek Terpublikasi: ${data.projects
+        text: `${t.cli.projectsPrefix(data.projects.length)} ${data.projects
           .map((p) => p.title)
           .join(' | ')}`,
       });
     } else if (cmd === 'skills') {
       responses.push({
         kind: 'output',
-        text: `Tech Stack (${data.techStacks.length}): ${data.techStacks
-          .map((t) => t.name)
+        text: `${t.cli.techPrefix(data.techStacks.length)} ${data.techStacks
+          .map((item) => item.name)
           .join(', ')}`,
       });
     } else if (cmd === 'contact') {
       responses.push({
         kind: 'output',
-        text: `Email: ${data.contact.email} | WhatsApp: ${data.contact.whatsapp ?? '-'} | Lokasi: ${data.contact.location}`,
+        text: `Email: ${data.contact.email} | WhatsApp: ${data.contact.whatsapp ?? '-'} | ${t.cli.locationLabel}: ${data.contact.location}`,
       });
     } else {
-      responses.push({
-        kind: 'accent',
-        text: `Perintah tidak dikenali: '${raw}'. Ketik 'help' untuk daftar perintah.`,
-      });
+      responses.push({ kind: 'accent', text: t.cli.unknownCommand(raw) });
     }
 
     appendLines(responses);
@@ -120,7 +113,7 @@ export function CliTerminalModal({ open, onClose, data }: CliTerminalModalProps)
       eyebrow="Interactive Portfolio Shell"
       title="iqbal@portfolio ~ zsh"
       maxWidthClass="max-w-2xl"
-      closeLabel="Tutup terminal CLI"
+      closeLabel={t.cli.closeLabel}
       darkSurface
     >
       <div className="space-y-4">
@@ -156,14 +149,14 @@ export function CliTerminalModal({ open, onClose, data }: CliTerminalModalProps)
             type="text"
             value={command}
             onChange={(e) => setCommand(e.target.value)}
-            placeholder="Ketik perintah (mis. help, projects, skills)..."
+            placeholder={t.cli.inputPlaceholder}
             className="flex-1 bg-transparent font-mono text-xs text-white placeholder:text-slate-400 focus:outline-none min-h-[36px]"
           />
           <button
             type="submit"
             className="min-h-[36px] px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold transition-colors"
           >
-            Jalankan
+            {t.cli.runButton}
           </button>
         </form>
       </div>

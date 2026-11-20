@@ -323,7 +323,7 @@ export const portfolioData: PortfolioData = {
       startYear: 2021,
       endYear: 2025,
       isCurrent: false,
-      logoUrl: null, // Siap diisi misal: '/images/logos/unwaha.png'
+      logoUrl: '/images/logos/Logo_UNWAHA_Jombang.png',
       description:
         '<p>Memiliki latar belakang pendidikan Informatika dengan fokus pada pengembangan aplikasi berbasis web. Menguasai dasar hingga pengembangan aplikasi menggunakan PHP, Laravel, CodeIgniter, JavaScript, MySQL, HTML, CSS, Bootstrap, dan Tailwind CSS. Terbiasa mengembangkan frontend, backend, merancang database, serta membangun berbagai sistem informasi. Melalui skripsi, saya juga mengembangkan sistem pagar otomatis berbasis IoT menggunakan ESP8266 dengan kendali website dan remote inframerah.</p>',
       displayOrder: 1,
@@ -336,7 +336,7 @@ export const portfolioData: PortfolioData = {
       startYear: 2018,
       endYear: 2021,
       isCurrent: false,
-      logoUrl: null, // Siap diisi misal: '/images/logos/man3-jombang.png'
+      logoUrl: '/images/logos/logo-man-3-jombang.jpg',
       description: null,
       displayOrder: 2,
     },
@@ -352,7 +352,7 @@ export const portfolioData: PortfolioData = {
       startDate: 'Dec 2025',
       endDate: 'Jun 2026',
       isCurrent: false,
-      logoUrl: null, // Siap diisi misal: '/images/logos/nusatama.png'
+      logoUrl: '/images/logos/logo_nusatama.png',
       description:
         '<ul><li>Mengembangkan dan membangun berbagai aplikasi berbasis web menggunakan PHP, Laravel, JavaScript, MySQL, Bootstrap, dan Tailwind CSS, termasuk website company profile, sistem penilaian multiliterasi, aplikasi E-POS, serta sistem penjualan toko emas.</li><li>Berkolaborasi dengan tim developer dalam merancang, mengembangkan, menguji, dan menyempurnakan fitur pada sistem Computer Based Test (CBT) agar berjalan sesuai kebutuhan pengguna dan memberikan pengalaman penggunaan yang optimal.</li><li>Mengelola proses pengembangan website mulai dari analisis kebutuhan, perancangan database, implementasi fitur, integrasi frontend dan backend, pengujian, perbaikan bug, hingga proses deployment dan pemeliharaan aplikasi untuk memastikan sistem berjalan dengan baik.</li></ul>',
       techTags: ['Laravel', 'MySQL', 'Tailwind CSS', 'REST API', 'React'],
@@ -367,7 +367,7 @@ export const portfolioData: PortfolioData = {
       startDate: 'Dec 2024',
       endDate: 'Mar 2025',
       isCurrent: false,
-      logoUrl: null, // Siap diisi misal: '/images/logos/pratama-computech.png'
+      logoUrl: '/images/logos/logo-pratama.ico',
       description:
         '<ul><li>Mengembangkan aplikasi Event Organizer dan sistem pemesanan tiket berbasis web menggunakan PHP, Laravel, Bootstrap, dan MySQL, dengan fokus pada kemudahan penggunaan serta efisiensi pengelolaan data.</li><li>Merancang dan mengimplementasikan berbagai fitur, seperti manajemen event, registrasi peserta, pemesanan tiket, validasi pembayaran, dashboard admin, serta pengelolaan data pengguna untuk mendukung operasional penyelenggaraan acara.</li><li>Memastikan aplikasi berjalan dengan baik melalui proses pengujian, perbaikan bug, optimasi performa, serta pemeliharaan sistem agar memberikan pengalaman pengguna yang optimal dan mendukung kebutuhan penyelenggara maupun peserta acara.</li></ul>',
       techTags: ['PHP', 'MySQL', 'Bootstrap', 'Laravel'],
@@ -483,7 +483,7 @@ export const portfolioData: PortfolioData = {
       thumbnailUrl: '/images/projects/event-organizer-management-system.jpg',
       demoUrl: null,
       githubUrl: null,
-      year: null,
+      year: 2025,
       isPublished: true,
       isFeatured: false,
       displayOrder: 3,
@@ -569,7 +569,7 @@ export const portfolioData: PortfolioData = {
       thumbnailUrl: '/images/projects/event-ticket-booking-system.jpg',
       demoUrl: null,
       githubUrl: null,
-      year: null,
+      year: 2025,
       isPublished: true,
       isFeatured: true,
       displayOrder: 5,
@@ -612,7 +612,7 @@ export const portfolioData: PortfolioData = {
       thumbnailUrl: '/images/projects/website-company-profile.jpg',
       demoUrl: null,
       githubUrl: null,
-      year: null,
+      year: 2026,
       isPublished: true,
       isFeatured: false,
       displayOrder: 6,
@@ -769,7 +769,7 @@ export const portfolioData: PortfolioData = {
 
   contact: {
     email: 'iqballaprilianto@gmail.com',
-    whatsapp: '08560867100',
+    whatsapp: '085608067100',
     githubUrl: null,
     linkedinUrl: null,
     instagramUrl: null,
