@@ -334,12 +334,7 @@ export function PortfolioShowcase({
                         aria-label={`${t.portfolio.viewProjectAriaPrefix} ${project.title}`}
                         className="group relative w-full h-full text-left p-5 sm:p-6 flex flex-col justify-between gap-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1d4ed8]"
                       >
-                        <span
-                          className="absolute inset-x-0 top-0 h-[3px] bg-slate-200 group-hover:bg-[#1d4ed8] transition-colors"
-                          aria-hidden="true"
-                        />
-
-                        <div className="space-y-3 pt-1">
+                        <div className="space-y-3">
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0">
                               <h3 className="font-heading font-bold text-xl text-slate-900 group-hover:text-[#1d4ed8] transition-colors leading-snug line-clamp-2">

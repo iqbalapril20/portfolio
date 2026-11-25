@@ -64,7 +64,7 @@ export function PortfolioApp({ data }: PortfolioAppProps) {
         onOpenCli={() => setCliOpen(true)}
       />
 
-      <main id="main-content" tabIndex={-1} className="w-full pt-20 focus:outline-none">
+      <main id="main-content" tabIndex={-1} className="w-full focus:outline-none">
         <HeroSection
           profile={localizedData.profile}
           settings={localizedData.settings}

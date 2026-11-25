@@ -77,26 +77,44 @@
   }
 }
 
-/* Architectural section backgrounds matching legacy/index4.html */
+/* Bespoke architectural editorial backgrounds per section */
 .hero-grid-pattern {
-  background-size: 32px 32px;
+  background-color: #fafbfc;
   background-image:
-    linear-gradient(to right, rgba(226, 232, 240, 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(226, 232, 240, 0.5) 1px, transparent 1px);
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.45) 55%,
+      rgba(255, 255, 255, 0.14) 100%
+    ),
+    url('/images/backgrounds/hero-bg.jpg');
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
 }
 
 .about-contour-pattern {
   background-color: #ffffff;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
+  background-image: url('/images/backgrounds/about-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .portfolio-watermark {
-  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
+  background-color: #f8fafc;
+  background-image: url('/images/backgrounds/portfolio-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .contact-wave-pattern {
   background-color: #ffffff;
+  background-image: url('/images/backgrounds/contact-bg.svg');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 /* Crisp architectural button interaction without neon glow shadows */
@@ -197,7 +215,6 @@
 }
 
 .marquee-wrapper:hover .marquee-track,
-.marquee-wrapper:focus-within .marquee-track,
-.marquee-wrapper[data-paused='true'] .marquee-track {
+.marquee-wrapper:focus-within .marquee-track {
   animation-play-state: paused;
 }

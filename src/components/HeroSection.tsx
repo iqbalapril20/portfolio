@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, Mail, Pause, Play, Terminal } from 'lucide-react';
+import { ArrowDown, Mail, Terminal } from 'lucide-react';
 import { memo, useEffect, useState } from 'react';
 import { getTranslations, type Locale } from '@/lib/i18n';
 import { scrollToSection } from '@/lib/scroll';
@@ -23,11 +23,9 @@ interface HeroSectionProps {
 
 const TypewriterRole = memo(function TypewriterRole({
   roles,
-  isPaused,
   shouldReduceMotion,
 }: {
   roles: string[];
-  isPaused: boolean;
   shouldReduceMotion: boolean;
 }) {
   const [roleIdx, setRoleIdx] = useState(0);
@@ -37,7 +35,7 @@ const TypewriterRole = memo(function TypewriterRole({
   const currentRole = roles[roleIdx] || roles[0] || 'Full-Stack Web Developer';
 
   useEffect(() => {
-    if (shouldReduceMotion || isPaused || roles.length <= 1) return;
+    if (shouldReduceMotion || roles.length <= 1) return;
 
     let delay = isDeleting ? 34 : 58;
 
@@ -63,15 +61,11 @@ const TypewriterRole = memo(function TypewriterRole({
     }, delay);
 
     return () => window.clearTimeout(t);
-  }, [charCount, isDeleting, isPaused, currentRole, roles.length, shouldReduceMotion]);
+  }, [charCount, isDeleting, currentRole, roles.length, shouldReduceMotion]);
 
   const displayed = shouldReduceMotion ? currentRole : currentRole.slice(0, charCount);
 
-  return (
-    <span className="text-[#1d4ed8]">
-      {displayed}
-    </span>
-  );
+  return <span className="text-[#1d4ed8]">{displayed}</span>;
 });
 
 export function HeroSection({
@@ -86,7 +80,6 @@ export function HeroSection({
 }: HeroSectionProps) {
   const t = getTranslations(locale);
   const shouldReduceMotion = Boolean(useReducedMotion());
-  const [isRolePaused, setIsRolePaused] = useState(false);
 
   const metrics: Array<{ label: string; count: number; tab: PortfolioTabKey; accent: boolean }> = [
     { label: t.hero.statProjects, count: projectCount, tab: 'projects', accent: true },
@@ -95,7 +88,10 @@ export function HeroSection({
   ];
 
   return (
-    <section className="relative w-full py-10 sm:py-14 lg:py-20 overflow-hidden bg-white hero-grid-pattern border-b border-slate-200/80">
+    <section
+      id="top"
+      className="relative w-full pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 overflow-hidden bg-white hero-grid-pattern border-b border-slate-200/80"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Text & Actions Column */}
@@ -115,40 +111,19 @@ export function HeroSection({
                 .
               </h1>
 
-              <div className="flex flex-wrap items-center gap-2.5">
-                <div
-                  aria-live="polite"
-                  className="flex flex-wrap items-center gap-2 font-heading font-bold text-2xl sm:text-3xl lg:text-[34px] text-slate-800 leading-tight"
-                >
-                  <span>{t.hero.rolePrefix}</span>
-                  <TypewriterRole
-                    roles={profile.heroRoles}
-                    isPaused={isRolePaused}
-                    shouldReduceMotion={shouldReduceMotion}
-                  />
-                  <span
-                    className={`inline-block w-[3px] h-7 sm:h-8 bg-[#1d4ed8] rounded-full shrink-0 ${
-                      isRolePaused ? 'opacity-35' : 'animate-pulse'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                {profile.heroRoles.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => setIsRolePaused((p) => !p)}
-                    aria-label={isRolePaused ? t.hero.playRole : t.hero.pauseRole}
-                    aria-pressed={isRolePaused}
-                    className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#1d4ed8] hover:border-blue-300 inline-flex items-center justify-center transition-colors shrink-0"
-                  >
-                    {isRolePaused ? (
-                      <Play className="w-3 h-3" aria-hidden="true" />
-                    ) : (
-                      <Pause className="w-3 h-3" aria-hidden="true" />
-                    )}
-                  </button>
-                )}
+              <div
+                aria-live="polite"
+                className="flex flex-wrap items-center gap-2 font-heading font-bold text-2xl sm:text-3xl lg:text-[34px] text-slate-800 leading-tight"
+              >
+                <span>{t.hero.rolePrefix}</span>
+                <TypewriterRole
+                  roles={profile.heroRoles}
+                  shouldReduceMotion={shouldReduceMotion}
+                />
+                <span
+                  className="inline-block w-[3px] h-7 sm:h-8 bg-[#1d4ed8] rounded-full shrink-0 animate-pulse"
+                  aria-hidden="true"
+                />
               </div>
             </div>
 
@@ -205,7 +180,7 @@ export function HeroSection({
                   type="button"
                   onClick={() => onJumpToTab(m.tab)}
                   aria-label={`${t.hero.statAriaPrefix} ${m.count} ${m.label}`}
-                  className="group flex flex-col text-left p-2 -m-2 rounded-xl hover:bg-slate-50 transition-colors"
+                  className="group flex flex-col text-left p-2 -m-2 rounded-xl hover:bg-white/80 transition-colors"
                 >
                   <span
                     className={`font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl tabular-nums transition-colors ${

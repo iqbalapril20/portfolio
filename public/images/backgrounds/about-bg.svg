@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="aboutBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="55%" stop-color="#FAFCFF" />
+      <stop offset="100%" stop-color="#F4F7FB" />
+    </linearGradient>
+    <linearGradient id="aboutPlane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#E2E8F0" stop-opacity="0.35" />
+    </linearGradient>
+    <linearGradient id="aboutStep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#aboutBase)" />
+
+  <!-- Subtle stepped architectural corner planes (left & bottom-right) -->
+  <polygon points="0,0 320,0 140,260 0,260" fill="url(#aboutStep)" />
+  <polygon points="0,0 200,0 60,180 0,180" fill="#E2E8F0" fill-opacity="0.28" />
+  <polygon points="1600,560 1600,900 1220,900 1420,560" fill="url(#aboutPlane)" />
+  <polygon points="1600,680 1600,900 1350,900 1490,680" fill="#DBEAFE" fill-opacity="0.32" />
+
+  <!-- Delicate architectural topographic contour curves -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M -80 650 C 200 590, 360 760, 620 790 C 890 820, 1140 640, 1680 710" stroke="#CBD5E1" stroke-width="1.2" stroke-opacity="0.55" />
+    <path d="M -80 705 C 220 650, 390 810, 660 835 C 930 860, 1180 695, 1680 765" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.45" />
+    <path d="M -80 760 C 250 710, 420 855, 700 878 C 970 900, 1220 755, 1680 820" stroke="#93C5FD" stroke-width="1.2" stroke-opacity="0.45" />
+  </g>
+
+  <!-- Precision Swiss drafting arcs & ticks on top-right & left margin -->
+  <g fill="none">
+    <circle cx="1510" cy="110" r="240" stroke="#CBD5E1" stroke-width="1.2" stroke-opacity="0.55" />
+    <circle cx="1510" cy="110" r="175" stroke="#93C5FD" stroke-width="1.2" stroke-opacity="0.48" stroke-dasharray="6 8" />
+    <circle cx="1510" cy="110" r="95" stroke="#E2E8F0" stroke-width="1" />
+    <line x1="1220" y1="110" x2="1600" y2="110" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.5" />
+    <line x1="1510" y1="0" x2="1510" y2="390" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.5" />
+
+    <!-- Subtle architectural crosshairs -->
+    <g stroke="#3B82F6" stroke-width="1.3" stroke-opacity="0.35">
+      <line x1="118" y1="168" x2="134" y2="168" />
+      <line x1="126" y1="160" x2="126" y2="176" />
+      <line x1="1502" y1="110" x2="1518" y2="110" />
+      <line x1="1510" y1="102" x2="1510" y2="118" />
+      <line x1="1388" y1="742" x2="1404" y2="742" />
+      <line x1="1396" y1="734" x2="1396" y2="750" />
+    </g>
+
+    <!-- Corner geometric frame line -->
+    <path d="M 64 56 L 64 136 M 64 56 L 144 56" stroke="#CBD5E1" stroke-width="1.5" stroke-opacity="0.7" />
+    <path d="M 1536 844 L 1536 764 M 1536 844 L 1456 844" stroke="#93C5FD" stroke-width="1.5" stroke-opacity="0.6" />
+  </g>
+</svg>

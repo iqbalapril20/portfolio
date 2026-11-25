@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="portBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6F9FC" />
+      <stop offset="50%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#EFF5FF" />
+    </linearGradient>
+    <linearGradient id="isoFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#DBEAFE" stop-opacity="0.35" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#portBase)" />
+
+  <!-- Architectural geometric panels framing outer corners -->
+  <g>
+    <!-- Top-left isometric layered planes -->
+    <polygon points="-20,120 180,20 340,100 140,200" fill="url(#isoFill)" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.6" />
+    <polygon points="-40,190 120,110 260,180 100,260" fill="#FFFFFF" fill-opacity="0.65" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.45" />
+    <!-- Bottom-right isometric layered planes -->
+    <polygon points="1260,760 1480,650 1640,730 1420,840" fill="url(#isoFill)" stroke="#93C5FD" stroke-width="1.1" stroke-opacity="0.55" />
+    <polygon points="1340,830 1540,730 1660,790 1460,890" fill="#FFFFFF" fill-opacity="0.7" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.5" />
+  </g>
+
+  <!-- Large architectural drafting compass arcs -->
+  <g fill="none">
+    <circle cx="800" cy="-140" r="460" stroke="#CBD5E1" stroke-width="1.1" stroke-opacity="0.48" />
+    <circle cx="800" cy="-140" r="390" stroke="#93C5FD" stroke-width="1.1" stroke-opacity="0.4" stroke-dasharray="5 9" />
+    <circle cx="140" cy="860" r="320" stroke="#CBD5E1" stroke-width="1.1" stroke-opacity="0.5" />
+    <circle cx="140" cy="860" r="240" stroke="#93C5FD" stroke-width="1.2" stroke-opacity="0.45" />
+
+    <!-- Fine structural blueprint diagonals -->
+    <line x1="0" y1="340" x2="340" y2="0" stroke="#E2E8F0" stroke-width="1.2" />
+    <line x1="1260" y1="900" x2="1600" y2="560" stroke="#DBEAFE" stroke-width="1.4" />
+    <line x1="1210" y1="900" x2="1600" y2="510" stroke="#E2E8F0" stroke-width="1" />
+
+    <!-- Minimal technical node rings -->
+    <circle cx="240" cy="100" r="4.5" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.45" />
+    <circle cx="1370" cy="790" r="4.5" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.45" />
+    <circle cx="1450" cy="150" r="64" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.5" />
+    <line x1="1420" y1="150" x2="1480" y2="150" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.55" />
+    <line x1="1450" y1="120" x2="1450" y2="180" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.55" />
+  </g>
+</svg>

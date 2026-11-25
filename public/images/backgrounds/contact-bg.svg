@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="contactBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="65%" stop-color="#FAFCFF" />
+      <stop offset="100%" stop-color="#F1F6FE" />
+    </linearGradient>
+    <linearGradient id="waveFill1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#DBEAFE" stop-opacity="0.3" />
+    </linearGradient>
+    <linearGradient id="waveFill2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#contactBase)" />
+
+  <!-- Soft architectural sweeping paper curves -->
+  <path d="M 0 740 C 310 640, 620 820, 980 730 C 1270 658, 1460 540, 1600 470 L 1600 900 L 0 900 Z" fill="url(#waveFill1)" />
+  <path d="M 0 0 L 420 0 C 310 120, 180 210, 0 260 Z" fill="url(#waveFill2)" />
+
+  <!-- Fine sweeping ribbon contour strokes -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M -40 720 C 310 620, 620 800, 980 710 C 1270 638, 1460 515, 1640 445" stroke="#93C5FD" stroke-width="1.3" stroke-opacity="0.55" />
+    <path d="M -40 760 C 320 665, 630 835, 995 750 C 1285 680, 1470 570, 1640 505" stroke="#CBD5E1" stroke-width="1.1" stroke-opacity="0.55" />
+    <path d="M -40 800 C 340 715, 650 870, 1020 790 C 1300 725, 1485 625, 1640 565" stroke="#CBD5E1" stroke-width="1" stroke-opacity="0.45" />
+  </g>
+
+  <!-- Minimal top-right & bottom-left drafting geometry -->
+  <g fill="none">
+    <circle cx="1440" cy="140" r="160" stroke="#CBD5E1" stroke-width="1.1" stroke-opacity="0.5" />
+    <circle cx="1440" cy="140" r="105" stroke="#93C5FD" stroke-width="1.1" stroke-opacity="0.45" stroke-dasharray="4 7" />
+    <circle cx="120" cy="770" r="110" stroke="#CBD5E1" stroke-width="1.1" stroke-opacity="0.5" />
+
+    <g stroke="#3B82F6" stroke-width="1.3" stroke-opacity="0.35">
+      <line x1="1432" y1="140" x2="1448" y2="140" />
+      <line x1="1440" y1="132" x2="1440" y2="148" />
+      <line x1="112" y1="770" x2="128" y2="770" />
+      <line x1="120" y1="762" x2="120" y2="778" />
+    </g>
+  </g>
+</svg>
