@@ -4,6 +4,7 @@ import { getTranslations, type Locale } from '@/lib/i18n';
 import { formatWhatsAppUrl } from '@/lib/richText';
 import { scrollToSection } from '@/lib/scroll';
 import type { ContactInfo, Profile, WebsiteSetting } from '@/types/portfolio';
+import { VisitorCounter } from './VisitorCounter';
 
 interface SiteFooterProps {
   profile: Profile;
@@ -72,9 +73,12 @@ export function SiteFooter({ profile, contact, settings, locale }: SiteFooterPro
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-8 pt-2 border-t border-slate-200/70 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-8 pt-4 border-t border-slate-200/70 flex flex-col md:flex-row items-center justify-between text-xs text-slate-600 gap-3">
         <p>{settings.footerText}</p>
-        <p>{t.footer.builtWith}</p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <VisitorCounter locale={locale} />
+          <p>{t.footer.builtWith}</p>
+        </div>
       </div>
     </footer>
   );

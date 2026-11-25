@@ -150,6 +150,8 @@ export interface UiTranslations {
     whatsapp: string;
     whatsappPrefill: string;
     builtWith: string;
+    visitorSuffix: string;
+    visitorAriaLabel: string;
   };
   backToTop: {
     ariaLabel: string;
@@ -321,6 +323,8 @@ const ID_TRANSLATIONS: UiTranslations = {
     whatsapp: 'WhatsApp',
     whatsappPrefill: 'Halo Iqbal, saya menghubungi melalui website portofolio.',
     builtWith: 'Dibangun dengan Next.js, TypeScript & Tailwind CSS.',
+    visitorSuffix: 'Kunjungan',
+    visitorAriaLabel: 'Statistik total kunjungan portofolio',
   },
   backToTop: {
     ariaLabel: 'Kembali ke atas halaman',
@@ -492,6 +496,8 @@ const EN_TRANSLATIONS: UiTranslations = {
     whatsapp: 'WhatsApp',
     whatsappPrefill: 'Hi Iqbal, reaching out from your portfolio website.',
     builtWith: 'Built with Next.js, TypeScript & Tailwind CSS.',
+    visitorSuffix: 'Visits',
+    visitorAriaLabel: 'Portfolio total visit counter',
   },
   backToTop: {
     ariaLabel: 'Back to top',
